@@ -1,0 +1,18 @@
+<p id="year-start">
+<%= start %>
+</p>
+
+<%
+    for( var n = start; n < end; n+= 10 ){
+    var year = n;
+%>
+<p id="year-<%= year %>" class="sub-time">
+    <%= year %>
+</p>
+<%
+    }
+%>
+
+<p id="year-end">
+<%= end %>
+</p>

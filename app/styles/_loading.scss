@@ -1,0 +1,15 @@
+$loadingCanvasSide: 50px;
+
+
+#loading{
+  #loadingCanvas{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: $loadingCanvasSide * (-0.5);
+    margin-top: $loadingCanvasSide * (-0.5);
+    width: $loadingCanvasSide;
+    height: $loadingCanvasSide;
+
+  }
+}

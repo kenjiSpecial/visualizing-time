@@ -1,0 +1,13 @@
+@import "compass/css3";
+@import "compass/reset";
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+@import "loading";
+@import "timeline";
+@import "map";
+@import "timelineContent";

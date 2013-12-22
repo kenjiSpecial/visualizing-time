@@ -1,0 +1,30 @@
+//time line
+$timelineHeight: 1px;
+$timelineColor: #333;
+
+
+#main-content{
+  #timeline-wrapper{
+    #timeline {
+      position: absolute;
+      top: 100px;
+      background: $timelineColor;
+      height: $timelineHeight;
+    }
+
+    #timeline-content{
+      p{
+        position: absolute;
+      }
+
+      #year-start{
+
+        //@include translate( 10%, 100px );
+      }
+
+      #year-end{
+        //@include translate( 90%, 100px );
+      }
+    }
+  }
+}
