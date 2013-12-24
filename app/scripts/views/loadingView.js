@@ -20,13 +20,14 @@ define([
         rectCollection : null,
 
         initialize: function(){
-            _.bindAll(this, 'loop', 'endToLoop', 'onComplete');
+            _.bindAll(this, 'loop', 'onCompleteDone');
 
             this.canvas = document.getElementById("loadingCanvas");
             this.canvas.width = this.canvas.height = this.side;
             this.context = this.canvas.getContext("2d");
 
             this.rectCollection = new RectCollection(this.context);
+            console.log(this.canvas);
 
         },
 
@@ -34,12 +35,11 @@ define([
             loader.startToLoad();
 
             Events.on( Events.TICK, this.loop );
-            Events.on( Events.LOAD_DONE, this.loadDone );
-            //setTimeout(this.endToLoop, 1000);
+
         },
 
         loadDone : function(){
-            Events.off( Events.TICK );
+            TweenLite.to(this.canvas, 1, {alpha:0, onComplete: this.onCompleteDone });
         },
 
         loop: function(data){
@@ -50,13 +50,10 @@ define([
             this.rectCollection.draw();
         },
 
-        endToLoop  : function(){
-            TweenLite.to( this.canvas, 1, {css:{alpha: 0}, onComplete: this.onComplete });
-        },
-
-        onComplete : function(){
+        onCompleteDone : function(){
             this.canvas.style.display = "none";
             Events.off(Events.TICK, this.loop);
+            Events.trigger( Events.TICKER_STOP );
         }
 
 

@@ -9,7 +9,7 @@ define([
     'views/mapView',
 
     // helpers
-    'helpers/Events',
+    'helpers/events',
     'helpers/ticker'
 
 ],function( $, _, Backbone, MainView, LoadingView, MapView, Events, Ticker ){
@@ -24,7 +24,10 @@ define([
         timelineRaw : null,
 
         initialize: function(){
+            _.bindAll( this, 'loadDone', 'tickerStop');
 
+            Events.on( Events.LOAD_DONE, this.loadDone );
+            Events.on( Events.TICKER_STOP, this.tickerStop );
         },
 
         routes: {
@@ -36,11 +39,15 @@ define([
 
             this.loadingView = new LoadingView();
             this.loadingView.startToLoad();
+        },
 
-            //this.mainView = new MainView();
-            //this.mapView  = new MapView();
-            //this.mapView.startToRender();
+        loadDone : function(){
+            this.loadingView.loadDone();
+        },
 
+        tickerStop: function(){
+            console.log('tickerStop');
+            Ticker.stop();
         }
 
 

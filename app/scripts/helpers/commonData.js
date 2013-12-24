@@ -10,7 +10,7 @@ define([
 
             geoData    : null,
             eventsData : null,
-            imageData  : null,
+            imageDataCollection: null,
 
             windowSize : { width: null, height: null },
 

@@ -19,6 +19,7 @@ define([
         IMG_LOAD_DONE : 'imgLoadDone',
 
         TICK          : 'tick-loop',
+        TICKER_STOP   : 'ticker-stop',
 
         SWAP_ARRAY    : 'swapArray',
 
