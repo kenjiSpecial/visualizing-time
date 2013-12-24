@@ -21,6 +21,9 @@ define([
         el  : "#timeline-content",
         tl  : "#timeline-graphics",
         $tl : null,
+
+        exhibitCollectionJSON : null,
+
         events : {
             "click .time-line-event-content" : "clickTimeLineEventContent"
         },
@@ -33,18 +36,27 @@ define([
 
         render : function( ){
 
-            var exhibitCollectionJSON = exhibitCollection.toJSON();
+            this.exhibitCollectionJSON = exhibitCollection.toJSON();
 
             var prevYear;
             var id, div, $div, startY, height;
-            for( var i in exhibitCollectionJSON ){
-                var data  = exhibitCollectionJSON[i];
+            for( var i in this.exhibitCollectionJSON ){
+                var data  = this.exhibitCollectionJSON[i];
+                var contentItems = data.contentItems[i];
 
                 var year  = parseInt(data.time);
                 var title = data.title;
 
                 var html = this.template({ id: data.id, title: title });
                 this.$el.append(html);
+
+                for(var j in contentItems){
+                    var contentItem = contentItems[j];
+                    console.log()
+                    var img = new Image();
+                    img.src = contentItem.uri;
+                    this.$tl.append(img);
+                }
 
                 // --------
 
@@ -86,6 +98,13 @@ define([
 
                 prevYear = year;
             }
+
+            this.renderAllEventPhotos();
+
+        },
+
+        renderAllEventPhotos: function(){
+            console.log(this.exhibitCollectionJSON);
 
         }
 
