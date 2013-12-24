@@ -1,0 +1,31 @@
+$side : 60px;
+$doubleSide : 90px;
+
+#timeline-events-gallery{
+  position: absolute;
+  overflow: hidden;
+
+  .event-item-collection{
+    float: left;
+
+    .event-item-image{
+      width: $side;
+      height: $side;
+      overflow: hidden;
+      float: left;
+
+      img{
+        margin-right: -15px;
+        margin-top: -15px;
+
+        &.img-vertical{
+          width: $doubleSide;
+        }
+
+        &.img-landscape{
+          height: $doubleSide;
+        }
+      }
+    }
+  }
+}

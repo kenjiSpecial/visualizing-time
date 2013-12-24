@@ -11,7 +11,9 @@ body {
 }
 
 @import "loading";
-@import "timeline";
-@import "timeline-list";
 @import "map";
-@import "timelineContent";
+
+@import "timeline/timeline";
+@import "timeline/timeline-list";
+@import "timeline/timelineContent";
+@import "timeline/timeline-gallery";

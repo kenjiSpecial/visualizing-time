@@ -1,0 +1,14 @@
+<div class="event-item-collection" id="event-items-<%= id %>">
+
+    <%for( var i in contentItems ){
+        var contentItem = contentItems[i];
+
+        var uri = contentItem.uri;
+        var eventID = 'eventItem' + contentItem.id;
+    %>
+        <div class="event-item-image" id="<%= eventID %>">
+            <img src="<%= uri %>" alt=""/>
+        </div>
+    <%}%>
+
+</div>

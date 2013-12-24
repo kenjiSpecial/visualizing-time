@@ -13,10 +13,11 @@ define([
     'collection/exhibitCollection',
 
     // views
-    'views/sub/timelineEventListView'
+    'views/sub/timelineEventListView',
+    'views/sub/timelineGalleryView',
 
 
-],function( $, _, Backbone, JST, jqueryTransit, commonData, CONSTANTS, exhibitCollection, timelineListView ){
+],function( $, _, Backbone, JST, jqueryTransit, commonData, CONSTANTS, exhibitCollection, timelineListView, timelineGalleryView ){
     var TimeLineContentView = Backbone.View.extend({
         el  : "#timeline-content",
         tl  : "#timeline-graphics",
@@ -42,7 +43,8 @@ define([
             var id, div, $div, startY, height;
             for( var i in this.exhibitCollectionJSON ){
                 var data  = this.exhibitCollectionJSON[i];
-                var contentItems = data.contentItems[i];
+
+                var contentItems = data.contentItems;
 
                 var year  = parseInt(data.time);
                 var title = data.title;
@@ -50,13 +52,16 @@ define([
                 var html = this.template({ id: data.id, title: title });
                 this.$el.append(html);
 
+                timelineGalleryView.appendGalleryView( data.id, contentItems );
+
+                /*
                 for(var j in contentItems){
                     var contentItem = contentItems[j];
                     console.log()
                     var img = new Image();
                     img.src = contentItem.uri;
                     this.$tl.append(img);
-                }
+                } */
 
                 // --------
 

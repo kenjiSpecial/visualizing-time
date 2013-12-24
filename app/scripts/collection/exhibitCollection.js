@@ -14,7 +14,7 @@ define([
 
                 for(var j in contentItems){
                     var title = contentItems[j]['title'];
-                    console.log(title);
+                    //console.log(title);
 
                     switch(title){
                         case "Léon Gambetta":
@@ -43,7 +43,7 @@ define([
                 model.set( 'contentItems', contentItems );
             }
 
-            console.log(this);
+            //console.log(this);
 
         }
     });
