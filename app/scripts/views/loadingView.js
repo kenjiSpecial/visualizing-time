@@ -57,7 +57,6 @@ define([
         }
 
 
-
     });
 
     var RectCollection = function(ctx){
@@ -127,8 +126,8 @@ define([
         prevPos     : null,
         pos         : null,
 
-        oneStep     : 400,
-        oneInterval : 1000,
+        oneStep     : 200,
+        oneInterval : 350,
         currentTime : 0,
 
         update : function(dt){
@@ -137,10 +136,10 @@ define([
                 this.setPosition();
 
                 if(this.oneStep > 100){
-                    this.oneStep *= 0.94;
+                    this.oneStep *= 0.9;
                 }
                 if(this.oneInterval > 100){
-                    this.oneInterval *= 0.94;
+                    this.oneInterval *= 0.9;
                 }
 
 
