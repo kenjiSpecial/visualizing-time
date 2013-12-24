@@ -7,6 +7,7 @@ define([
 
     // helpers
     'helpers/commonData',
+    'helpers/constants',
 
     // views
     'views/sub/timelineView',
@@ -15,7 +16,7 @@ define([
     // collection
     'collection/exhibitCollection'
 
-],function ( $, _, Backbone, JST, jqueryTransit, commonData, timelineView, timelineContentViews, exhibitCollection ) {
+],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, timelineView, timelineContentViews, exhibitCollection ) {
     var MainView = Backbone.View.extend({
         el : "#main-content",
         template : JST['app/scripts/templates/mainTemplate.ejs'],
@@ -75,12 +76,16 @@ define([
         },
 
         parseExhibits : function( exhibits ){
+            exhibitCollection.comparator = 'time';
             if( exhibits != null ){
                 for( var i = 0; i < exhibits.length; i++ ){
-                    // console.log(exhibits[i]);
                     exhibitCollection.add(exhibits[i])
                 }
             }
+
+            // -------------
+
+            exhibitCollection.addUniqueValue();
 
             // -------------
             timelineContentViews.render();

@@ -1,0 +1,79 @@
+$timelineEventListBackgroundColor      : #fff;
+$timelineEventListBackgroundHoverColor : #333333;
+
+$timelineEventListTextColor: #999999;
+$timelineEventListTextHoverColor: #fff;
+
+
+#timeline-event-list{
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  ul#category-type{
+    overflow: hidden;
+
+    li{
+      position: relative;
+      cursor: pointer;
+      float: left;
+
+      font-size: 14px;
+
+      margin: auto;
+      text-align: center;
+      vertical-align:middle;
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      display: inline-block;
+
+      color: $timelineEventListTextColor;
+      margin-right: 20px;
+      z-index: 0;
+
+      @include transition( 0.3s all );
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background: $timelineEventListBackgroundColor;
+        width: 80px;
+        height: 100%;
+        z-index: -1;
+      }
+
+      &:after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background: $timelineEventListBackgroundHoverColor;
+        width: 0;
+        height: 100%;
+        z-index: -1;
+
+        @include transition( 0.6s all );
+      }
+
+      &:hover {
+        color: $timelineEventListTextHoverColor;
+
+        &:after{
+          width: 80px;
+          height: 100%;
+        }
+      }
+
+    }
+  }
+
+}

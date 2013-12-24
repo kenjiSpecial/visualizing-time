@@ -1,30 +1,97 @@
 //time line
 $timelineHeight: 1px;
-$timelineColor: #333;
+$timeVisualWidth: 1px;
+
+$timelineColor4  : #333333;
+$timelineColor3  : #666666;
+$timelineColor2  : #999999;
+$timelineColor1  : #bbbbbb;
+
+$whiteBackColor  : #ffffff;
+$whiteBackGround : rgba(255, 255, 255, 0.8);
 
 
 #main-content{
   #timeline-wrapper{
-    #timeline {
-      position: absolute;
-      top: 100px;
-      background: $timelineColor;
-      height: $timelineHeight;
+    #timeline-graphics{
+      
+      #timeline {
+        position: absolute;
+        top: 100px;
+        background: $timelineColor2;
+        height: $timelineHeight;
+      }
+
+      // ----------
+
+      .time-visual{
+        background: $timelineColor2;
+        position: absolute;
+        width: $timeVisualWidth;
+      }
+
     }
 
     #timeline-content{
       p{
         position: absolute;
+        font-size: 12px;
+        @include transform-origin(0, 0);
       }
 
       #year-start{
+        font-weight: 800;
+        color: $timelineColor3;
 
         //@include translate( 10%, 100px );
       }
 
       #year-end{
+        font-weight: 800;
+        color: $timelineColor3;
         //@include translate( 90%, 100px );
       }
+
+      .sub-time{
+        font-weight: 300;
+        color: $timelineColor1;
+
+        &.emphasis{
+          color: $timelineColor2;
+          font-weight: 800;
+        }
+      }
+
+      .time-line-event-content{
+        cursor: pointer;
+        padding: 2px;
+        margin-left: 8px;
+        
+        color: $timelineColor2;
+        background: $whiteBackGround;
+
+        @include transition(0.5s background, 0.3s color);
+
+        @include transform-origin(0, 0);
+
+        &:hover {
+          color: $whiteBackColor;
+          background: $timelineColor3;
+        }
+
+        &:before{
+          content: '';
+          position: absolute;
+          background: $timelineColor2;
+          width: 5px;
+          height: 1px;
+          top: 7px;
+          left: -8px;
+          
+        }
+      }
     }
+
   }
 }
+

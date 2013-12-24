@@ -33,7 +33,8 @@ define([
             this.yearStart = this.$el.find("#year-start").css({ translate: [ startPos , CONSTANTS.TIME_LINE_POS_Y2 ], rotate: CONSTANTS.TIME_LINE_ROT1 });
             this.yearEnd   = this.$el.find("#year-end").css({ translate: [ endPos, CONSTANTS.TIME_LINE_POS_Y2 ], rotate: CONSTANTS.TIME_LINE_ROT1 });
 
-            for( var n = start ; n < end ; n += 10) {
+
+            for( var n = start+1 ; n < end ; n ++) {
                 var rate = (n - start) / duration;
                 var curYearPosition = ( rate * CONSTANTS.TIME_LINE_END_POS + ( 1 - rate ) * CONSTANTS.TIME_LINE_START_POS ) * commonData.windowSize.width;
                 var yearClass = "#year-" + n;

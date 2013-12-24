@@ -5,9 +5,13 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
+  min-height: 650px;
+
+  @include box-sizing(border-box);
 }
 
 @import "loading";
 @import "timeline";
+@import "timeline-list";
 @import "map";
 @import "timelineContent";
