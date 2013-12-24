@@ -25,7 +25,6 @@ define([
         $line : null,
 
         initialize : function(){
-            this.getTimelines('chronozoomer','chronozoomer','fefea7de-89d2-426e-91ba-b4d87c9bda4c');
 
             this.line = document.getElementById("timeline");
             this.$line = $(this.line);
@@ -33,6 +32,14 @@ define([
         },
 
         render : function(){
+            var data = commonData.eventsData;
+
+            constants.EVENT_START_YEAR = data.start;
+            constants.EVENT_END_YEAR   = data.end;
+            constants.EVENT_DURATION   = data.end - data.start;
+
+            this.timelineRaw = data;
+            this.createTimeLine();
 
         },
 

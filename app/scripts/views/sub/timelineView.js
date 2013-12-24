@@ -16,7 +16,7 @@ define([
 
         template : JST['app/scripts/templates/timelineTemplate.ejs'],
         initialize: function(){
-
+            this.$el.css({ opacity: 0 });
         },
 
         render : function(){

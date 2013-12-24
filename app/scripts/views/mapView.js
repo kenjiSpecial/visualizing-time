@@ -47,7 +47,7 @@ define([
                 .data(topojson.feature(commonData.geoData, commonData.geoData.objects.sunits).features).enter().append("path")
                 .attr('d', this.path);
 
-           TweenLite.to(this.el, 2, {alpha: 1});
+           TweenLite.to(this.el, 1, {alpha: 1});
 
 
         }

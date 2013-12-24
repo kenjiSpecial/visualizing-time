@@ -42,6 +42,7 @@ define([
 
             // initialize the map view
             this.mapView = new MapView();
+            this.mainView = new MainView();
         },
 
         loadDone : function(){
@@ -49,7 +50,7 @@ define([
 
             setTimeout(function(){
                 self.loadingView.loadDone();
-            }, 500);
+            }, 1000);
 
             // load view
             this.mapView.render();
@@ -57,6 +58,8 @@ define([
 
         tickerStop: function(){
             Ticker.stop();
+
+            this.mainView.render();
         }
 
 
