@@ -5,6 +5,7 @@ define([
     'backbone',
     'd3',
     'topojson',
+    'tweenlite',
 
     // helpers
     'helpers/commonData',
@@ -12,7 +13,7 @@ define([
     'helpers/windowEvent'
 
 
-], function( $, _, Backbone, d3, topojson, commonData, Events, windowEvent ){
+], function( $, _, Backbone, d3, topojson, TweenLite, commonData, Events, windowEvent ){
     var MapView = Backbone.View.extend({
         el: "#main-map",
         projection : null,
@@ -36,17 +37,19 @@ define([
                         .attr('height', commonData.windowSize.height );
 
 
-        },
-        startToRender : function(){
-            d3.json('json-data/geo-data.json', this.render);
+
+
         },
 
-        render : function(error, output){
+        render : function(){
 
-            console.log(commonData.windowSize.width);
             this.svg.selectAll('.subunit')
-                .data(topojson.feature(output, output.objects.sunits).features).enter().append("path")
+                .data(topojson.feature(commonData.geoData, commonData.geoData.objects.sunits).features).enter().append("path")
                 .attr('d', this.path);
+
+           TweenLite.to(this.el, 2, {alpha: 1});
+
+
         }
 
     });

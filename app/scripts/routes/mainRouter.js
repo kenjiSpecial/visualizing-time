@@ -39,14 +39,23 @@ define([
 
             this.loadingView = new LoadingView();
             this.loadingView.startToLoad();
+
+            // initialize the map view
+            this.mapView = new MapView();
         },
 
         loadDone : function(){
-            this.loadingView.loadDone();
+            var self = this;
+
+            setTimeout(function(){
+                self.loadingView.loadDone();
+            }, 500);
+
+            // load view
+            this.mapView.render();
         },
 
         tickerStop: function(){
-            console.log('tickerStop');
             Ticker.stop();
         }
 
