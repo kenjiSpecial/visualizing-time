@@ -6,6 +6,13 @@ define([
 
 ],function($, _, Backbone, JST){
     var ExhibitCollection = Backbone.Collection.extend({
+        d3 : null,
+
+
+        startToLoad : function(){
+
+        },
+
         addUniqueValue: function(){
 
             for( var i = 0; i < this.models.length; i++ ){

@@ -34,9 +34,12 @@ define([
         defaultAction : function(){
             Ticker.start();
 
-            this.mainView = new MainView();
-            this.mapView  = new MapView();
-            this.mapView.startToRender();
+            this.loadingView = new LoadingView();
+            this.loadingView.startToLoad();
+
+            //this.mainView = new MainView();
+            //this.mapView  = new MapView();
+            //this.mapView.startToRender();
 
         }
 

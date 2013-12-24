@@ -5,8 +5,12 @@ define([
     'tweenlite',
 
     //helpers
-    'helpers/events'
-],function( $, _, Backbone, TweenLite, Events ){
+    'helpers/events',
+    'helpers/loader',
+
+    // collection
+    'collection/exhibitCollection'
+],function( $, _, Backbone, TweenLite, Events, loader, exhibitCollection ){
     var LoadingView = Backbone.View.extend({
         side        : 50,
         halfSide    : 25,
@@ -17,8 +21,6 @@ define([
 
         initialize: function(){
             _.bindAll(this, 'loop', 'endToLoop', 'onComplete');
-            console.log(TweenLite);
-
 
             this.canvas = document.getElementById("loadingCanvas");
             this.canvas.width = this.canvas.height = this.side;
@@ -29,8 +31,15 @@ define([
         },
 
         startToLoad : function(){
-            Events.on(Events.TICK, this.loop);
+            loader.startToLoad();
+
+            Events.on( Events.TICK, this.loop );
+            Events.on( Events.LOAD_DONE, this.loadDone );
             //setTimeout(this.endToLoop, 1000);
+        },
+
+        loadDone : function(){
+            Events.off( Events.TICK );
         },
 
         loop: function(data){
@@ -136,6 +145,7 @@ define([
                 if(this.oneInterval > 100){
                     this.oneInterval *= 0.94;
                 }
+
 
             }
             this.currentTime += dt;

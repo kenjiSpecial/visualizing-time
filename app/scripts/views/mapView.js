@@ -29,7 +29,7 @@ define([
             this.path = d3.geo.path()
                             .projection(this.projection);
 
-            console.log(commonData.windowSize.width);
+
 
             this.svg = d3.select("#main-map").append("svg")
                         .attr('width', commonData.windowSize.width )

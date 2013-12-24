@@ -8,13 +8,16 @@ define([
 
             ctx : null,
 
+            geoData    : null,
+            eventsData : null,
+            imageData  : null,
 
             windowSize : { width: null, height: null },
 
-            mouse : {x: null, y: null },
-            prevMouse : {x: null, y: null},
-            touch : {x: null, y: null },
-            prevTouch : { x: null, y:null },
+            mouse     : { x: null, y: null },
+            prevMouse : { x: null, y: null },
+            touch     : { x: null, y: null },
+            prevTouch : { x: null, y: null },
             touchDown : false,
 
 			loading : false,
