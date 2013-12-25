@@ -1,3 +1,22 @@
-<p id="<%= id %>" class="time-line-event-content" data-year="<%= year %>">
-    <%= title %>
-</p>
+<div id="time-line-event-<%= id %>" class="time-line-event-content-wrapper" data-year="<%= year %>">
+
+    <p class="time-line-event-content" data-year="<%= year %>">
+        <%= title %>
+    </p>
+
+    <div class="event-item-collection event-item-collection-year-<%= year %>" id="event-items-<%= id %>">
+
+        <%for( var i in contentItems ){
+            var contentItem = contentItems[i];
+
+            var uri = contentItem.uri;
+            var eventID = 'eventItem' + contentItem.id;
+        %>
+        <div class="event-item-image" id="<%= eventID %>">
+
+        </div>
+        <%}%>
+
+    </div>
+
+</div>

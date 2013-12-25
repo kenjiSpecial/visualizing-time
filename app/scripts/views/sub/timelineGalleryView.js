@@ -22,49 +22,7 @@ define([
 
         },
 
-        appendGalleryView : function( id, contentItems, year, posX, posY ){
-
-            var html = this.template({id: id, contentItems: contentItems, year: year })
-            this.$el.append(html);
-
-            var imageDataCollection = commonData.imageDataCollection;
-
-            for( var i in contentItems ){
-                var contentItem = contentItems[i];
-                var mediaType = contentItem.mediaType;
-
-                var eventID = '#eventItem' + contentItem.id;
-
-                var contentItemImage = imageDataCollection[contentItem.id];
-
-                var contentItemImageWidth  = contentItemImage.width;
-                var contentItemImageHeight = contentItemImage.height;
-                //console.log(contentItemImageWidth + ", " + contentItemImageHeight);
-
-                var $eventID = $(eventID);
-
-                if(contentItemImageWidth > 10 && contentItemImageHeight > 10){
-                    $eventID.append(contentItemImage);
-
-                    if(contentItemImageWidth > contentItemImageHeight){
-                        $eventID.find('img').addClass('img-landscape');
-                    } else {
-                        $eventID.find('img').addClass('img-vertical');
-                    }
-
-                }else{
-                    $eventID.addClass('display-none');
-                }
-
-
-
-            }
-            var eventtItem = '#event-items-' + id;
-            var $eventsID = $(eventtItem);
-
-
-            $eventsID.css({ translate: [ (posX + 10), (posY + 15) ] })
-
+        appendGalleryView : function(){
 
         }
     });

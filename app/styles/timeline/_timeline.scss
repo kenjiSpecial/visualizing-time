@@ -12,6 +12,9 @@ $timelineColor5  : #cccccc;
 $whiteBackColor  : #ffffff;
 $whiteBackGround : rgba(255, 255, 255, 0.8);
 
+$side : 20px;
+$doubleSide : 20px;
+
 
 #main-content{
   #timeline-wrapper{
@@ -75,21 +78,24 @@ $whiteBackGround : rgba(255, 255, 255, 0.8);
         color: $timelineColor5;
       }
 
-      .time-line-event-content{
+      .time-line-event-content-wrapper{
         cursor: pointer;
-        padding: 2px;
-        margin-left: 8px;
-        
-        color: $timelineColor2;
+
+        position: absolute;
         background: $whiteBackGround;
+
+        margin-left: 8px;
+        padding: 5px;
 
         @include transition(0.5s background, 0.3s color);
 
-        @include transform-origin(0, 0);
-
         &:hover {
-          color: $whiteBackColor;
           background: $timelineColor3;
+
+          .time-line-event-content{
+            color: $whiteBackColor;
+
+          }
         }
 
         &:before{
@@ -100,11 +106,52 @@ $whiteBackGround : rgba(255, 255, 255, 0.8);
           height: 1px;
           top: 7px;
           left: -8px;
-          
+        }
+
+        .time-line-event-content{
+          position: relative;
+          margin: 2px;
+          margin-bottom: 8px;
+          color: $timelineColor2;
+          @include transform-origin(0, 0);
+        }
+
+        // ----------
+
+        .event-item-collection {
+          margin: 2px;
+
+          position: relative;
+          @include transition( 0.6s opacity);
+          opacity: 0;
+          overflow: hidden;
+
+          &.visible{
+            opacity: 1;
+          }
+
+          .event-item-image{
+            width: $side;
+            height: $side;
+            overflow: hidden;
+            float: left;
+
+            &.display-none{
+              display: none;
+            }
+
+            img{
+              &.img-vertical{
+                width: $doubleSide;
+              }
+
+              &.img-landscape{
+                height: $doubleSide;
+              }
+            }
+          }
         }
       }
     }
-
   }
 }
-

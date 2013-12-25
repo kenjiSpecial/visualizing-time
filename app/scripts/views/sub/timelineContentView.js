@@ -28,6 +28,7 @@ define([
 
         yearCollection : [],
         exhibitCollectionJSON : null,
+        clickState : false,
 
         events : {
             "click .time-line-event-content" : "clickTimeLineEventContent"
@@ -59,18 +60,39 @@ define([
                 var year  = parseInt(data.time);
                 var title = data.title;
 
-                var html = this.template({ id: data.id, title: title, year: year });
+                var html = this.template({ id: data.id, title: title, year: year, contentItems: contentItems });
+
 
                 this.$el.append(html);
 
-                /*
-                for(var j in contentItems){
+                var imageDataCollection = commonData.imageDataCollection;
+
+                for( var j in contentItems ){
                     var contentItem = contentItems[j];
-                    console.log()
-                    var img = new Image();
-                    img.src = contentItem.uri;
-                    this.$tl.append(img);
-                } */
+
+                    var eventID = '#eventItem' + contentItem.id;
+
+                    var contentItemImage = imageDataCollection[contentItem.id];
+
+                    var contentItemImageWidth  = contentItemImage.width;
+                    var contentItemImageHeight = contentItemImage.height;
+
+                    var $eventID = $(eventID);
+
+                    if(contentItemImageWidth > 10 && contentItemImageHeight > 10){
+                        $eventID.append(contentItemImage);
+
+                        if(contentItemImageWidth > contentItemImageHeight){
+                            $eventID.find('img').addClass('img-landscape');
+                        } else {
+                            $eventID.find('img').addClass('img-vertical');
+                        }
+
+                    }else{
+                        $eventID.addClass('display-none');
+                    }
+
+                }
 
                 // --------
 
@@ -80,14 +102,24 @@ define([
 
                 var rate           = (year - CONSTANTS.EVENT_START_YEAR) / CONSTANTS.EVENT_DURATION;
                 var eventPositionX = ( rate * CONSTANTS.TIME_LINE_END_POS + ( 1 - rate ) * CONSTANTS.TIME_LINE_START_POS ) * commonData.windowSize.width;
-                var domId = "#" + data.id;
-                var posY = CONSTANTS.TIME_LINE_POS_Y2 + 50 * i + 20;
+                var domId = "#time-line-event-" + data.id;
+                var posY;
+                if(i > 6){
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * (i-7) + 20;
+                } else if(i > 2){
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * (i-3) + 20;
+                }else if(i > 0){
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * (i-1) + 20;
+                }else{
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * i + 20;
+                }
+
 
                 var $domID = this.$el.find(domId);
                 $domID.css({ translate: [ eventPositionX, posY ] })
                 $domID.css({opacity: 0});
 
-                timelineGalleryView.appendGalleryView( data.id, contentItems, year, eventPositionX,posY );
+                //timelineGalleryView.appendGalleryView( data.id, contentItems, year, eventPositionX,posY );
 
 
                 if(prevYear == year){
@@ -123,8 +155,6 @@ define([
                 prevYear = year;
             }
 
-            //this.renderAllEventPhotos();
-            //this.loopAnimation();
 
             setTimeout(this.loopAnimation, 1500);
 
@@ -149,15 +179,13 @@ define([
                 setTimeout(this.loopAnimation, 1000)
         },
 
-        renderAllEventPhotos: function(){
-            console.log(this.exhibitCollectionJSON);
-        },
 
         clickTimeLineEventContent : function(event){
+            if(this.clickState) return;
+
+            this.clickState = true;
 
             var id = $(event.currentTarget).attr("id");
-            console.log(id);
-            //timelineListView.set(id);
 
 
 
