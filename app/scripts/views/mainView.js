@@ -16,7 +16,7 @@ define([
     // collection
     'collection/exhibitCollection'
 
-],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, timelineView, timelineContentViews, exhibitCollection ) {
+],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, timelineView, timelineContentViews ) {
     var MainView = Backbone.View.extend({
         el : "#main-content",
         template : JST['app/scripts/templates/mainTemplate.ejs'],
@@ -28,6 +28,11 @@ define([
 
             this.line = document.getElementById("timeline");
             this.$line = $(this.line);
+
+            this.$el.find("#timeline-wrapper").css({
+                width  : commonData.windowSize.width,
+                height : commonData.windowSize.height
+            });
 
         },
 
@@ -41,38 +46,8 @@ define([
             this.timelineRaw = data;
             this.createTimeLine();
 
-        },
-
-        getTimelines : function(superCollection,subCollection,timeLine){
-            var self = this;
-            $.ajax({
-                type : "GET",
-                url  : "http://test.chronozoom.com/api/gettimelines",
-                data : {
-                    supercollection: superCollection,
-                    collection: subCollection,
-                    commonAncestor: timeLine,
-                    depth: 5
-                },
-
-                dataType: "json",
-                success : function( data, textStatus, jqXHR ){
-                    if(data != null){
-                        constants.EVENT_START_YEAR = data.start;
-                        constants.EVENT_END_YEAR   = data.end;
-                        constants.EVENT_DURATION   = data.end - data.start;
-
-
-                        self.timelineRaw = data;
-                        self.createTimeLine();
-                        self.parseExhibits(data.exhibits);
-                    }
-                },
-
-                error : function( XMLHttpRequest, textStatus, errorThrown ) {
-                    alert("Ajax error: "+textStatus+", "+errorThrown);
-                }
-            });
+            //this.parseExhibits(commonData.eventsData.exhibits);
+            this.parseExhibits();
         },
 
         createTimeLine : function( ){
@@ -82,18 +57,7 @@ define([
 
         },
 
-        parseExhibits : function( exhibits ){
-            exhibitCollection.comparator = 'time';
-            if( exhibits != null ){
-                for( var i = 0; i < exhibits.length; i++ ){
-                    exhibitCollection.add(exhibits[i])
-                }
-            }
-
-            // -------------
-
-            exhibitCollection.addUniqueValue();
-
+        parseExhibits : function(  ){
             // -------------
             timelineContentViews.render();
 

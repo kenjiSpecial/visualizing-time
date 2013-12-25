@@ -1,6 +1,11 @@
+<!-- -----  -->
+<!-- start -->
+
 <p id="year-start">
 <%= start %>
 </p>
+
+<!-- loop -->
 
 <%
     for( var n = start + 1; n < end; n++ ){
@@ -13,6 +18,34 @@
     }
 %>
 
+<!-- loop -->
+
 <p id="year-end">
 <%= end %>
 </p>
+
+<!-- end -->
+
+<!-- ----------- -->
+
+<!-- loop::start -->
+
+<% for( n = start - 2; n < start; n++){ var year = n; %>
+<p id="year-<%= year %>" class="out-time">
+    <%= year %>
+</p>
+<%}%>
+
+<!-- loop::end -->
+
+<!-- ----- -->
+
+<!--loop::star-->
+
+<% for( n = end + 1; n < end+ 8; n++ ){ var year = n; %>
+<p id="year-<%= year %>" class="out-time">
+    <%= year %>
+</p>
+<% }%>
+
+<!-- loop::end -->

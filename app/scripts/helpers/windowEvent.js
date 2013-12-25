@@ -12,6 +12,7 @@ define([
         commonData.windowSize.width  = window.innerWidth;
         if(commonData.windowSize.width < 1200) commonData.windowSize.width = 1200;
         commonData.windowSize.height = window.innerHeight;
+        if(commonData.windowSize.height < 650) commonData.windowSize.height = 650;
 
 
         if(Modernizr.mobile){
@@ -40,6 +41,7 @@ define([
             commonData.windowSize.width  = window.innerWidth;
             if(commonData.windowSize.width < 1200) commonData.windowSize.width = 1200;
             commonData.windowSize.height = window.innerHeight;
+            if(commonData.windowSize.height < 650) commonData.windowSize.height = 650;
 
             Events.trigger(Events.WINDOW_RESIZE);
         },

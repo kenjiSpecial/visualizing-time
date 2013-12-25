@@ -7,12 +7,16 @@ $timelineColor3  : #666666;
 $timelineColor2  : #999999;
 $timelineColor1  : #bbbbbb;
 
+$timelineColor5  : #cccccc;
+
 $whiteBackColor  : #ffffff;
 $whiteBackGround : rgba(255, 255, 255, 0.8);
 
 
 #main-content{
   #timeline-wrapper{
+    position: absolute;
+    overflow: hidden;
     #timeline-graphics{
       
       #timeline {
@@ -23,7 +27,7 @@ $whiteBackGround : rgba(255, 255, 255, 0.8);
         width: 0;
         height: $timelineHeight;
 
-        @include transition( 0.8s all ease-out );
+        @include transition( 0.8s all ease-out);
       }
 
       // ----------
@@ -64,6 +68,11 @@ $whiteBackGround : rgba(255, 255, 255, 0.8);
           color: $timelineColor2;
           font-weight: 800;
         }
+      }
+
+      .out-time{
+        font-weight: 300;
+        color: $timelineColor5;
       }
 
       .time-line-event-content{

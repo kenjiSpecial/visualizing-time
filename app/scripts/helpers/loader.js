@@ -6,8 +6,12 @@ define([
 
     // helpers
     'helpers/commonData',
-    'helpers/events'
-],function( $, _, Backbone, d3, commonData, Events ){
+    'helpers/events',
+
+    // collection
+    'collection/exhibitCollection'
+
+],function( $, _, Backbone, d3, commonData, Events, exhibitCollection ){
 
     var Loader = function(){
         _.bindAll(this, 'geoLoadDone', 'exhibitLoadDone', 'imageLoadDone', 'onLoad', 'allLoadDone');
@@ -38,21 +42,8 @@ define([
                 },
 
                 dataType: "json",
-                /** success : function( data, textStatus, jqXHR ){
-                    if(data != null){
-                        constants.EVENT_START_YEAR = data.start;
-                        constants.EVENT_END_YEAR   = data.end;
-                        constants.EVENT_DURATION   = data.end - data.start;
-
-
-                        self.timelineRaw = data;
-                        self.createTimeLine();
-                        self.parseExhibits(data.exhibits);
-                    }
-                }, */
 
                 success : this.exhibitLoadDone,
-
 
                 error : function( XMLHttpRequest, textStatus, errorThrown ) {
                     alert("Ajax error: "+textStatus+", "+errorThrown);
@@ -74,7 +65,22 @@ define([
                 this.exhibitStatus = true;
                 commonData.eventsData = data;
                 this.imageLoadDone();
-                //this.allLoadDone();
+
+                var exhibits = data.exhibits;
+
+                exhibitCollection.comparator = 'time';
+                if( exhibits != null ){
+                    for( var i = 0; i < exhibits.length; i++ ){
+                        exhibitCollection.add(exhibits[i])
+                    }
+                }
+
+                // -------------
+
+                exhibitCollection.addUniqueValue();
+
+                // -------------
+
             }
         },
 
@@ -91,15 +97,13 @@ define([
                 exhibit = exhibits[i];
                 contentItems = exhibit.contentItems;
 
-                for(j in contentItems){
+                for( j in contentItems ){
                     contentItem = contentItems[j];
                     contentItemID = contentItem.id;
                     mediaType = contentItem.mediaType;
 
-                    if(mediaType == "image"){
+                    commonData.imageDataCollection[contentItemID] = null;
 
-                        commonData.imageDataCollection[contentItemID] = null;
-                    }
                 }
             }
 
@@ -114,11 +118,20 @@ define([
                     mediaType = contentItem.mediaType;
                     mediaUri = contentItem.uri;
 
+                    var image = new Image();
+
                     if(mediaType == "image"){
-                        var image = new Image();
                         image.src = mediaUri;
-                        image.onload = this.onLoad(contentItemID, image);
+                    } else {
+                        var res = mediaUri.split('/');
+                        var youtubeID = res[res.length - 1];
+                        var imageString = 'http://img.youtube.com/vi/' + youtubeID + '/default.jpg';
+
+                        image.src = imageString;
                     }
+
+                    image.onload = this.onLoad(contentItemID, image);
+
                 }
             }
 

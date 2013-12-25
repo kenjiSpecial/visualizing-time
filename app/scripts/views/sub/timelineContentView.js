@@ -4,6 +4,7 @@ define([
     'backbone',
     'templates',
     'jqueryTransit',
+    'tweenlite',
 
     // helpers
     'helpers/commonData',
@@ -17,12 +18,15 @@ define([
     'views/sub/timelineGalleryView',
 
 
-],function( $, _, Backbone, JST, jqueryTransit, commonData, CONSTANTS, exhibitCollection, timelineListView, timelineGalleryView ){
+],function( $, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, exhibitCollection, timelineListView, timelineGalleryView ){
     var TimeLineContentView = Backbone.View.extend({
         el  : "#timeline-content",
         tl  : "#timeline-graphics",
         $tl : null,
 
+        count : 0,
+
+        yearCollection : [],
         exhibitCollectionJSON : null,
 
         events : {
@@ -32,7 +36,13 @@ define([
         template : JST['app/scripts/templates/timelineContentTemplate.ejs'],
 
         initialize: function(){
+            _.bindAll(
+                this,
+                'loopAnimation'
+            );
+
             this.$tl = $(this.tl);
+
         },
 
         render : function( ){
@@ -49,10 +59,11 @@ define([
                 var year  = parseInt(data.time);
                 var title = data.title;
 
-                var html = this.template({ id: data.id, title: title });
+                var html = this.template({ id: data.id, title: title, year: year });
+
                 this.$el.append(html);
 
-                timelineGalleryView.appendGalleryView( data.id, contentItems );
+                timelineGalleryView.appendGalleryView( data.id, contentItems, year );
 
                 /*
                 for(var j in contentItems){
@@ -73,7 +84,12 @@ define([
                 var eventPositionX = ( rate * CONSTANTS.TIME_LINE_END_POS + ( 1 - rate ) * CONSTANTS.TIME_LINE_START_POS ) * commonData.windowSize.width;
                 var domId = "#" + data.id;
                 var posY = CONSTANTS.TIME_LINE_POS_Y2 + 22 * i + 20;
-                this.$el.find(domId).css({ translate: [ eventPositionX, posY ] })
+
+                var $domID = this.$el.find(domId);
+                $domID.css({ translate: [ eventPositionX, posY ] })
+                $domID.css({opacity: 0});
+
+
 
                 if(prevYear == year){
                     id = '#timeline-visual-' + year;
@@ -91,21 +107,47 @@ define([
                     $div.addClass('time-visual');
                     id = 'timeline-visual-' + year;
                     $div.attr('id', id);
+                    $div.attr('data-year', year);
                     this.$tl.append(div);
 
                     startY   = CONSTANTS.TIME_LINE_POS_Y2 + 8;
                     height   = posY - startY + 8;
 
                     $div.css({ translate: [ eventPositionX, startY ] });
-                    $div.css( "height", height );
+                    $div.css( {"height":height, opacity : 0 });
+
+                    // -----
+                    this.yearCollection.push(year);
 
                 }
 
                 prevYear = year;
             }
 
-            this.renderAllEventPhotos();
+            //this.renderAllEventPhotos();
+            //this.loopAnimation();
 
+            setTimeout(this.loopAnimation, 1500);
+
+        },
+
+        loopAnimation : function(){
+            var year = this.yearCollection[this.count];
+
+            var $year = $('.event-item-collection-year-' + year);
+            $year.addClass('visible');
+
+            var attribute = '*[data-year="' + year +'"]';
+            $(attribute).each(function(index){
+                TweenLite.to(this, 0.6, {opacity: 1});
+            });
+
+            // -------------
+
+            this.count++;
+
+            if( this.count < this.yearCollection.length )
+                setTimeout(this.loopAnimation, 1000)
         },
 
         renderAllEventPhotos: function(){

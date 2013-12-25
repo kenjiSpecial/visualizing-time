@@ -36,9 +36,6 @@ define([
                         .attr('width', commonData.windowSize.width )
                         .attr('height', commonData.windowSize.height );
 
-
-
-
         },
 
         render : function(){

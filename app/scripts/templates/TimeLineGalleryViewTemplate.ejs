@@ -1,4 +1,4 @@
-<div class="event-item-collection" id="event-items-<%= id %>">
+<div class="event-item-collection event-item-collection-year-<%= year %>" id="event-items-<%= id %>">
 
     <%for( var i in contentItems ){
         var contentItem = contentItems[i];
@@ -7,7 +7,7 @@
         var eventID = 'eventItem' + contentItem.id;
     %>
         <div class="event-item-image" id="<%= eventID %>">
-            <img src="<%= uri %>" alt=""/>
+
         </div>
     <%}%>
 
