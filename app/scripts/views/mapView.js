@@ -46,7 +46,6 @@ define([
 
            TweenLite.to(this.el, 1, {alpha: 1});
 
-
         }
 
     });
