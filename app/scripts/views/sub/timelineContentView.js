@@ -28,10 +28,10 @@ define([
 
         yearCollection : [],
         exhibitCollectionJSON : null,
-        clickState : false,
+        clickState : true,
 
         events : {
-            "click .time-line-event-content" : "clickTimeLineEventContent"
+            "click .time-line-event-content-wrapper" : "clickTimeLineEventContent"
         },
 
         template : JST['app/scripts/templates/timelineContentTemplate.ejs'],
@@ -177,15 +177,33 @@ define([
 
             if( this.count < this.yearCollection.length )
                 setTimeout(this.loopAnimation, 1000)
+            else
+                this.clickState = false;
         },
 
 
         clickTimeLineEventContent : function(event){
             if(this.clickState) return;
+            console.log('clickTimeLineEventContent');
 
             this.clickState = true;
 
             var id = $(event.currentTarget).attr("id");
+
+            for(var i in this.yearCollection){
+                var year = this.yearCollection[i];
+
+                var $year = $('.event-item-collection-year-' + year);
+                $year.removeClass('visible');
+
+                var attribute = '*[data-year="' + year +'"]';
+                $(attribute).each(function(index){
+                    TweenLite.to(this, 0.6, {opacity: 0});
+                });
+
+            }
+
+            // animate to timeline to the bottom
 
 
 
