@@ -20,6 +20,10 @@ $doubleSide : 20px;
   #timeline-wrapper{
     position: absolute;
     overflow: hidden;
+    #timeline-graphics-wrapper{
+      position: absolute;
+    }
+
     #timeline-graphics{
       
       #timeline {
@@ -70,6 +74,11 @@ $doubleSide : 20px;
         &.emphasis{
           color: $timelineColor2;
           font-weight: 800;
+        }
+
+        &.selected{
+          color: $whiteBackColor;
+          background: $timelineColor3;
         }
       }
 

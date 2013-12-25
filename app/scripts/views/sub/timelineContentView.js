@@ -9,6 +9,7 @@ define([
     // helpers
     'helpers/commonData',
     'helpers/constants',
+    'helpers/windowEvent',
 
     // collection
     'collection/exhibitCollection',
@@ -18,11 +19,15 @@ define([
     'views/sub/timelineGalleryView',
 
 
-],function( $, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, exhibitCollection, timelineListView, timelineGalleryView ){
+],function( $, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, windowEvent, exhibitCollection, timelineListView, timelineGalleryView ){
     var TimeLineContentView = Backbone.View.extend({
         el  : "#timeline-content",
+
         tl  : "#timeline-graphics",
         $tl : null,
+
+        timeline : "#timeline-wrapper",
+        $timeline : null,
 
         count : 0,
 
@@ -41,6 +46,8 @@ define([
                 this,
                 'loopAnimation'
             );
+
+            this.$timeline = $(this.timeline);
 
             this.$tl = $(this.tl);
 
@@ -188,7 +195,8 @@ define([
 
             this.clickState = true;
 
-            var id = $(event.currentTarget).attr("id");
+            // ---------
+            // opacity 0 image and line
 
             for(var i in this.yearCollection){
                 var year = this.yearCollection[i];
@@ -203,9 +211,22 @@ define([
 
             }
 
+            // ---------
+
+            var $currentTarget = $(event.currentTarget);
+            window.$currentTarget = $currentTarget;
+            var id   = $currentTarget.attr("id");
+            var selectedYear = $currentTarget.data('year')
+
+            // change the color.
+
+            var yearString = '#year-' + selectedYear
+            this.$el.find(yearString).addClass('selected')
+
             // animate to timeline to the bottom
 
-
+            var top = commonData.windowSize.height - 200;
+            this.$timeline.transition({ y: top, duration: 1000 });
 
         }
     });
