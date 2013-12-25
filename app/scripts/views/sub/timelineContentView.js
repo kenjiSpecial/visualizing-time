@@ -63,8 +63,6 @@ define([
 
                 this.$el.append(html);
 
-                timelineGalleryView.appendGalleryView( data.id, contentItems, year );
-
                 /*
                 for(var j in contentItems){
                     var contentItem = contentItems[j];
@@ -83,12 +81,13 @@ define([
                 var rate           = (year - CONSTANTS.EVENT_START_YEAR) / CONSTANTS.EVENT_DURATION;
                 var eventPositionX = ( rate * CONSTANTS.TIME_LINE_END_POS + ( 1 - rate ) * CONSTANTS.TIME_LINE_START_POS ) * commonData.windowSize.width;
                 var domId = "#" + data.id;
-                var posY = CONSTANTS.TIME_LINE_POS_Y2 + 22 * i + 20;
+                var posY = CONSTANTS.TIME_LINE_POS_Y2 + 50 * i + 20;
 
                 var $domID = this.$el.find(domId);
                 $domID.css({ translate: [ eventPositionX, posY ] })
                 $domID.css({opacity: 0});
 
+                timelineGalleryView.appendGalleryView( data.id, contentItems, year, eventPositionX,posY );
 
 
                 if(prevYear == year){
@@ -152,16 +151,17 @@ define([
 
         renderAllEventPhotos: function(){
             console.log(this.exhibitCollectionJSON);
+        },
 
-        }
-
-        /*clickTimeLineEventContent : function(event){
+        clickTimeLineEventContent : function(event){
 
             var id = $(event.currentTarget).attr("id");
             console.log(id);
-            timelineListView.set(id);
+            //timelineListView.set(id);
 
-        }*/
+
+
+        }
     });
 
     var timeLineContentView = new TimeLineContentView();

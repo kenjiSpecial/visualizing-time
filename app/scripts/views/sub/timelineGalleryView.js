@@ -22,7 +22,7 @@ define([
 
         },
 
-        appendGalleryView : function( id, contentItems, year ){
+        appendGalleryView : function( id, contentItems, year, posX, posY ){
 
             var html = this.template({id: id, contentItems: contentItems, year: year })
             this.$el.append(html);
@@ -39,7 +39,7 @@ define([
 
                 var contentItemImageWidth  = contentItemImage.width;
                 var contentItemImageHeight = contentItemImage.height;
-                console.log(contentItemImageWidth + ", " + contentItemImageHeight);
+                //console.log(contentItemImageWidth + ", " + contentItemImageHeight);
 
                 var $eventID = $(eventID);
 
@@ -58,10 +58,12 @@ define([
 
 
 
-
             }
+            var eventtItem = '#event-items-' + id;
+            var $eventsID = $(eventtItem);
 
 
+            $eventsID.css({ translate: [ (posX + 10), (posY + 15) ] })
 
 
         }

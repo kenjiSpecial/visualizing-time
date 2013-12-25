@@ -1,18 +1,19 @@
-$side : 80px;
-$doubleSide : 80px;
+$side : 20px;
+$doubleSide : 20px;
 
 #timeline-events-gallery{
-  width: 1000%;
-  position: absolute;
+
+
   //top: 400px;
 
-  overflow: hidden;
+  //overflow: hidden;
 
   .event-item-collection{
+    position: absolute;
+
     @include transition( 0.6s opacity);
     opacity: 0;
-    //float: left;
-    //overflow: hidden;
+    overflow: hidden;
 
     &.visible{
      opacity: 1;
@@ -26,7 +27,6 @@ $doubleSide : 80px;
 
       &.display-none{
         display: none;
-
       }
 
       img{
