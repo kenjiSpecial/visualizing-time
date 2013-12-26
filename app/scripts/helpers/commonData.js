@@ -35,6 +35,10 @@ define([
             debug : true
 		};
 
+        if(CommonData.debug){
+            window.commonData = CommonData;
+        }
+
 		return CommonData
 	}
 );

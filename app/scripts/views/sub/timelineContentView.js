@@ -182,10 +182,16 @@ define([
 
             this.count++;
 
-            if( this.count < this.yearCollection.length )
-                setTimeout(this.loopAnimation, 1000)
-            else
+            if( this.count < this.yearCollection.length ){
+                if(commonData.debug){
+                    setTimeout(this.loopAnimation, 200);
+                }else{
+                    setTimeout(this.loopAnimation, 1000)
+                }
+            }else{
                 this.clickState = false;
+            }
+
         },
 
 
@@ -221,18 +227,21 @@ define([
 
             // change the color.
 
-            var yearString = '#year-' + selectedYear
-            this.$el.find(yearString).addClass('selected')
+            var yearString = '#year-' + selectedYear;
+            var $selected = this.$el.find(yearString);
+            var selectPosX = parseInt($selected.css('x'))
+            $selected.addClass('selected');
+
 
             // animate to timeline to the bottom
 
             var top = commonData.windowSize.height - 200;
-            this.$timeline.transition({ y: top, duration: 1000 });
+            this.$timeline.transition({ y: top, height: 150, duration: 1000 });
 
             // -------
             // showing the gallery
 
-            timelineGalleryView.show(id);
+            timelineGalleryView.show(id, selectPosX);
 
             // -------
 

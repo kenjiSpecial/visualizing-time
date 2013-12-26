@@ -1,14 +1,31 @@
-<div class="event-item-collection event-item-collection-year-<%= year %>" id="event-items-<%= id %>">
 
-    <%for( var i in contentItems ){
-        var contentItem = contentItems[i];
+    <div class="time-line-gallery-title"><%= title %></div>
 
-        var uri = contentItem.uri;
-        var eventID = 'eventItem' + contentItem.id;
-    %>
-        <div class="event-item-image" id="<%= eventID %>">
+    <div id="time-line-gallery-wrapper">
+        <ul id="time-line-gallery-ul">
+            <%for(var i in contentItems){
+                var contentItem = contentItems[i];
+                var contentItemTitle = contentItem.title;
+                var contentItemId = contentItem.id;
+                var contentItemParagraphs = contentItem.description.split("  ");
 
-        </div>
-    <%}%>
+            %>
+            <li id="time-line-gallery-list-<%= contentItemId %>">
+                <p class="content-item-title"><%= contentItemTitle %></p>
+                <figure id="figure-<%= contentItemId %>">
 
-</div>
+                </figure>
+                <div class="content-item-description">
+                    <% for(var j in contentItemParagraphs){
+                        var contentItemParagraph = contentItemParagraphs[j];
+                    %>
+                        <p><%= contentItemParagraph %></p>
+
+                    <% } %>
+                </div>
+
+            </li>
+            <% } %>
+
+        </ul>
+    </div>
