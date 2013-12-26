@@ -214,9 +214,10 @@ define([
             // ---------
 
             var $currentTarget = $(event.currentTarget);
-            window.$currentTarget = $currentTarget;
-            var id   = $currentTarget.attr("id");
-            var selectedYear = $currentTarget.data('year')
+            var domID   = $currentTarget.attr("id");
+
+            var selectedYear = $currentTarget.data('year');
+            var id = $currentTarget.data('id');
 
             // change the color.
 
@@ -227,6 +228,13 @@ define([
 
             var top = commonData.windowSize.height - 200;
             this.$timeline.transition({ y: top, duration: 1000 });
+
+            // -------
+            // showing the gallery
+
+            timelineGalleryView.show(id);
+
+            // -------
 
         }
     });

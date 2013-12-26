@@ -13,7 +13,8 @@
     "d3js": "*",
     "topojson": "~1.4.5",
     "d3": "~3.3.12",
-    "jquery.transit": "~0.9.9"
+    "jquery.transit": "~0.9.9",
+    "jsUri": "~1.2.2"
   },
   "devDependencies": {
     "greensock": "~1.11.2"

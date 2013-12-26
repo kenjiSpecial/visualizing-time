@@ -49,6 +49,7 @@ $doubleSide : 20px;
 
     #timeline-content{
       p{
+        padding: 2px 3px;
         position: absolute;
         font-size: 12px;
         @include transform-origin(0, 0);

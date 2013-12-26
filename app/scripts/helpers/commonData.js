@@ -30,7 +30,9 @@ define([
             tweenCurrentTime : 0,
             tweenDuration : 0,
 
-            shapeToWeaveDuration: 1
+            shapeToWeaveDuration: 1,
+
+            debug : true
 		};
 
 		return CommonData

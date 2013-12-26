@@ -33,14 +33,21 @@ require.config({
         underscore: '../bower_components/underscore/underscore',
         d3 : '../bower_components/d3/d3',
         topojson : '../bower_components/topojson/topojson',
-        tweenlite : "../bower_components/greensock/src/uncompressed/TweenMax"
+        tweenlite : "../bower_components/greensock/src/uncompressed/TweenMax",
+        uri : '../bower_components/jsUri/Uri'
     }
 });
 
 require([
     'backbone',
-    'routes/mainRouter'
-], function ( Backbone, MainRouter ) {
+    'routes/mainRouter',
+
+    // helpers
+    'helpers/commonData'
+
+], function ( Backbone, MainRouter, commonData ) {
+
+
 
     var appRouter = new MainRouter();
 
