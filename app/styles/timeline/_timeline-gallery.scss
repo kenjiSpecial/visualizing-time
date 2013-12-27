@@ -127,6 +127,20 @@ $circleColor2 : #fff;
         @include transition(0.3s all);
       }
 
+      .circle-event-title {
+        position: absolute;
+        width: 200px;
+
+        font-size: 12px;
+        font-weight: 800;
+        color: $circleColor2;
+
+        left: ($sideBig + 25px);
+        opacity: 0;
+
+        @include transition(0.5s all);
+      }
+
       &:hover{
 
         .circle{
@@ -138,6 +152,11 @@ $circleColor2 : #fff;
           border-radius: ($sideBig/2);
 
           background: $circleColor2;
+        }
+
+        .circle-event-title {
+          left: ($sideBig + 8px);
+          opacity: 1;
         }
       }
 
@@ -153,8 +172,13 @@ $circleColor2 : #fff;
 
           background: $circleColor2;
         }
-      }
 
+        &:hover{
+          .circle-event-title {
+            opacity: 0;
+          }
+        }
+      }
     }
   }
 

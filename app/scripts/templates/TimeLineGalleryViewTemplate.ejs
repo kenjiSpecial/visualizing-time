@@ -37,9 +37,14 @@
     </div>
 
 <ul class="button-ul">
-    <%for(var j = 0; j < count; j++){ %>
+    <%
+        for(var j = 0; j < count; j++){
+            var contentItem = contentItems[j];
+            var title = contentItem.title;
+    %>
     <li class="button" id="button-<%= j %>">
         <div class="circle"></div>
+        <div class="circle-event-title"><%= title %></div>
     </li>
     <% }%>
 </ul>

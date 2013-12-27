@@ -29,7 +29,8 @@ define([
 
         events : {
             'click #prev-selector' : 'prevSelectorClick',
-            'click #next-selector' : 'nextSelectorClick'
+            'click #next-selector' : 'nextSelectorClick',
+            'click .button' : 'buttonClick'
         },
 
         initialize : function(){
@@ -132,7 +133,7 @@ define([
 
             var $buttonUI = this.$el.find(".button-ul");
             var _left = (commonData.windowSize.width - commonData.galleryWidth)/2 -30;
-            $buttonUI.css({left: _left, top: 20 });
+            $buttonUI.css({left: _left, top: 55 });
 
 
 
@@ -220,6 +221,61 @@ define([
             }else{
                 Events.trigger(Events.MAP_CHANGE, "default");
             }
+        },
+
+        buttonClick : function(event){
+
+            var id = $(event.currentTarget).attr('id');
+            var count = parseInt( id.split('-')[1] );
+            if(this.count == count) return;
+
+            this.prevCount = this.count;
+            this.count = count;
+
+            var dCount = this.count - this.prevCount;
+            if(dCount > 0){
+                var dDistance = (dCount * commonData.galleryWidth);
+                var duration = 400 * dCount;
+
+                this.$timeLineGalleryUL.transition({
+                    x: '-=' + dDistance,
+                    duration : duration
+                });
+            }else{
+                var dDistance = (dCount * commonData.galleryWidth * (-1));
+                var duration = 400 * dCount * (-1);
+
+                this.$timeLineGalleryUL.transition({
+                    x: '+=' + dDistance,
+                    duration: duration
+                });
+            }
+
+
+            if(this.prevCount < this.count){
+                if(this.prevCount == 0){
+                    this.$prevSelector.removeClass('inactive');
+                }
+
+                if(this.count == (this.MAX_COUNT - 1)){
+                    this.$nextSelector.addClass('inactive');
+                }
+            }
+
+            if(this.prevCount > this.count){
+                if(this.prevCount == (this.MAX_COUNT - 1)){
+                    this.$nextSelector.removeClass('inactive');
+                }
+
+                if(this.count == 0){
+                    this.$prevSelector.addClass('inactive');
+                }
+            }
+
+            this.changeMap();
+
+            this.changeButton();
+
         }
 
 
