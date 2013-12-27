@@ -14,6 +14,8 @@ $timelineBgColor0 : rgb(102, 102, 102);
 $timelineBgColor1 : rgba(102, 102, 102, 0.4);
 $timelineBgColor2 : rgba(102, 102, 102, 0.8);
 
+$whiteColor : #fff;
+
 $circleColor1 : rgb(180, 180, 180);
 $circleColor2 : #fff;
 
@@ -45,6 +47,7 @@ $circleColor2 : #fff;
   }
 
   #time-line-gallery-wrapper{
+    position: relative;
     margin: auto;
     width: $SCREEN_WIDTH;
     overflow: hidden;
@@ -256,5 +259,14 @@ $circleColor2 : #fff;
         }
       }
     }
+  }
+
+  div#gallery-remove{
+    top: 10px;
+    right: 10px;
+
+    color: $whiteColor;
+
+    position: absolute;
   }
 }
