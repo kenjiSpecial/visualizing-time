@@ -1,14 +1,26 @@
 $side : 20px;
 $doubleSide : 20px;
 
+$sideSmall : 6px;
+$sideBig   : 12px;
+
+$selectorWidth : 20px;
+$selectorInactiveWidth: 12px;
+
+
 $SCREEN_WIDTH: 800px;
 
-$timelineBgColor1 : rgba(102, 102, 102, 0.6);
+$timelineBgColor1 : rgba(102, 102, 102, 0.4);
+$timelineBgColor2 : rgba(102, 102, 102, 0.8);
+
+$circleColor1 : rgb(180, 180, 180);
+$circleColor2 : #fff;
 
 
 #timeline-events-gallery{
   position: absolute;
   background: $timelineBgColor1;
+  overflow: hidden;
 
   width: 100%;
   height: 0;
@@ -18,11 +30,180 @@ $timelineBgColor1 : rgba(102, 102, 102, 0.6);
     width: $SCREEN_WIDTH;
     overflow: hidden;
 
+    // =====
+
+
+
     #time-line-gallery-ul{
       width: ($SCREEN_WIDTH * 10);
       li{
+        p.content-item-title{
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 1px;
+          font-size: 18px;
+          margin-bottom: 15px;
+
+        }
         float: left;
         width: $SCREEN_WIDTH;
+
+        div.content-item-description{
+          p{
+            color: #ffffff;
+            font-size: 12px;
+            line-height: 1.4em;
+            margin: 10px;
+          }
+        }
+
+        // ---------
+
+        &.list-landscape{
+          .figure-content-set{
+            position: relative;
+            div.content-item-description{
+              background: $timelineBgColor2;
+              position: absolute;
+              bottom: 0;
+
+            }
+          }
+        }
+
+        // ---------
+
+        &.list-vertical{
+          .figure-content-set{
+            overflow: hidden;
+
+            figure{
+              float: left;
+              margin-right: 30px;
+            }
+
+            div.content-item-description{
+              float: left;
+            }
+          }
+        }
+
+        // ---------
+
+      }
+    }
+
+    // =====
+
+  }
+
+  .button-ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    li.button{
+      cursor: pointer;
+
+      width: $sideBig;
+      height: $sideBig;
+
+      margin-bottom: 5px;
+      position: relative;
+
+
+      @include transition(0.3s all);
+
+      .circle{
+        position: absolute;
+        top: (($sideBig - $sideSmall)/2);
+        left: (($sideBig - $sideSmall)/2);
+
+        background: $circleColor1;
+        width: $sideSmall;
+        height: $sideSmall;;
+        border-radius: ($sideSmall/2);
+
+        @include transition(0.3s all);
+      }
+
+      &:hover{
+
+        .circle{
+          top: 0;
+          left: 0;
+
+          width: $sideBig;
+          height: $sideBig;
+          border-radius: ($sideBig/2);
+
+          background: $circleColor2;
+        }
+      }
+
+      &.selected{
+        cursor: default;
+        .circle{
+          top: 0;
+          left: 0;
+
+          width: $sideBig;
+          height: $sideBig;
+          border-radius: ($sideBig/2);
+
+          background: $circleColor2;
+        }
+      }
+
+    }
+  }
+
+  .gallery-selectors{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .gallery-selector{
+      position: absolute;
+      .selector-circle{
+        cursor: pointer;
+        position: relative;
+        width: $selectorWidth;
+        height: $selectorWidth;
+
+        .circle{
+          position: absolute;
+          width: $selectorInactiveWidth;
+          height: $selectorInactiveWidth;
+          border-radius: ($selectorInactiveWidth/2);
+
+          top  : (($selectorWidth - $selectorInactiveWidth)/2);
+          left : (($selectorWidth - $selectorInactiveWidth)/2);
+
+          background: $circleColor2;
+
+          @include transition(0.2s all);
+        }
+
+        &:hover{
+          .circle{
+            position: absolute;
+            width: $selectorWidth;
+            height: $selectorWidth;
+            border-radius: ($selectorWidth/2);
+
+            top  : 0;
+            left : 0;
+
+            background: $circleColor2;
+          }
+        }
+
+        // ------
+
+        &.inactive{
+          display: none;
+        }
       }
     }
   }

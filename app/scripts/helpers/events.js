@@ -34,7 +34,11 @@ define([
         APPEND_ABOUT : 'AppendAboutView',
         APPEND_WORK  : 'AppendWorkView',
 
-        TRANSFORM_NEXT : 'TransformToWorkOrAboutNext'
+        TRANSFORM_NEXT : 'TransformToWorkOrAboutNext',
+
+        // map
+
+        MAP_CHANGE : 'mapChange'
 
 
     });

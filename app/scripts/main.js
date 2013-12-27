@@ -51,5 +51,9 @@ require([
 
     var appRouter = new MainRouter();
 
+    if(commonData.debug){
+        window.appRouter = appRouter;
+    }
+
     Backbone.history.start();
 });

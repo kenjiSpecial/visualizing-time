@@ -9,7 +9,7 @@ define([
 
     // helpers
     'helpers/commonData',
-    'helpers/Events',
+    'helpers/events',
     'helpers/windowEvent'
 
 
@@ -21,10 +21,11 @@ define([
         svg : null,
 
         initialize : function(){
-            _.bindAll(this, 'render');
+            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange');
+
 
             this.projection = d3.geo.mercator()
-                .center([0, 60.5])
+                .center([0, 61])
                 .scale(500);
 
             this.path = d3.geo.path()
@@ -36,16 +37,39 @@ define([
                         .attr('width', commonData.windowSize.width )
                         .attr('height', commonData.windowSize.height );
 
+            this.g = this.svg.append("g");
+
+            Events.on(Events.WINDOW_RESIZE, this.onResize);
+            Events.on(Events.MAP_CHANGE, this.onMapChange);
         },
 
         render : function(){
 
-            this.svg.selectAll('.subunit')
-                .data(topojson.feature(commonData.geoData, commonData.geoData.objects.sunits).features).enter().append("path")
-                .attr('d', this.path);
+            this.g.selectAll('.subunit')
+                  .data(topojson.feature(commonData.geoData, commonData.geoData.objects.sunits).features).enter().append("path")
+                  .attr('d', this.path);
+
+            /*
+            var coordinate = this.projection([135, 40]);
+            var translate = "translate(" + (-1 * coordinate[0]) +"," + (-1 * coordinate[1]) + ")"
+            this.g.attr('transform', translate);
+            */
 
            TweenLite.to(this.el, 1, {alpha: 1});
 
+        },
+
+        onResize : function(){
+            this.svg.attr('width', commonData.windowSize.width )
+                    .attr('height', commonData.windowSize.height );
+        },
+
+        onMapChange : function(id){
+            var transform = commonData.mapTransformData[id];
+            console.log(transform);
+            console.log("");
+            this.g.transition()
+                .duration(3000).attr("transform", transform);
         }
 
     });

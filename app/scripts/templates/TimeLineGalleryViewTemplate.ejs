@@ -1,4 +1,4 @@
-
+<% var count = 0; %>
     <div class="time-line-gallery-title"><%= title %></div>
 
     <div id="time-line-gallery-wrapper">
@@ -9,23 +9,47 @@
                 var contentItemId = contentItem.id;
                 var contentItemParagraphs = contentItem.description.split("  ");
 
+                count += 1;
+
             %>
             <li id="time-line-gallery-list-<%= contentItemId %>">
                 <p class="content-item-title"><%= contentItemTitle %></p>
-                <figure id="figure-<%= contentItemId %>">
 
-                </figure>
-                <div class="content-item-description">
-                    <% for(var j in contentItemParagraphs){
-                        var contentItemParagraph = contentItemParagraphs[j];
-                    %>
-                        <p><%= contentItemParagraph %></p>
+                <div class="figure-content-set">
+                    <figure id="figure-<%= contentItemId %>">
 
-                    <% } %>
+                    </figure>
+                    <div class="content-item-description">
+                        <% for(var j in contentItemParagraphs){
+                            var contentItemParagraph = contentItemParagraphs[j];
+                        %>
+                            <p><%= contentItemParagraph %></p>
+
+                        <% } %>
+                    </div>
                 </div>
 
             </li>
             <% } %>
 
         </ul>
+
     </div>
+
+<ul class="button-ul">
+    <%for(var j = 0; j < count; j++){ %>
+    <li class="button" id="button-<%= j %>">
+        <div class="circle"></div>
+    </li>
+    <% }%>
+</ul>
+
+<div class="gallery-selectors">
+    <div class="gallery-selector">
+    <div id="prev-selector" class="selector-circle inactive"><div class="circle"></div></div>
+    </div>
+
+    <div class="gallery-selector">
+    <div id="next-selector" class="selector-circle"><div class="circle"></div></div>
+    </div>
+</div>
