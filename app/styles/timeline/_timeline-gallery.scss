@@ -10,6 +10,7 @@ $selectorInactiveWidth: 12px;
 
 $SCREEN_WIDTH: 800px;
 
+$timelineBgColor0 : rgb(102, 102, 102);
 $timelineBgColor1 : rgba(102, 102, 102, 0.4);
 $timelineBgColor2 : rgba(102, 102, 102, 0.8);
 
@@ -25,10 +26,30 @@ $circleColor2 : #fff;
   width: 100%;
   height: 0;
 
+  .time-line-gallery-title{
+    font-size: 14px;
+
+    color: $circleColor2;
+    opacity: 0;
+
+
+    @include transition( 1s opacity );
+
+    &.active{
+      opacity: 1;
+    }
+  }
+
+  #tween-time-line-gallery{
+    opacity: 0;
+  }
+
   #time-line-gallery-wrapper{
     margin: auto;
     width: $SCREEN_WIDTH;
     overflow: hidden;
+
+
 
     // =====
 
@@ -129,11 +150,16 @@ $circleColor2 : #fff;
 
       .circle-event-title {
         position: absolute;
-        width: 200px;
+
+        // width: 200px;
+        overflow: auto;
 
         font-size: 12px;
+        line-height: 1.4em;
         font-weight: 800;
+        padding: 5px 10px;
         color: $circleColor2;
+        background: $timelineBgColor2;
 
         left: ($sideBig + 25px);
         opacity: 0;

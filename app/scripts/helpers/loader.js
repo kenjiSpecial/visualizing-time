@@ -22,6 +22,8 @@ define([
         exhibitStatus       : false,
         imageDataLoadStatus : false,
         mediaData : {},
+        count : 0,
+        MAX_Count: -1,
 
 
         startToLoad : function(){
@@ -98,11 +100,7 @@ define([
                 contentItems = exhibit.contentItems;
 
                 for( j in contentItems ){
-                    contentItem = contentItems[j];
-                    contentItemID = contentItem.id;
-                    mediaType = contentItem.mediaType;
-
-                    commonData.imageDataCollection[contentItemID] = null;
+                    this.MAX_Count++;
 
                 }
             }
@@ -128,26 +126,25 @@ define([
                         var imageString = 'http://img.youtube.com/vi/' + youtubeID + '/default.jpg';
 
                         image.src = imageString;
+
                     }
 
-                    image.onload = this.onLoad(contentItemID, image);
+                    commonData.imageDataCollection[contentItemID] = image;
+                    image.onload = this.onLoad;
 
                 }
             }
+
+
 
         },
 
         onLoad : function( id, image ){
-            commonData.imageDataCollection[id] = image;
+            this.count++;
 
-            var checkStatus = true;
-            for(var i in commonData.imageDataCollection){
-                if(commonData.imageDataCollection[i] == null){
-                    checkStatus = false;
-                }
-            }
+            console.log(this.count + "/" + this.MAX_Count);
 
-            if(checkStatus){
+            if(this.MAX_Count == this.count){
                 this.imageDataLoadStatus = true;
                 this.allLoadDone();
             }
