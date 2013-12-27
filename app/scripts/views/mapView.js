@@ -49,12 +49,6 @@ define([
                   .data(topojson.feature(commonData.geoData, commonData.geoData.objects.sunits).features).enter().append("path")
                   .attr('d', this.path);
 
-            /*
-            var coordinate = this.projection([135, 40]);
-            var translate = "translate(" + (-1 * coordinate[0]) +"," + (-1 * coordinate[1]) + ")"
-            this.g.attr('transform', translate);
-            */
-
            TweenLite.to(this.el, 1, {alpha: 1});
 
         },
@@ -69,7 +63,7 @@ define([
             console.log(transform);
             console.log("");
             this.g.transition()
-                .duration(3000).attr("transform", transform);
+                .duration(1200).attr("transform", transform);
         }
 
     });

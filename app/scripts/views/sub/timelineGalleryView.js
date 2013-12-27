@@ -114,7 +114,7 @@ define([
                     type = 'list-vertical';
                     $image.css({height: (height - 50)});
                     var imageWidth = $image.width();
-                    var width = (commonData.galleryWidth - imageWidth - 30);
+                    var width = (commonData.galleryWidth - imageWidth - 35);
 
                     $list.find('.content-item-description').css('width', width);
 
@@ -173,6 +173,7 @@ define([
 
 
             this.changeMap();
+            this.changeButton();
         },
 
         prevSelectorClick : function(){
@@ -194,6 +195,19 @@ define([
 
             this.changeMap();
 
+            this.changeButton();
+
+        },
+
+        changeButton : function(){
+            var preButtonString ='#button-' + this.prevCount;
+            var buttonString    = '#button-' + this.count;
+
+            var $listButton     = this.$el.find(buttonString);
+            var $prevListButton = this.$el.find(preButtonString);
+
+            $listButton.addClass('selected');
+            $prevListButton.removeClass('selected');
         },
 
         changeMap: function(){
