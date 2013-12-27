@@ -28,7 +28,7 @@ $doubleSide : 20px;
       
       #timeline {
         position: absolute;
-        top: 100px;
+        top: 50px;
         background: $timelineColor2;
 
         width: 0;
@@ -89,6 +89,7 @@ $doubleSide : 20px;
       }
 
       .time-line-event-content-wrapper{
+        opacity: 0;
         cursor: pointer;
 
         position: absolute;
@@ -97,7 +98,7 @@ $doubleSide : 20px;
         margin-left: 8px;
         padding: 5px;
 
-        @include transition(0.5s background, 0.3s color);
+        @include transition(0.5s all);
 
         &:hover {
           background: $timelineColor3;
@@ -124,6 +125,7 @@ $doubleSide : 20px;
           margin-bottom: 8px;
           color: $timelineColor2;
           @include transform-origin(0, 0);
+          @include transition(0.3s color);
         }
 
         // ----------

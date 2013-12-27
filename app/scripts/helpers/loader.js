@@ -23,7 +23,7 @@ define([
         imageDataLoadStatus : false,
         mediaData : {},
         count : 0,
-        MAX_Count: -2,
+        MAX_Count: -1,
 
 
         startToLoad : function(){

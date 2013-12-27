@@ -10,6 +10,7 @@ define([
     'helpers/commonData',
     'helpers/constants',
     'helpers/windowEvent',
+    'helpers/events',
 
     // collection
     'collection/exhibitCollection',
@@ -19,15 +20,16 @@ define([
     'views/sub/timelineGalleryView',
 
 
-],function( $, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, windowEvent, exhibitCollection, timelineListView, timelineGalleryView ){
+],function( $, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, windowEvent, Events, exhibitCollection, timelineListView, timelineGalleryView ){
     var TimeLineContentView = Backbone.View.extend({
         el  : "#timeline-content",
 
         tl  : "#timeline-graphics",
         $tl : null,
 
-        timeline : "#timeline-wrapper",
+        timeline  : "#timeline-wrapper",
         $timeline : null,
+        $selected : null,
 
         count : 0,
 
@@ -44,13 +46,16 @@ define([
         initialize: function(){
             _.bindAll(
                 this,
-                'loopAnimation'
+                'loopAnimation',
+                'onGalleryRemove',
+                'onGalleryRemoveSetTimeout'
             );
 
             this.$timeline = $(this.timeline);
 
             this.$tl = $(this.tl);
 
+            Events.on(Events.GALLERY_REMOVE, this.onGalleryRemove );
         },
 
         render : function( ){
@@ -175,13 +180,13 @@ define([
 
             var attribute = '*[data-year="' + year +'"]';
             $(attribute).each(function(index){
-                TweenLite.to(this, 0.6, {opacity: 1});
+                //TweenLite.to(this, 0.6, {opacity: 1});
+                $(this).css({ opacity: 1 });
             });
 
             // -------------
 
             this.count++;
-
             if( this.count < this.yearCollection.length ){
                 if(commonData.debug){
                     setTimeout(this.loopAnimation, 200);
@@ -197,7 +202,6 @@ define([
 
         clickTimeLineEventContent : function(event){
             if(this.clickState) return;
-            console.log('clickTimeLineEventContent');
 
             this.clickState = true;
 
@@ -212,7 +216,8 @@ define([
 
                 var attribute = '*[data-year="' + year +'"]';
                 $(attribute).each(function(index){
-                    TweenLite.to(this, 0.6, {opacity: 0});
+                    //TweenLite.to(this, 0.6, {opacity: 0});
+                    $(this).css({opacity: 0})
                 });
 
             }
@@ -223,28 +228,82 @@ define([
             var domID   = $currentTarget.attr("id");
 
             var selectedYear = $currentTarget.data('year');
-            var id = $currentTarget.data('id');
+            this.selectID = $currentTarget.data('id');
 
             // change the color.
 
             var yearString = '#year-' + selectedYear;
-            var $selected = this.$el.find(yearString);
-            var selectPosX = parseInt($selected.css('x'))
-            $selected.addClass('selected');
+            this.$selected = this.$el.find(yearString);
+            var selectPosX = parseInt(this.$selected.css('x'))
+            this.$selected.addClass('selected');
 
 
             // animate to timeline to the bottom
 
-            var top = commonData.windowSize.height - 200;
-            this.$timeline.transition({ y: top, height: 150, duration: 1000 });
+            var top = commonData.windowSize.height - 150;
+            this.$timeline.transition({ y: top, height: 150, duration: 800 });
 
             // -------
             // showing the gallery
 
-            timelineGalleryView.show(id, selectPosX);
+            timelineGalleryView.show( this.selectID, selectPosX );
 
             // -------
 
+        },
+
+        onGalleryRemove : function(){
+            console.log('selectID:');
+            console.log(this.selectID);
+
+            var data = exhibitCollection.get(this.selectID);
+            var dataJSON = data.toJSON();
+            var contentItems = dataJSON.contentItems;
+
+            for(var i in contentItems){
+                var contentItem = contentItems[i];
+                var id = contentItem.id;
+
+                var contentItemImage = commonData.imageDataCollection[id];
+                var contentItemImageWidth  = contentItemImage.width;
+                var contentItemImageHeight = contentItemImage.height;
+
+                $(contentItemImage).attr("style", "");
+
+                var eventID = '#eventItem' + contentItem.id;
+
+                var $eventID = $(eventID);
+
+                if(contentItemImageWidth > 10 && contentItemImageHeight > 10){
+                    $eventID.append(contentItemImage);
+                }
+
+            }
+
+            this.$timeline.transition({ y: 0, height: 450, duration: 800 });
+
+            setTimeout(this.onGalleryRemoveSetTimeout, 800);
+        },
+
+        onGalleryRemoveSetTimeout : function(){
+            this.clickState = false;
+
+            this.$selected.removeClass('selected');
+
+            for(var i in this.yearCollection){
+
+                var year = this.yearCollection[i];
+
+                var $year = $('.event-item-collection-year-' + year);
+                $year.addClass('visible');
+
+                var attribute = '*[data-year="' + year +'"]';
+                $(attribute).each(function(index){
+                    $(this).css({ opacity: 1 });
+
+                });
+
+            }
         }
     });
 

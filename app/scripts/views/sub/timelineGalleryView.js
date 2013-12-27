@@ -53,19 +53,15 @@ define([
             this.MAX_COUNT = this.contentItems.length;
 
             this.posX = posX;
-            this.$el.css({translate: [ 0, (commonData.windowSize.height - 100) ]});
+            var top = 50;
 
-
+            this.$el.css({translate: [ 0, top ]});
 
             this.html = this.template({ title: title, contentItems: this.contentItems });
 
-            setTimeout(this.render, 1000);
-        },
+            var height = commonData.windowSize.height - 150;
 
-        render : function(){
-            var top = 50,
-                height = commonData.windowSize.height - 150;
-            this.$el.transition({ y: top, height: height, duration: 800 });
+            this.$el.transition({ height: height, duration: 800 });
 
             setTimeout(this.animationDone, 800);
 
@@ -237,7 +233,6 @@ define([
 
             if(type == "map"){
                 var contentID = this.dataJson.contentItems[this.count].id;
-                console.log(contentID);
                 Events.trigger(Events.MAP_CHANGE, contentID);
             }else{
                 Events.trigger(Events.MAP_CHANGE, "default");
@@ -303,10 +298,11 @@ define([
             var timeLineGallryWrapper =  document.getElementById("tween-time-line-gallery");
             TweenLite.to(timeLineGallryWrapper, 0.6, {opacity: 0, onComplete: this.onRemoveComplete });
 
+            this.$el.transition({ height: 0, duration: 800 });
 
-            setTimeout(function(){
-                Events.trigger(Events.GALLERY_REMOVE);
-            }, 300);
+            Events.trigger(Events.GALLERY_REMOVE);
+            Events.trigger(Events.MAP_CHANGE, "default");
+
         },
 
         onRemoveComplete : function(){
