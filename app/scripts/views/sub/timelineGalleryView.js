@@ -31,11 +31,12 @@ define([
         events : {
             'click #prev-selector' : 'prevSelectorClick',
             'click #next-selector' : 'nextSelectorClick',
-            'click .button' : 'buttonClick'
+            'click .button' : 'buttonClick',
+            'click #gallery-remove' : 'onRemoveClick'
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'animationDone');
+            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete' );
 
 
         },
@@ -295,7 +296,21 @@ define([
             this.changeMap();
 
             this.changeButton();
+        },
 
+        onRemoveClick : function(){
+            this.$el.find('.time-line-gallery-title').removeClass('active');
+            var timeLineGallryWrapper =  document.getElementById("tween-time-line-gallery");
+            TweenLite.to(timeLineGallryWrapper, 0.6, {opacity: 0, onComplete: this.onRemoveComplete });
+
+
+            setTimeout(function(){
+                Events.trigger(Events.GALLERY_REMOVE);
+            }, 300);
+        },
+
+        onRemoveComplete : function(){
+            this.$el.html('');
         }
 
 

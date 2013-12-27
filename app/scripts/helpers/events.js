@@ -21,24 +21,13 @@ define([
         TICK          : 'tick-loop',
         TICKER_STOP   : 'ticker-stop',
 
-        SWAP_ARRAY    : 'swapArray',
-
-        // maru nami view
-        CREATE_ARROW : 'arrowCreate',
-        //TRANSFORM_TO_NEXT : 'TransformToWorkOrAboutNext',
-
-        // navigation
-        LOAD_TO_HOME : 'loadToHome',
-
-        ADD_HOME     : 'addHome',
-        APPEND_ABOUT : 'AppendAboutView',
-        APPEND_WORK  : 'AppendWorkView',
-
-        TRANSFORM_NEXT : 'TransformToWorkOrAboutNext',
-
         // map
 
-        MAP_CHANGE : 'mapChange'
+        MAP_CHANGE : 'mapChange',
+
+        // gallery
+
+        GALLERY_REMOVE : 'onGalleryRemove'
 
 
     });

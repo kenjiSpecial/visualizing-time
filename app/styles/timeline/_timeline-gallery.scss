@@ -14,6 +14,7 @@ $timelineBgColor0 : rgb(102, 102, 102);
 $timelineBgColor1 : rgba(102, 102, 102, 0.4);
 $timelineBgColor2 : rgba(102, 102, 102, 0.8);
 
+$greyColor  : #ddd;
 $whiteColor : #fff;
 
 $circleColor1 : rgb(180, 180, 180);
@@ -262,11 +263,18 @@ $circleColor2 : #fff;
   }
 
   div#gallery-remove{
+    cursor: pointer;
+    position: absolute;
+
     top: 10px;
     right: 10px;
 
-    color: $whiteColor;
+    color: $greyColor;
 
-    position: absolute;
+    @include transition(0.4s color);
+
+    &:hover{
+      color: $circleColor2;
+    }
   }
 }
