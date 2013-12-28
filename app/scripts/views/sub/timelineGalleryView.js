@@ -19,8 +19,16 @@ define([
 ],function ($, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, Events, exhibitCollection ) {
     var TimeLineGalleryView = Backbone.View.extend({
         el        : "#timeline-events-gallery",
-        template  : JST['app/scripts/templates/TimeLineGalleryViewTemplate.ejs'],
-        dataJson  : null,
+        $elUl     : null,
+        $elButton : null,
+        $elTitle  : null,
+
+        galleryUlTemplate  : JST['app/scripts/templates/GalleryULTemplate.ejs'],
+        galleryButtonTemplate : JST['app/scripts/templates/GalleryButtonTemplate.ejs'],
+        galleryTitlesTemplate : JST['app/scripts/templates/GalleryTitlesTemplate.ejs'],
+        template : JST['app/scripts/templates/mainTemplate.ejs'],
+
+            dataJson  : null,
         prevCount : 0,
         count     : 0,
         MAX_COUNT : 0,
@@ -41,6 +49,12 @@ define([
         initialize : function(){
             _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete' );
 
+            this.$elTitle  = $("#time-line-gallery-titles");
+            this.$elButton = $('#time-line-gallery-button');
+            this.$elUl     = $("#time-line-gallery-ul")
+        },
+
+        setTitle : function(){
 
         },
 
@@ -60,8 +74,17 @@ define([
 
             this.$el.css({translate: [ 0, top ]});
 
-            this.html = this.template({ title: title, contentItems: this.contentItems });
-            this.$el.html(this.html);
+            //this.html = this.template({ title: title, contentItems: this.contentItems });
+            //this.$el.html(this.html);
+            //console.log(this.galleryUlTemplate);
+            var ulHtml    = this.galleryUlTemplate({contentItems: this.contentItems});
+            //var titleHtml = this.galleryTitlesTemplate({contentItems: this.contentItems});
+            var buttonHtml = this.galleryButtonTemplate({contentItems: this.contentItems});
+            console.log(buttonHtml)
+
+            this.$elUl.html(ulHtml);
+            this.$elButton.html(buttonHtml);
+
 
             this.$el.find('.time-line-gallery-title').addClass('active');
             var $title = this.$el.find('.time-line-gallery-title');
@@ -150,9 +173,9 @@ define([
 
             // set css for ul button
 
-            var $buttonUI = this.$el.find(".button-ul");
-            var _left = (commonData.windowSize.width - commonData.galleryWidth)/2 -30;
-            $buttonUI.css({left: _left, top: 55 });
+//            var $buttonUI = this.$el.find(".button-ul");
+//            var _left = (commonData.windowSize.width - commonData.galleryWidth)/2 -30;
+//            $buttonUI.css({left: _left, top: 55 });
 
 
 
@@ -164,16 +187,16 @@ define([
             this.$prevSelector = this.$el.find('#prev-selector');
             this.$nextSelector = this.$el.find('#next-selector');
 
-            var _top = (commonData.windowSize.height - 20)/2;
+            /*var _top = (commonData.windowSize.height - 20)/2;
 
             var prevSelectorLeft = (commonData.windowSize.width - commonData.galleryWidth)/2 -40;
             var nextSelectorLeft = prevSelectorLeft + commonData.galleryWidth + 70;
 
             this.$prevSelector.css({left: prevSelectorLeft, top: _top });
-            this.$nextSelector.css({left: nextSelectorLeft, top: _top });
+            this.$nextSelector.css({left: nextSelectorLeft, top: _top });*/
 
             if(this.contentItems.length == 1){
-                this.$nextSelector.css({display: 'none'});
+                this.$nextSelector.addClass('inactive');
             }
 
             this.changeMap();
@@ -193,6 +216,9 @@ define([
         },
 
         nextSelectorClick : function(){
+            if(this.count == this.MAX_COUNT - 1){
+                return;
+            }
             if(this.count == 0){
                 this.$prevSelector.removeClass('inactive');
             }
@@ -215,6 +241,10 @@ define([
         },
 
         prevSelectorClick : function(){
+            if(this.count == 0){
+                return;
+            }
+
             if(this.count == (this.MAX_COUNT - 1) ){
                 this.$nextSelector.removeClass('inactive');
             }

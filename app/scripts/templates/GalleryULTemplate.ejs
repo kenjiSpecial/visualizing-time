@@ -1,0 +1,26 @@
+<%for(var i in contentItems){
+    var contentItem = contentItems[i];
+    var contentItemTitle = contentItem.title;
+    var contentItemId = contentItem.id;
+    var contentItemParagraphs = contentItem.description.split("  ");
+
+%>
+<li id="time-line-gallery-list-<%= contentItemId %>">
+    <p class="content-item-title"><%= contentItemTitle %></p>
+
+    <div class="figure-content-set">
+        <figure id="figure-<%= contentItemId %>">
+
+        </figure>
+        <div class="content-item-description">
+            <% for(var j in contentItemParagraphs){
+                var contentItemParagraph = contentItemParagraphs[j];
+            %>
+            <p><%= contentItemParagraph %></p>
+
+            <% } %>
+        </div>
+    </div>
+
+</li>
+<% } %>

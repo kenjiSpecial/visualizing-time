@@ -8,7 +8,9 @@ $selectorWidth : 20px;
 $selectorInactiveWidth: 12px;
 
 
-$SCREEN_WIDTH: 800px;
+$SCREEN_WIDTH: 1040px;
+
+$GALLERY_WIDTH: 800px;
 
 $timelineBgColor0 : rgb(102, 102, 102);
 $timelineBgColor1 : rgba(102, 102, 102, 0.4);
@@ -43,14 +45,24 @@ $circleColor2 : #fff;
     }
   }
 
+  #time-line-gallery-content-wrapper{
+    overflow: hidden;
+    width: $SCREEN_WIDTH;
+    margin: auto;
+    margin-top: 25px;
+  }
+
   #tween-time-line-gallery{
     opacity: 0;
   }
 
   #time-line-gallery-wrapper{
     position: relative;
-    margin: auto;
-    width: $SCREEN_WIDTH;
+    float: left;
+    //margin: auto;
+    margin-left: 10px;
+
+    width: $GALLERY_WIDTH;
     overflow: hidden;
 
 
@@ -60,7 +72,7 @@ $circleColor2 : #fff;
 
 
     #time-line-gallery-ul{
-      width: ($SCREEN_WIDTH * 10);
+      width: ($GALLERY_WIDTH * 10);
       li{
         p.content-item-title{
           color: #ffffff;
@@ -71,7 +83,7 @@ $circleColor2 : #fff;
 
         }
         float: left;
-        width: $SCREEN_WIDTH;
+        width: $GALLERY_WIDTH;
 
         div.content-item-description{
           p{
@@ -123,9 +135,10 @@ $circleColor2 : #fff;
   }
 
   .button-ul{
-    position: absolute;
-    top: 0;
-    left: 0;
+    float: left;
+    position: relative;
+    z-index: 100;
+
 
     li.button{
       cursor: pointer;
@@ -213,12 +226,16 @@ $circleColor2 : #fff;
   }
 
   .gallery-selectors{
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    float: left;
+    margin-left: 10px;
+
+    width: $selectorWidth;
 
     .gallery-selector{
-      position: absolute;
+      position: relative;
+      margin-top: 315px;
+
       .selector-circle{
         cursor: pointer;
         position: relative;
@@ -256,7 +273,8 @@ $circleColor2 : #fff;
         // ------
 
         &.inactive{
-          display: none;
+          opacity: 0;
+          cursor: default;
         }
       }
     }

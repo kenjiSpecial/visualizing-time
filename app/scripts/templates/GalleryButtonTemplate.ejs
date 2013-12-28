@@ -1,0 +1,10 @@
+<%
+for(var j in contentItems){
+    var contentItem = contentItems[j];
+    var title = contentItem.title;
+%>
+<li class="button" id="button-<%= j %>">
+    <div class="circle"></div>
+    <p class="circle-event-title"><%= title %></p>
+</li>
+<% }%>
