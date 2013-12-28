@@ -7,8 +7,10 @@ define([
     'jqueryTransit',
 
     'helpers/commonData',
-    'helpers/constants'
-],function( $, _, Backbone, TweenLite, JST, jqueryTransit, commonData, CONSTANTS ){
+    'helpers/constants',
+    'helpers/events'
+
+],function( $, _, Backbone, TweenLite, JST, jqueryTransit, commonData, CONSTANTS, Events ){
     var TimelineView = Backbone.View.extend({
         el:  "#timeline-content",
 
@@ -16,6 +18,12 @@ define([
         yearEnd   : null,
 
         template : JST['app/scripts/templates/timelineTemplate.ejs'],
+
+        events : {
+            'mouseenter .emphasis' : 'onEmphasisMouseEnter',
+            'mouseleave .emphasis' : 'onEmphasisMouseLeave'
+        },
+
         initialize: function(){
             this.$el.css({ opacity: 0 });
         },
@@ -44,7 +52,25 @@ define([
             }
 
             TweenLite.to(this.el, 0.5, {opacity: 1, delay: 0.8});
+        },
+
+        onEmphasisMouseEnter : function(event){
+            var $event = $(event.currentTarget);
+            //window.$event = $event;
+            var id = parseInt($event.html());
+            //console.log(id);
+
+
+            Events.trigger(Events.ON_TIME_LINE_EMPHASIS_MOUSE_ENTER, id);
+        },
+
+        onEmphasisMouseLeave : function(event){
+            var $event = $(event.currentTarget);
+            var id = parseInt($event.html());
+
+            Events.trigger(Events.ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE, id);
         }
+
     });
 
     var timelineView = new TimelineView();

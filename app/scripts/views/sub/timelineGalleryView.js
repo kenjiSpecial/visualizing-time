@@ -26,7 +26,6 @@ define([
         galleryUlTemplate  : JST['app/scripts/templates/GalleryULTemplate.ejs'],
         galleryButtonTemplate : JST['app/scripts/templates/GalleryButtonTemplate.ejs'],
         galleryTitlesTemplate : JST['app/scripts/templates/GalleryTitlesTemplate.ejs'],
-        template : JST['app/scripts/templates/mainTemplate.ejs'],
 
         dataJson  : null,
         prevCount : 0,
@@ -57,13 +56,16 @@ define([
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView', 'onMapGalleryRemove' );
+            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView', 'onMapGalleryRemove', 'onTimeLineEmphasisMouseEnter', 'onTimeLineEmphasisMouseLeave' );
 
             this.$elTitle  = $("#time-line-gallery-titles");
             this.$elButton = $('#time-line-gallery-button');
-            this.$elUl     = $("#time-line-gallery-ul")
+            this.$elUl     = $("#time-line-gallery-ul");
 
             Events.on(Events.MAP_GALLERY_REMOVE, this.onMapGalleryRemove);
+
+            Events.on(Events.ON_TIME_LINE_EMPHASIS_MOUSE_ENTER, this.onTimeLineEmphasisMouseEnter);
+            Events.on(Events.ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE, this.onTimeLineEmphasisMouseLeave);
         },
 
         setTitle : function(){
@@ -81,6 +83,8 @@ define([
 
             var title = this.dataJson.title;
             this.contentItems = this.dataJson.contentItems;
+
+            console.log(this.contentItems);
 
             this.count = 0;
             this.MAX_COUNT = this.contentItems.length;
@@ -450,8 +454,11 @@ define([
             this.$elUl.removeClass('transform');
 
 
-            if(this.contentItems.length > 0){
+            if(this.contentItems.length == 0){
                 this.$nextSelector.addClass('inactive');
+            }else{
+                if(this.$nextSelector.hasClass('inactive'))
+                    this.$nextSelector.removeClass('inactive');
             }
         },
 
@@ -481,12 +488,30 @@ define([
 
         onRemoveComplete : function(){
             this.$timeLineGalleryUL.css({x: 0});
+            if(this.$nextSelector.hasClass('inactive'))
+                this.$nextSelector.removeClass('inactive');
         },
 
         onMapGalleryRemove : function(){
             if(this.galleryViewStatus){
                 this.onRemoveClick();
             }
+        },
+
+        onTimeLineEmphasisMouseEnter : function(year){
+            if(this.galleryViewStatus){
+                var curClass = '.event-main-title-list-' + year;
+                this.$el.find(curClass).addClass('selected');
+            }
+
+        },
+
+        onTimeLineEmphasisMouseLeave : function(year){
+            if(this.galleryViewStatus){
+                var curClass = '.event-main-title-list-' + year;
+                this.$el.find(curClass).removeClass('selected');
+            }
+
         }
 
 

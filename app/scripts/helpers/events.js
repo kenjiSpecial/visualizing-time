@@ -26,10 +26,12 @@ define([
         MAP_GALLERY_REMOVE : 'mapGalleryRemove',
 
         // gallery
-
         GALLERY_REMOVE : 'onGalleryRemove',
-        ON_RE_RENDER : 'onRender'
+        ON_RE_RENDER : 'onRender',
 
+        // time line
+        ON_TIME_LINE_EMPHASIS_MOUSE_ENTER : 'onTimeLineEmphasisMouseEnter',
+        ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE : 'onTimeLineEmphasisMouseLeave'
 
     });
 
