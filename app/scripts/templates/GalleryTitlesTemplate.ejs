@@ -1,0 +1,8 @@
+<ul>
+<%for( var i in exhibitionData ){
+    var id = exhibitionData[i].id;
+    var title = exhibitionData[i].title;
+%>
+    <li id="event-title-<%= id %>" class="event-main-title-list" data-id = "<%= id %>"><%= title %></li>
+<%}%>
+</ul>

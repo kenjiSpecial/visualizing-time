@@ -12,11 +12,12 @@ define([
     // views
     'views/sub/timelineView',
     'views/sub/timelineContentView',
+    'views/sub/timelineGalleryView',
 
     // collection
     'collection/exhibitCollection'
 
-],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, timelineView, timelineContentViews ) {
+],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, timelineView, timelineContentViews, timelineGalleryView ) {
     var MainView = Backbone.View.extend({
         el : "#main-content",
         template : JST['app/scripts/templates/mainTemplate.ejs'],
@@ -58,7 +59,13 @@ define([
         },
 
         parseExhibits : function(  ){
+
             // -------------
+
+            timelineGalleryView.setTitle();
+
+            // -------------
+
             timelineContentViews.render();
 
 

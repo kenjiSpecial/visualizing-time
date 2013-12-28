@@ -134,6 +134,34 @@ $circleColor2 : #fff;
 
   }
 
+  #time-line-gallery-titles{
+    float: left;
+    width: 130px;
+    margin-right: 20px;
+
+
+    li{
+      cursor: pointer;
+
+      font-weight: 800;
+      font-size: 14px;
+      margin-top: 12px;
+      color: $greyColor;
+      line-height: 1.2em;
+
+      @include transition(0.3s all);
+
+      &:hover{
+        color:$whiteColor ;
+      }
+
+      &.selected{
+        cursor: default;
+        color:$whiteColor ;
+      }
+    }
+  }
+
   .button-ul{
     float: left;
     position: relative;
