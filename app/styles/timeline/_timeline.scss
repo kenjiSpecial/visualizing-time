@@ -47,6 +47,16 @@ $doubleSide : 20px;
 
     }
 
+    &.timeline-gallery-show{
+      #timeline-content{
+        .emphasis{
+          cursor: pointer;
+        }
+      }
+    }
+
+
+
     #timeline-content{
       p{
         padding: 2px 3px;

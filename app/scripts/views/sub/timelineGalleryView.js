@@ -29,6 +29,8 @@ define([
         $timeLineGalleryUL : null,
         contentItems : null,
 
+
+
         events : {
             'click #prev-selector' : 'prevSelectorClick',
             'click #next-selector' : 'nextSelectorClick',
@@ -75,7 +77,8 @@ define([
 
             var height = commonData.windowSize.height - 150;
 
-            this.$el.transition({ height: height, duration: 750 });
+            this.$el.transition({ height: height, duration: 800 });
+
 
             setTimeout(this.animationDone, 600);
         },

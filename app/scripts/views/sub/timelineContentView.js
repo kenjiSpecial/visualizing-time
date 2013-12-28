@@ -28,6 +28,7 @@ define([
         $tl : null,
 
         timeline  : "#timeline-wrapper",
+        showGalleryClass: 'timeline-gallery-show',
         $timeline : null,
         $selected : null,
 
@@ -38,7 +39,9 @@ define([
         clickState : true,
 
         events : {
-            "click .time-line-event-content-wrapper" : "clickTimeLineEventContent"
+            "click .time-line-event-content-wrapper" : "clickTimeLineEventContent",
+            "mouseenter .emphasis" : "mouseEnterTimeLineGalleryShow",
+            "mouseout .emphasis" : "mouseLeaveTimeLineGalleryShow"
         },
 
         template : JST['app/scripts/templates/timelineContentTemplate.ejs'],
@@ -56,6 +59,8 @@ define([
             this.$tl = $(this.tl);
 
             Events.on(Events.GALLERY_REMOVE, this.onGalleryRemove );
+
+
         },
 
         render : function( ){
@@ -242,6 +247,7 @@ define([
 
             var top = commonData.windowSize.height - 150;
             this.$timeline.transition({ y: top, height: 150, duration: 800 });
+            this.$timeline.addClass(this.showGalleryClass);
 
             // -------
             // showing the gallery
@@ -254,7 +260,7 @@ define([
 
         onGalleryRemove : function(){
 
-
+            this.$timeline.removeClass(this.showGalleryClass);
             this.$timeline.transition({ y: 0, height: 450, duration: 800 });
 
             setTimeout(this.onGalleryRemoveSetTimeout, 800);
@@ -303,6 +309,18 @@ define([
                     $(this).css({ opacity: 1 });
 
                 });
+
+            }
+        },
+
+        mouseEnterTimeLineGalleryShow: function(){
+            if(this.clickState){
+
+            }
+        },
+
+        mouseLeaveTimeLineGalleryShow: function(){
+            if(this.clickState){
 
             }
         }
