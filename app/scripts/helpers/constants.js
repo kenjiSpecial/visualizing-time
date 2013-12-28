@@ -11,7 +11,10 @@ define(function(){
         TIME_LINE_POS_Y2    : 75,
 
         TIME_LINE_ROT1      : "-40deg",
-        TIME_LINE_ROT2      : "40deg"
+        TIME_LINE_ROT2      : "40deg",
+
+        // gallery
+        MINIMUM_GALLERY_WIDTH : 1200,
     };
 
 

@@ -71,6 +71,9 @@ $doubleSide : 20px;
       .sub-time{
         font-weight: 300;
         color: $timelineColor1;
+        background: rgba(100, 100, 100, 0);
+
+        @include transition( 0.4s all);
 
         &.emphasis{
           color: $timelineColor2;

@@ -9,11 +9,12 @@ define([
 
     // helpers
     'helpers/commonData',
+    'helpers/constants',
     'helpers/events',
     'helpers/windowEvent'
 
 
-], function( $, _, Backbone, d3, topojson, TweenLite, commonData, Events, windowEvent ){
+], function( $, _, Backbone, d3, topojson, TweenLite, commonData, CONSTANTS, Events, windowEvent ){
     var MapView = Backbone.View.extend({
         el: "#main-map",
         projection : null,
@@ -60,10 +61,24 @@ define([
 
         onMapChange : function(id){
             var transform = commonData.mapTransformData[id];
-            console.log(transform);
-            console.log("");
+
+            var translate = transform.translate;
+            var scale     = transform.scale;
+
+            var transX;
+            if(id != 'default'){
+                console.log(commonData.windowSize.height);
+                transX = (commonData.windowSize.width - CONSTANTS.MINIMUM_GALLERY_WIDTH)/2 + (commonData.windowSize.height - 650)/6 + translate[0];
+            } else {
+                transX = translate[0];
+            }
+
+            // translate(0, 0)scale(1)
+            var transY = translate[1];
+
+            var trasformString = 'translate(' + transX + ', ' + transY + ')scale(' + scale + ')';
             this.g.transition()
-                .duration(1200).attr("transform", transform);
+                .duration(1200).attr("transform", trasformString);
         }
 
     });

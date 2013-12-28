@@ -253,8 +253,15 @@ define([
         },
 
         onGalleryRemove : function(){
-            console.log('selectID:');
-            console.log(this.selectID);
+
+
+            this.$timeline.transition({ y: 0, height: 450, duration: 800 });
+
+            setTimeout(this.onGalleryRemoveSetTimeout, 800);
+        },
+
+        onGalleryRemoveSetTimeout : function(){
+            // reset the photo list gallery
 
             var data = exhibitCollection.get(this.selectID);
             var dataJSON = data.toJSON();
@@ -280,12 +287,6 @@ define([
 
             }
 
-            this.$timeline.transition({ y: 0, height: 450, duration: 800 });
-
-            setTimeout(this.onGalleryRemoveSetTimeout, 800);
-        },
-
-        onGalleryRemoveSetTimeout : function(){
             this.clickState = false;
 
             this.$selected.removeClass('selected');

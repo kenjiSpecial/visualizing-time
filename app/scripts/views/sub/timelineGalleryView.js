@@ -11,11 +11,12 @@ define([
 
     // helpers
     'helpers/commonData',
+    'helpers/constants',
     'helpers/events',
 
     // collection
     'collection/exhibitCollection',
-],function ($, _, Backbone, JST, jqueryTransit, TweenLite, commonData, Events, exhibitCollection ) {
+],function ($, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, Events, exhibitCollection ) {
     var TimeLineGalleryView = Backbone.View.extend({
         el        : "#timeline-events-gallery",
         template  : JST['app/scripts/templates/TimeLineGalleryViewTemplate.ejs'],
@@ -58,21 +59,34 @@ define([
             this.$el.css({translate: [ 0, top ]});
 
             this.html = this.template({ title: title, contentItems: this.contentItems });
+            this.$el.html(this.html);
+
+            this.$el.find('.time-line-gallery-title').addClass('active');
+            var $title = this.$el.find('.time-line-gallery-title');
+            var animationHeight = commonData.windowSize.height - 170;
+            $title.css( { translate: [this.posX + 20, animationHeight], opacity: 0} );
+
+
+
+
+            if(window.innerWidth <= CONSTANTS.MINIMUM_GALLERY_WIDTH){
+                this.$el.css({width: CONSTANTS.MINIMUM_GALLERY_WIDTH});
+            }
 
             var height = commonData.windowSize.height - 150;
 
-            this.$el.transition({ height: height, duration: 800 });
+            this.$el.transition({ height: height, duration: 750 });
 
-            setTimeout(this.animationDone, 800);
-
+            setTimeout(this.animationDone, 600);
         },
 
         // render html
         animationDone : function(){
-            this.$el.html(this.html);
+            var $title = this.$el.find('.time-line-gallery-title');
+            $title.transition({ opacity: 1, duration: 400 });
 
             /** tween animation **/
-            this.$el.find('.time-line-gallery-title').addClass('active');
+
 
             var timeLineGallryWrapper =  document.getElementById("tween-time-line-gallery");
             TweenLite.to(timeLineGallryWrapper, 1.2, {opacity: 1, delay: 0.3});
@@ -131,9 +145,6 @@ define([
                 $list.addClass(type);
             }
 
-            var $title = this.$el.find('.time-line-gallery-title');
-            $title.css( { translate: [this.posX + 20, height+10]} );
-
             // set css for ul button
 
             var $buttonUI = this.$el.find(".button-ul");
@@ -150,7 +161,7 @@ define([
             this.$prevSelector = this.$el.find('#prev-selector');
             this.$nextSelector = this.$el.find('#next-selector');
 
-            var _top = (commonData.windowSize.height - 20)/2
+            var _top = (commonData.windowSize.height - 20)/2;
 
             var prevSelectorLeft = (commonData.windowSize.width - commonData.galleryWidth)/2 -40;
             var nextSelectorLeft = prevSelectorLeft + commonData.galleryWidth + 70;
@@ -158,7 +169,13 @@ define([
             this.$prevSelector.css({left: prevSelectorLeft, top: _top });
             this.$nextSelector.css({left: nextSelectorLeft, top: _top });
 
-            var $circleEventTitle = this.$el.find(".circle-event-title");
+            if(this.contentItems.length == 1){
+                this.$nextSelector.css({display: 'none'});
+            }
+
+            this.changeMap();
+
+            // var $circleEventTitle = this.$el.find(".circle-event-title");
             /*$circleEventTitle.each(function(){
                 var $this = $(this);
                 var _width = $this.innerWidth();
@@ -249,17 +266,19 @@ define([
             this.count = count;
 
             var dCount = this.count - this.prevCount;
+
+            var dDistance, duration;
             if(dCount > 0){
-                var dDistance = (dCount * commonData.galleryWidth);
-                var duration = 300 * dCount;
+                dDistance = (dCount * commonData.galleryWidth);
+                duration = 300 * dCount;
 
                 this.$timeLineGalleryUL.transition({
                     x: '-=' + dDistance,
                     duration : duration
                 });
             }else{
-                var dDistance = (dCount * commonData.galleryWidth * (-1));
-                var duration = 300 * dCount * (-1);
+                dDistance = (dCount * commonData.galleryWidth * (-1));
+                duration = 300 * dCount * (-1);
 
                 this.$timeLineGalleryUL.transition({
                     x: '+=' + dDistance,
