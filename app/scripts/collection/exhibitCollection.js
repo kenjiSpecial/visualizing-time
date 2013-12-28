@@ -26,7 +26,7 @@ define([
                 for(var j in contentItems){
                     var title = contentItems[j]['title'];
                     var id = contentItems[j]['id'];
-                    contentItems[j]['type'] = eventData[id];
+                    contentItems[j]['type'] = eventData[id][0];
                 }
 
                 model.set( 'contentItems', contentItems );
