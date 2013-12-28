@@ -27,7 +27,8 @@ define([
 
         // gallery
 
-        GALLERY_REMOVE : 'onGalleryRemove'
+        GALLERY_REMOVE : 'onGalleryRemove',
+        ON_RE_RENDER : 'onRender'
 
 
     });

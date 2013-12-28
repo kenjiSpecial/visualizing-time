@@ -72,7 +72,14 @@ $circleColor2 : #fff;
 
 
     #time-line-gallery-ul{
+      @include transition(opacity 0.6s);
       width: ($GALLERY_WIDTH * 10);
+
+      &.transform{
+        @include transition(opacity 0.6s);
+        opacity: 0;
+      }
+
       li{
         p.content-item-title{
           color: #ffffff;
@@ -163,6 +170,13 @@ $circleColor2 : #fff;
   }
 
   .button-ul{
+    @include transition(opacity 0.6s);
+
+    &.transform{
+      @include transition(opacity 0.6s);
+      opacity: 0;
+    }
+
     float: left;
     position: relative;
     z-index: 100;
@@ -185,7 +199,7 @@ $circleColor2 : #fff;
         top: (($sideBig - $sideSmall)/2);
         left: (($sideBig - $sideSmall)/2);
 
-        background: $circleColor1;
+        background: $greyColor;
         width: $sideSmall;
         height: $sideSmall;;
         border-radius: ($sideSmall/2);
@@ -312,8 +326,8 @@ $circleColor2 : #fff;
     cursor: pointer;
     position: absolute;
 
-    top: 10px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
 
     color: $greyColor;
 

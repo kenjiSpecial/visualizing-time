@@ -50,7 +50,12 @@ $doubleSide : 20px;
     &.timeline-gallery-show{
       #timeline-content{
         .emphasis{
-          cursor: pointer;
+          cursor: default;
+
+          &:hover{
+            color: $whiteBackColor;
+            background: $timelineColor3;
+          }
         }
       }
     }

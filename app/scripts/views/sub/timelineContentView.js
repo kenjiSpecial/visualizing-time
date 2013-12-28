@@ -51,7 +51,8 @@ define([
                 this,
                 'loopAnimation',
                 'onGalleryRemove',
-                'onGalleryRemoveSetTimeout'
+                'onGalleryRemoveSetTimeout',
+                'onReRender'
             );
 
             this.$timeline = $(this.timeline);
@@ -59,7 +60,7 @@ define([
             this.$tl = $(this.tl);
 
             Events.on(Events.GALLERY_REMOVE, this.onGalleryRemove );
-
+            Events.on(Events.ON_RE_RENDER, this.onReRender);
 
         },
 
@@ -268,7 +269,6 @@ define([
 
         onGalleryRemoveSetTimeout : function(){
             // reset the photo list gallery
-
             var data = exhibitCollection.get(this.selectID);
             var dataJSON = data.toJSON();
             var contentItems = dataJSON.contentItems;
@@ -311,6 +311,37 @@ define([
                 });
 
             }
+        },
+
+        onReRender : function(selectedID){
+
+            var data = exhibitCollection.get(this.selectID);
+            var dataJSON = data.toJSON();
+            var contentItems = dataJSON.contentItems;
+
+            for(var i in contentItems){
+                var contentItem = contentItems[i];
+                var id = contentItem.id;
+
+                var contentItemImage = commonData.imageDataCollection[id];
+                var contentItemImageWidth  = contentItemImage.width;
+                var contentItemImageHeight = contentItemImage.height;
+
+                $(contentItemImage).attr("style", "");
+
+                var eventID = '#eventItem' + contentItem.id;
+
+                var $eventID = $(eventID);
+
+                if(contentItemImageWidth > 10 && contentItemImageHeight > 10){
+                    $eventID.append(contentItemImage);
+                }
+
+            }
+
+            this.$selected.removeClass('selected');
+
+            this.selectID = selectedID;
         },
 
         mouseEnterTimeLineGalleryShow: function(){

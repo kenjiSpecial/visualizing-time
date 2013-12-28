@@ -41,18 +41,22 @@ define([
         $timeLineGalleryUL : null,
         contentItems : null,
 
+        reRenderStatus : false,
+
 
         events : {
             'click #prev-selector' : 'prevSelectorClick',
             'click #next-selector' : 'nextSelectorClick',
             'click .button' : 'buttonClick',
             'click #gallery-remove' : 'onRemoveClick',
+
             'mouseenter .event-main-title-list' : 'onMouseEnterMainTitleList',
-            'mouseleave .event-main-title-list' : 'onMouseLeaveMainTitleList'
+            'mouseleave .event-main-title-list' : 'onMouseLeaveMainTitleList',
+            'click .event-main-title-list'      : 'onClickTitleList'
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete' );
+            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView' );
 
             this.$elTitle  = $("#time-line-gallery-titles");
             this.$elButton = $('#time-line-gallery-button');
@@ -104,9 +108,6 @@ define([
 
         // render html
         animationDone : function(){
-            var $title = this.$el.find('.time-line-gallery-title');
-            $title.transition({ opacity: 1, duration: 400 });
-
             /** tween animation **/
 
 
@@ -115,6 +116,38 @@ define([
 
             this.$timeLineGalleryUL = this.$el.find("#time-line-gallery-ul");
 
+            // ----
+
+            this.changeContent();
+
+            // ----
+
+
+            this.$prevSelector = this.$el.find('#prev-selector');
+            this.$nextSelector = this.$el.find('#next-selector');
+
+
+            if(this.contentItems.length == 1){
+                this.$nextSelector.addClass('inactive');
+            }
+
+            this.changeMap();
+
+            // var $circleEventTitle = this.$el.find(".circle-event-title");
+            /*$circleEventTitle.each(function(){
+                var $this = $(this);
+                var _width = $this.innerWidth();
+                console.log(_width);
+                if( _width < 200 ){
+                    $this.css({ width: _width })
+                }else{
+                    $this.css({ width: 200 })
+                }
+            })*/
+
+        },
+
+        changeContent : function(){
             var height = commonData.windowSize.height - 182;
 
             for(var i in this.contentItems){
@@ -172,30 +205,6 @@ define([
             var buttonString = '#button-' + this.count;
             var $listButton = this.$el.find(buttonString);
             $listButton.addClass('selected');
-
-
-            this.$prevSelector = this.$el.find('#prev-selector');
-            this.$nextSelector = this.$el.find('#next-selector');
-
-
-            if(this.contentItems.length == 1){
-                this.$nextSelector.addClass('inactive');
-            }
-
-            this.changeMap();
-
-            // var $circleEventTitle = this.$el.find(".circle-event-title");
-            /*$circleEventTitle.each(function(){
-                var $this = $(this);
-                var _width = $this.innerWidth();
-                console.log(_width);
-                if( _width < 200 ){
-                    $this.css({ width: _width })
-                }else{
-                    $this.css({ width: 200 })
-                }
-            })*/
-
         },
 
         nextSelectorClick : function(){
@@ -343,15 +352,13 @@ define([
 
             var $currentTarget = $(event.currentTarget)
             var id = $currentTarget.data("id");
-            console.log(id);
+
+            if(id == this.selectId) return;
 
             var data = exhibitCollection.get(id);
-            console.log(data);
             var year = parseInt(data.get('time'));
-            console.log(year);
             var yearIDString = '#year-' + year;
             var $yearID = $(yearIDString);
-            console.log($yearID);
             $yearID.addClass('selected');
 
         },
@@ -361,6 +368,8 @@ define([
             var $currentTarget = $(event.currentTarget)
             var id = $currentTarget.data("id");
 
+            if(id == this.selectId) return;
+
             var data = exhibitCollection.get(id);
             var year = parseInt(data.get('time'));
             var yearIDString = '#year-' + year;
@@ -368,7 +377,91 @@ define([
             $yearID.removeClass('selected');
         },
 
+        onClickTitleList : function(event){
+            if(this.reRenderStatus) return;
+
+            this.reRenderStatus = true;
+
+            // ----
+
+            var $currentTarget = $(event.currentTarget);
+            var id = $currentTarget.data("id");
+
+            // ----
+
+            if(id == this.selectId) return;
+
+            // ----
+
+            var year = this.dataJson['time'];
+            var yearIDString = '#year-' + year;
+            var $yearID = $(yearIDString);
+            $yearID.removeClass('selected');
+
+
+            var data = exhibitCollection.get(id);
+            this.dataJson = data.toJSON();
+            this.contentItems = this.dataJson.contentItems;
+
+            this.count = 0;
+            this.count = 0;
+            this.MAX_COUNT = this.contentItems.length;
+
+            this.prevSelectId = this.selectId;
+            this.selectId = id;
+
+            // ----
+
+            this.$elButton.addClass('transform');
+            this.$elUl.addClass('transform');
+
+            this.$prevSelector.addClass('inactive');
+            this.$nextSelector.addClass('inactive');
+
+            this.titleChange();
+
+            setTimeout(this.reRenderGalleryView, 600);
+        },
+
+        reRenderGalleryView : function(){
+            // ----
+
+            Events.trigger(Events.ON_RE_RENDER, this.selectId);
+
+            // ----
+
+            this.reRenderStatus = false;
+
+            this.$timeLineGalleryUL.css({x: 0});
+
+            var ulHtml    = this.galleryUlTemplate({contentItems: this.contentItems});
+            var buttonHtml = this.galleryButtonTemplate({contentItems: this.contentItems});
+
+            this.$elUl.html(ulHtml);
+            this.$elButton.html(buttonHtml);
+
+            this.changeContent();
+
+            this.$elButton.removeClass('transform');
+            this.$elUl.removeClass('transform');
+
+
+            if(this.contentItems.length > 0){
+                this.$nextSelector.addClass('inactive');
+            }
+        },
+
         onRemoveClick : function(){
+
+            // ----
+
+            var year = this.dataJson['time'];
+            var yearIDString = '#year-' + year;
+            var $yearID = $(yearIDString);
+            $yearID.removeClass('selected');
+
+            // ----
+
             this.$el.find('.time-line-gallery-title').removeClass('active');
             var timeLineGallryWrapper =  document.getElementById("tween-time-line-gallery");
             TweenLite.to(timeLineGallryWrapper, 0.6, {opacity: 0, onComplete: this.onRemoveComplete });
@@ -378,12 +471,12 @@ define([
             Events.trigger(Events.GALLERY_REMOVE);
             Events.trigger(Events.MAP_CHANGE, "default");
 
+            this.prevSelectId = this.selectId;
         },
 
         onRemoveComplete : function(){
-            this.prevSelectId = this.selectId;
 
-            this.selectId()
+
         }
 
 
