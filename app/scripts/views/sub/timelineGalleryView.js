@@ -42,6 +42,7 @@ define([
         contentItems : null,
 
         reRenderStatus : false,
+        galleryViewStatus : false,
 
 
         events : {
@@ -56,11 +57,13 @@ define([
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView' );
+            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView', 'onMapGalleryRemove' );
 
             this.$elTitle  = $("#time-line-gallery-titles");
             this.$elButton = $('#time-line-gallery-button');
             this.$elUl     = $("#time-line-gallery-ul")
+
+            Events.on(Events.MAP_GALLERY_REMOVE, this.onMapGalleryRemove);
         },
 
         setTitle : function(){
@@ -109,6 +112,7 @@ define([
         // render html
         animationDone : function(){
             /** tween animation **/
+            this.galleryViewStatus = true;
 
 
             var timeLineGallryWrapper =  document.getElementById("tween-time-line-gallery");
@@ -452,6 +456,7 @@ define([
         },
 
         onRemoveClick : function(){
+            this.galleryViewStatus = false;
 
             // ----
 
@@ -475,8 +480,13 @@ define([
         },
 
         onRemoveComplete : function(){
+            this.$timeLineGalleryUL.css({x: 0});
+        },
 
-
+        onMapGalleryRemove : function(){
+            if(this.galleryViewStatus){
+                this.onRemoveClick();
+            }
         }
 
 

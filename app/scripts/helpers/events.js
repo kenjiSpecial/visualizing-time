@@ -22,8 +22,8 @@ define([
         TICKER_STOP   : 'ticker-stop',
 
         // map
-
         MAP_CHANGE : 'mapChange',
+        MAP_GALLERY_REMOVE : 'mapGalleryRemove',
 
         // gallery
 

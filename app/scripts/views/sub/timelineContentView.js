@@ -247,7 +247,7 @@ define([
             // animate to timeline to the bottom
 
             var top = commonData.windowSize.height - 150;
-            this.$timeline.transition({ y: top, height: 150, duration: 800 });
+            this.$timeline.transition({ y: top, height: 90, duration: 800 });
             this.$timeline.addClass(this.showGalleryClass);
 
             // -------

@@ -21,8 +21,12 @@ define([
         path : null,
         svg : null,
 
+        events : {
+            "click": "onClick"
+        },
+
         initialize : function(){
-            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange');
+            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange', 'onClick');
 
 
             this.projection = d3.geo.mercator()
@@ -79,6 +83,11 @@ define([
             var trasformString = 'translate(' + transX + ', ' + transY + ')scale(' + scale + ')';
             this.g.transition()
                 .duration(1200).attr("transform", trasformString);
+        },
+
+        onClick : function(){
+            //alert('onClick');
+            Events.trigger(Events.MAP_GALLERY_REMOVE);
         }
 
     });
