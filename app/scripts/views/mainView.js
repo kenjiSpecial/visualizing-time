@@ -30,7 +30,7 @@ define([
             this.line = document.getElementById("timeline");
             this.$line = $(this.line);
 
-            this.$el.find("#timeline-wrapper").css({
+            this.$el.css({
                 width  : commonData.windowSize.width,
                 height : commonData.windowSize.height
             });

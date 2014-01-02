@@ -28,6 +28,7 @@ define([
         $tl : null,
 
         timeline  : "#timeline-wrapper",
+
         showGalleryClass: 'timeline-gallery-show',
         $timeline : null,
         $selected : null,
@@ -244,12 +245,6 @@ define([
             this.$selected.addClass('selected');
 
 
-            // animate to timeline to the bottom
-
-            var top = commonData.windowSize.height - 150;
-            this.$timeline.transition({ y: top, height: 90, duration: 800 });
-            this.$timeline.addClass(this.showGalleryClass);
-
             // -------
             // showing the gallery
 
@@ -262,7 +257,6 @@ define([
         onGalleryRemove : function(){
 
             this.$timeline.removeClass(this.showGalleryClass);
-            this.$timeline.transition({ y: 0, height: 450, duration: 800 });
 
             setTimeout(this.onGalleryRemoveSetTimeout, 800);
         },

@@ -14,7 +14,7 @@ define([
 ],function( $, _, Backbone, d3, commonData, Events, exhibitCollection ){
 
     var Loader = function(){
-        _.bindAll(this, 'geoLoadDone', 'exhibitLoadDone', 'imageLoadDone', 'onLoad', 'allLoadDone');
+        _.bindAll(this, 'geoLoadDone', 'exhibitLoadDone', 'imageLoadDone', 'onLoad', 'onError', 'allLoadDone');
     };
 
     Loader.prototype = {
@@ -23,7 +23,7 @@ define([
         imageDataLoadStatus : false,
         mediaData : {},
         count : 0,
-        MAX_Count: -1,
+        MAX_Count: 0,
 
 
         startToLoad : function(){
@@ -130,16 +130,19 @@ define([
                     }
 
                     commonData.imageDataCollection[contentItemID] = image;
-                    image.onload = this.onLoad;
+                    //image.onload = this.onLoad;
+                    image.addEventListener('load', this.onLoad);
+                    image.addEventListener('error', this.onError);
 
                 }
             }
-
-
-
         },
 
-        onLoad : function( id, image ){
+        onError: function( errorMsg ){
+            this.count++;
+        },
+
+        onLoad : function(){
             this.count++;
 
             console.log(this.count + "/" + this.MAX_Count);

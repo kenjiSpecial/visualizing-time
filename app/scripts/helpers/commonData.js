@@ -69,11 +69,25 @@ define([
 
             },
 
+            selectingCountries   : ['germany', 'france', 'uk', 'russia', 'turkey', 'albania', 'bosnia', 'bulgaria', 'croatia', 'greece', 'kosovo', 'macedonia', 'montenegro', 'romania', 'serbia', 'turkey', 'austria', 'hungary', 'czech', 'slovakia', 'denmark', 'poland', 'libya', 'italy', 'morocco', 'sudan', 'slovenia'],
+            selectingCountriesID : ['DEU', 'FRA', 'GBR', 'RUS', 'TUR', 'ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'TUR', 'AUT', 'HUN', 'CZE', 'SVK', 'DNK', 'POL', 'LBY', 'ITA', 'MAR', 'SDN', 'SVN'],
+            selectingCountriesListArray: {},
+
+            mapListCountry : ['Germany', 'france', 'United Kingdom', 'Russia', 'Ottoman Empire', 'Poland', 'Balkans'],
+
+
             debug : true
 		};
 
         if(CommonData.debug){
             window.commonData = CommonData;
+        }
+
+        for(var i in CommonData.selectingCountries){
+            var selectingCountry   = CommonData.selectingCountries[i];
+            var selectingCountryID = CommonData.selectingCountriesID[i];
+
+            CommonData.selectingCountriesListArray[selectingCountryID] = selectingCountry;
         }
 
 		return CommonData

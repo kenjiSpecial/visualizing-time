@@ -17,11 +17,13 @@ $doubleSide : 20px;
 
 
 #main-content{
+  overflow: hidden;
+
   #timeline-wrapper{
-    position: absolute;
-    overflow: hidden;
+    position: relative;
+
     #timeline-graphics-wrapper{
-      position: absolute;
+      //position: absolute;
     }
 
     #timeline-graphics{
