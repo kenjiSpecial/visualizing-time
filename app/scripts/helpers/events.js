@@ -29,11 +29,14 @@ define([
 
         // gallery
         GALLERY_REMOVE : 'onGalleryRemove',
-        ON_RE_RENDER : 'onRender',
+        ON_RE_RENDER : 'onReRender',
 
         // time line
         ON_TIME_LINE_EMPHASIS_MOUSE_ENTER : 'onTimeLineEmphasisMouseEnter',
-        ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE : 'onTimeLineEmphasisMouseLeave'
+        ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE : 'onTimeLineEmphasisMouseLeave',
+
+        // time line content
+        ON_GALLERY_RENDER : 'onGalleryRender'
 
     });
 

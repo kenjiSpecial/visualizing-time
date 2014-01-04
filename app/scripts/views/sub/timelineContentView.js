@@ -259,6 +259,8 @@ define([
 
             // -------
 
+            Events.trigger(Events.ON_GALLERY_RENDER);
+
         },
 
         onGalleryRemove : function(){
@@ -396,7 +398,6 @@ define([
                     if($this.hasClass('selected')){
                         $this.removeClass('selected')
                     }else{
-                        //$this.removeClass('not-selected')
                         $this.css({opacity: 1});
                     }
                 });

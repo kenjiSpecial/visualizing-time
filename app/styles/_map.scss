@@ -1,3 +1,6 @@
+$timelineEventListTextColor: #dddddd;
+$timelineEventListTextHoverColor: #fff;
+
 #main-map{
   opacity: 0;
   position: absolute;
@@ -27,6 +30,31 @@
   }
 
   // ============
+
+  &.show-gallery{
+
+    .map-caption{
+      cursor: default;
+      li{
+        background: rgba( 255, 255, 255, 0);
+        color: $timelineEventListTextColor;
+
+        &:hover{
+          background: rgba( 255, 255, 255, 0);
+          color: $timelineEventListTextColor;
+        }
+
+        &.selected{
+          font-weight: 800;
+          color: $timelineEventListTextHoverColor;
+          &:hover{
+            color: $timelineEventListTextHoverColor;
+          }
+        }
+      }
+    }
+  }
+
 
   .map-caption{
     cursor: pointer;

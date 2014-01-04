@@ -34,7 +34,7 @@ define([
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange', 'onClick', 'onMapMouseOver', 'onMapMouseOut');
+            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange', 'onClick', 'onMapMouseOver', 'onMapMouseOut', 'onGalleryRender', 'onGalleryRemove');
 
 
 
@@ -54,8 +54,11 @@ define([
 
             this.g = this.svg.append("g");
 
-            Events.on(Events.WINDOW_RESIZE, this.onResize);
-            Events.on(Events.MAP_CHANGE, this.onMapChange);
+            Events.on( Events.WINDOW_RESIZE, this.onResize);
+            Events.on( Events.MAP_CHANGE, this.onMapChange);
+
+            Events.on( Events.ON_GALLERY_RENDER, this.onGalleryRender)
+            Events.on( Events.GALLERY_REMOVE, this.onGalleryRemove );
         },
 
         render : function(){
@@ -242,6 +245,19 @@ define([
 
             this.g.transition()
                 .duration(1200).attr("transform", transformString);
+        },
+
+        onGalleryRender : function(){
+            this.$el.addClass('show-gallery');
+        },
+
+        onGalleryRemove : function(){
+            var self = this;
+
+            setTimeout(function(){
+                self.$el.removeClass('show-gallery');
+            }, 500)
+
         }
 
 
