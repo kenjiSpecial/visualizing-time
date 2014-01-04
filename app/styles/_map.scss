@@ -15,7 +15,6 @@
       }
 
       &.selected{
-        cursor: default;
 
         fill: #ddd;
 
@@ -30,14 +29,15 @@
   // ============
 
   .map-caption{
-    cursor: default;
+    cursor: pointer;
     position: absolute;
-    bottom: 5%;
+    z-index: 200;
+    bottom: 110px;
     left:   2%;
 
     li{
       color: #999999;
-      background: rgba( 255, 255, 255, 0);
+      background: rgba( 255, 255, 255, 0.8);
 
       padding: 6px 12px;
       font-size: 12px;
@@ -45,6 +45,11 @@
       @include transition( 0.4s color, 0.6s background );
 
       &:hover{
+        background: #666666;
+        color: #ffffff;
+      }
+
+      &.selected{
         background: #666666;
         color: #ffffff;
       }

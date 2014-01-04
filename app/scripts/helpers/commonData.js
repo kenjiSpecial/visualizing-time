@@ -69,11 +69,50 @@ define([
 
             },
 
-            selectingCountries   : ['germany', 'france', 'uk', 'russia', 'turkey', 'albania', 'bosnia', 'bulgaria', 'croatia', 'greece', 'kosovo', 'macedonia', 'montenegro', 'romania', 'serbia', 'turkey', 'austria', 'hungary', 'czech', 'slovakia', 'denmark', 'poland', 'libya', 'italy', 'morocco', 'sudan', 'slovenia'],
-            selectingCountriesID : ['DEU', 'FRA', 'GBR', 'RUS', 'TUR', 'ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'TUR', 'AUT', 'HUN', 'CZE', 'SVK', 'DNK', 'POL', 'LBY', 'ITA', 'MAR', 'SDN', 'SVN'],
+            selectingCountries   : ['germany', 'france', 'uk', 'russia', 'turkey', 'albania', 'bosnia', 'bulgaria', 'croatia', 'greece', 'kosovo', 'macedonia', 'montenegro', 'romania', 'serbia', 'austria', 'hungary', 'czech', 'slovakia', 'denmark', 'poland', 'libya', 'italy', 'morocco', 'sudan', 'slovenia', 'japan', 'chn'],
+            selectingCountriesID : ['DEU', 'FRA', 'GBR', 'RUS', 'TUR', 'ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'AUT', 'HUN', 'CZE', 'SVK', 'DNK', 'POL', 'LBY', 'ITA', 'MAR', 'SDN', 'SVN', 'JPN', 'CHN'],
             selectingCountriesListArray: {},
 
-            mapListCountry : ['Germany', 'france', 'United Kingdom', 'Russia', 'Ottoman Empire', 'Poland', 'Balkans'],
+            mapListCountry : ['Germany', 'France', 'United Kingdom', 'Russia', 'Ottoman Empire', 'Poland', 'Balkans', 'Denmark'],
+            mapListCountryStyle: {
+                'Germany'         : ['DEU'],
+                'France'          : ['FRA'],
+                'United Kingdom'  : ['GBR'],
+                'Russia'          : ['RUS'],
+                'Ottoman Empire'  : ['TUR'],
+                'Balkans'         : ['ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'SVN'],
+                'Austria-Hungary' : ['AUT', 'HUN', 'CZE', 'SVK'],
+                'Denmark'         : ['DNK'],
+                'Poland'          : ['POL'],
+                'Libya'           : ['LBY'],
+                'Italy'           : ['ITA'],
+                'Morocco'         : ['MAR'],
+                'Sudan'           : ['SDN'],
+                'Japan'           : ['JPN'],
+                'China'           : ['CHN'],
+            },
+
+            revMapListCountryStyle: {},
+
+            centerPosition : [30, 50],
+            countryScaleValue : {
+                'Germany'         : { 'scale': 3, 'latitude': [ 9.9167, 51.5167] },
+                'France'          : { 'scale': 3, 'latitude': [ 2, 47]  },
+                'United Kingdom'  : { 'scale': 4, 'latitude': [ 0, 54] },
+                'Russia'          : { 'scale': 0.5, 'latitude': [ 90, 60] },
+                'Ottoman Empire'  : { 'scale': 3, 'latitude': [ 35.6, 39.1] },
+                'Austria-Hungary' : { 'scale': 5, 'latitude': [ 19, 47.5] },
+                'Poland'          : { 'scale': 3, 'latitude': [ 21, 52.2] },
+                'Balkans'         : { 'scale': 3, 'latitude': [ 25.3, 42] },
+                'Denmark'         : { 'scale': 6, 'latitude': [ 10, 56] },
+                'Italy'           : { 'scale': 3, 'latitude': [ 12, 42] },
+                'Libya'           : { 'scale': 3, 'latitude': [ 17, 27] },
+                'Morocco'         : { 'scale': 4, 'latitude': [ -5, 32] },
+                'Sudan'           : { 'scale': 3, 'latitude': [ 32, 15] },
+                'China'           : { 'scale': 1, 'latitude': [ 103, 35] },
+                'Japan'           : { 'scale': 2.5, 'latitude': [ 136, 37] }
+            },
+
 
 
             debug : true
@@ -88,6 +127,13 @@ define([
             var selectingCountryID = CommonData.selectingCountriesID[i];
 
             CommonData.selectingCountriesListArray[selectingCountryID] = selectingCountry;
+        }
+
+        for(var j in CommonData.mapListCountryStyle){
+            for(var k in CommonData.mapListCountryStyle[j]){
+                var countryID = CommonData.mapListCountryStyle[j][k];
+                CommonData.revMapListCountryStyle[countryID] = j;
+            }
         }
 
 		return CommonData

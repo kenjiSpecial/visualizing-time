@@ -1,7 +1,21 @@
 <%for(var i in countries){
-    var country = countries[i];
+    var country = i;
+    var countryList = "";
+
+    var countryClass = country.substring(0, 3).toLowerCase();
+
+
+    for(var j in countries[i]){
+        if(j == 0){
+            countryList = countries[i][j];
+        }else{
+            countryList += " " + countries[i][j];
+        }
+
+    }
+
 %>
 
-<li class="map-caption-list"><%= country %></li>
+<li class="map-caption-list map-caption-list-<%= countryClass %>" data-country="<%= countryList %>"><%= country %></li>
 
 <% } %>

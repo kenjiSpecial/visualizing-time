@@ -23,21 +23,25 @@ define([
         path : null,
         svg : null,
 
+        clickTextStatus : null,
+
         events : {
             "click": "onClick",
 
-            'click .map-caption-list': "onMapCaptionClick",
             'mouseenter .map-caption-list': "onMapCaptionMouseEnter",
-            'mouseleave .map-caption-list': "onMapCaptionMouseLeave"
+            'mouseleave .map-caption-list': "onMapCaptionMouseLeave",
+            'click .map-caption-list' : "onMapCaptionClick"
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange', 'onClick', 'onMouseOver', 'onMouseOut');
+            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange', 'onClick', 'onMapMouseOver', 'onMapMouseOut');
+
 
 
             this.projection = d3.geo.mercator()
-                .center([0, 61])
-                .scale(500);
+                //.center([0, 61])
+                .scale(700);
+                //.translate([ window.innerWidth/2, window.innerHeight/2]);
 
             this.path = d3.geo.path()
                             .projection(this.projection);
@@ -76,14 +80,24 @@ define([
                     if(id) return id;
 
                   })
-                  .on('mouseover', this.onMouseOver)
-                  .on('mouseout', this.onMouseOut);
+                  .on('mouseover', this.onMapMouseOver)
+                  .on('mouseout', this.onMapMouseOut)
+                  .on('click', this.onMapMouseClick);
+
+
+
+            var point = this.projection( commonData.centerPosition );
+
+
+            var trasformString = 'translate(' + (window.innerWidth/2 -  point[0]) + ', ' + (window.innerHeight/2 -point[1]) + ')';
+            this.g.attr("transform", trasformString);
+
 
             // -------------
             //  adding text
             // -------------
-            var countryListText = this.template({countries: commonData.mapListCountry});
-            console.log(countryListText)
+
+            var countryListText = this.template({countries: commonData.mapListCountryStyle});
             this.$el.find('.map-caption').html(countryListText);
 
 
@@ -102,16 +116,20 @@ define([
             var translate = transform.translate;
             var scale     = transform.scale;
 
-            var transX;
+            var transX, transY;
             if(id != 'default'){
-                console.log(commonData.windowSize.height);
-                transX = (commonData.windowSize.width - CONSTANTS.MINIMUM_GALLERY_WIDTH)/2 + (commonData.windowSize.height - 650)/6 + translate[0];
+                var point = this.projection( commonData.centerPosition[0], commonData.centerPosition[1] );
+
+                transX = commonData.windowSize.width/2 - point[0];
+                transY = commonData.windowSize.height/2 - point[1];
+
             } else {
                 transX = translate[0];
+                transY = translate[1];
             }
 
             // translate(0, 0)scale(1)
-            var transY = translate[1];
+
 
             var trasformString = 'translate(' + transX + ', ' + transY + ')scale(' + scale + ')';
             this.g.transition()
@@ -123,27 +141,102 @@ define([
             Events.trigger(Events.MAP_GALLERY_REMOVE);
         },
 
-        onMouseOver : function(d){
-            var id = d.id;
-            var countryClassString = '.country-' + id;
-            var selected = this.g.selectAll(countryClassString);
-            selected.classed('onMouseOver',true);
-        },
-
-        onMouseOut : function(d){
-            var id = d.id;
-            var countryClassString = '.country-' + id;
-            var selected = this.g.selectAll(countryClassString);
-            selected.classed('onMouseOver',false);
-        },
-
         // ------------------
         //  map action event
         // ------------------
 
-        onMapCaptionClick : function(event){
+        onMapMouseOver : function(d){
+            var id = d.id;
+            var countryClassString = '.country-' + id;
+            var selected = this.g.selectAll(countryClassString);
+            selected.classed('onMouseOver',true);
 
+            var countryName = commonData.revMapListCountryStyle[id];
+
+            if(countryName){
+                var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
+                var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");
+                $findCountry.addClass("selected");
+            }
+
+        },
+
+        onMapMouseOut : function(d){
+            var id = d.id;
+            var countryClassString = '.country-' + id;
+            var selected = this.g.selectAll(countryClassString);
+            selected.classed('onMouseOver',false);
+
+            var countryName = commonData.revMapListCountryStyle[id];
+
+            if(countryName){
+                var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
+                var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");
+                $findCountry.removeClass("selected");
+            }
+        },
+
+
+        // --------------------------
+        //  map caption action event
+        // --------------------------
+
+        onMapCaptionMouseEnter : function(event){
+            this.clickTextStatus = false;
+
+            var $target = $(event.currentTarget);
+
+            var country = $target.data("country");
+            var countryIdArray = country.split(" ");
+
+            for(var i in countryIdArray){
+                var id = countryIdArray[i];
+                var countryClassString = '.country-' + id;
+                var selected = this.g.selectAll(countryClassString);
+                selected.classed('onMouseOver',true);
+            }
+        },
+
+        onMapCaptionMouseLeave : function(event){
+            var $target = $(event.currentTarget);
+
+            var country = $target.data("country");
+            var countryIdArray = country.split(" ");
+
+            for(var i in countryIdArray){
+                var id = countryIdArray[i];
+                var countryClassString = '.country-' + id;
+                var selected = this.g.selectAll(countryClassString);
+                selected.classed('onMouseOver',false);
+            }
+
+            if(this.clickTextStatus){
+                var point = this.projection( commonData.centerPosition );
+                var transformString = 'translate(' + (window.innerWidth/2 -  point[0]) + ', ' + (window.innerHeight/2 -point[1]) + ')scale(1)';
+                this.g.transition()
+                    .duration(1200).attr("transform", transformString);
+            }
+
+        },
+
+        onMapCaptionClick : function(event){
+            if(this.clickTextStatus) return;
+            this.clickTextStatus = true;
+
+            var $target = $(event.currentTarget);
+
+            var countryText = $target.html();
+            var scaleValue = commonData.countryScaleValue[countryText];
+
+            var point = this.projection( scaleValue.latitude );
+            var scale = scaleValue.scale;
+
+            var transformString = 'translate(' + window.innerWidth/2 + ', ' + window.innerHeight/2 + ')scale(' + scale + ')translate(' + ( -1 * point[0] ) + ' , ' + ( -1 * point[1] ) + ')';
+
+            this.g.transition()
+                .duration(1200).attr("transform", transformString);
         }
+
 
     });
 
