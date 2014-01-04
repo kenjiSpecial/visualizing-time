@@ -279,14 +279,19 @@ define([
         },
 
         changeMap: function(){
+            var contentID = this.dataJson.contentItems[this.count].id;
+            Events.trigger(Events.MAP_CHANGE, contentID);
+
+            /**
             var type = this.dataJson.contentItems[this.count].type;
 
             if(type == "map"){
-                var contentID = this.dataJson.contentItems[this.count].id;
-                Events.trigger(Events.MAP_CHANGE, contentID);
+
             }else{
                 Events.trigger(Events.MAP_CHANGE, "default");
-            }
+            }**/
+
+
         },
 
         buttonClick : function(event){
@@ -460,6 +465,8 @@ define([
                 if(this.$nextSelector.hasClass('inactive'))
                     this.$nextSelector.removeClass('inactive');
             }
+
+            this.changeMap();
         },
 
         onRemoveClick : function(){
@@ -488,6 +495,8 @@ define([
 
         onRemoveComplete : function(){
             this.$timeLineGalleryUL.css({x: 0});
+            this.$el.find('.event-main-title-list.selected').removeClass('selected');
+
             if(this.$nextSelector.hasClass('inactive'))
                 this.$nextSelector.removeClass('inactive');
         },

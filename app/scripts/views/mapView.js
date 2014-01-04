@@ -57,7 +57,7 @@ define([
             Events.on( Events.WINDOW_RESIZE, this.onResize);
             Events.on( Events.MAP_CHANGE, this.onMapChange);
 
-            Events.on( Events.ON_GALLERY_RENDER, this.onGalleryRender)
+            Events.on( Events.ON_GALLERY_RENDER, this.onGalleryRender);
             Events.on( Events.GALLERY_REMOVE, this.onGalleryRemove );
         },
 
@@ -84,8 +84,7 @@ define([
 
                   })
                   .on('mouseover', this.onMapMouseOver)
-                  .on('mouseout', this.onMapMouseOut)
-                  .on('click', this.onMapMouseClick);
+                  .on('mouseout', this.onMapMouseOut);
 
 
 
@@ -114,6 +113,19 @@ define([
         },
 
         onMapChange : function(id){
+            var countries = eventData[id][1];
+            this.$el.find('.selected').removeClass('selected');
+
+
+            for(var i in countries){
+                var countryName = countries[i];
+                var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
+                var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");
+                $findCountry.addClass("selected");
+            }
+
+
+            /**
             var transform = commonData.mapTransformData[id];
 
             var translate = transform.translate;
@@ -137,6 +149,7 @@ define([
             var trasformString = 'translate(' + transX + ', ' + transY + ')scale(' + scale + ')';
             this.g.transition()
                 .duration(1200).attr("transform", trasformString);
+            */
         },
 
         onClick : function(){
@@ -253,6 +266,8 @@ define([
 
         onGalleryRemove : function(){
             var self = this;
+
+            this.$el.find('.selected').removeClass('selected');
 
             setTimeout(function(){
                 self.$el.removeClass('show-gallery');
