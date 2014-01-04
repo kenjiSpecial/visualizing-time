@@ -1,4 +1,19 @@
-<div id="time-line-event-<%= id %>" class="time-line-event-content-wrapper" data-year="<%= year %>" data-id="<%= id %>">
+<%
+    var eventCountries = eventData[id];
+    var timelineEventClass = "";
+
+    for(var k in eventCountries){
+        var eventCountry = eventCountries[k];
+
+        if(k == 0){
+            timelineEventClass += 'time-line-event-content-' + eventCountry;
+        }else{
+            timelineEventClass += ' time-line-event-content-' + eventCountry;
+        }
+    }
+%>
+
+<div id="time-line-event-<%= id %>" class="time-line-event-content-wrapper <%= timelineEventClass %>" data-year="<%= year %>" data-id="<%= id %>">
 
     <p class="time-line-event-content">
         <%= title %>

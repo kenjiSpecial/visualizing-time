@@ -11,7 +11,10 @@ define([
 
     var eventData = {
         // --------------------
+
     	// 'german unification'
+        'a15a187e-df22-4948-a676-6276f99c779f' : ['germany', 'france', 'uk', 'russia', 'denmark', 'poland', 'austria-hungary'],
+        // 'german unification'
     	'2ffcd862-2f47-436b-960e-8fc234267ea7' : ['gallery', ['germany', 'france']], // 'Léon Gambetta'
     	'55ac2ff1-fef1-4006-a749-d118fc1c0ac2' : ['gallery', ['germany', 'france']], // 'Finding Balance'
     	'c4738c91-57bd-47b2-857a-60bb5764ce3e' : ['gallery', ['germany', 'france']], // Creation of "New Germany"
@@ -21,6 +24,8 @@ define([
         // --------------------
 
         // --------------------
+        // The decline of the ootoman empire 1878-1914
+        '3ec4946e-dc61-4a35-92c0-9081fb0df7f4' : ['russia', 'balkans', 'turkey', 'uk', 'france', 'balkans', 'austria-hungary', 'germany'],
     	// The decline of the ootoman empire 1878-1914
     	'129dd05b-23a3-4ac9-934d-e46ccd96e736' : ['map', ['russia', 'balkans', 'turkey']], // 'Treaty of San Stefano'
     	'6c7d33d6-7f10-4c22-93fc-b1edde8d49b9' : ['gallery', ['germany', 'turkey', 'uk', 'france', 'turkey']], // 'Relations with Germany'
@@ -34,7 +39,9 @@ define([
 
         // --------------------
         // alliances 1879 - 1914
-        '1d3ea481-5437-41ea-ab3c-c11f49e4756a' : ['gallery', ['italy', 'austria', 'germany', 'turkey', 'balkans', 'russia', 'france', 'uk']], //title: Friends or Foes?, id: 1d3ea481-5437-41ea-ab3c-c11f49e4756a
+        '22d39a43-f215-4fa8-a550-0b340444ef02' : ['italy', 'austria-hungary', 'germany', 'turkey', 'balkans', 'russia', 'france', 'uk', 'japan'],
+        // alliances 1879 - 1914
+        '1d3ea481-5437-41ea-ab3c-c11f49e4756a' : ['gallery', ['italy', 'austria-hungary', 'germany', 'turkey', 'balkans', 'russia', 'france', 'uk']], //title: Friends or Foes?, id: 1d3ea481-5437-41ea-ab3c-c11f49e4756a
         'c452db2c-e212-4bd3-a59c-3bacb374ab54' : ['gallery', ['germany', 'austria-hungary', 'france', 'italy', 'uk']], // title: Triple Alliance (1882) , id: c452db2c-e212-4bd3-a59c-3bacb374ab54
         '1a1bbe11-1709-4407-9653-cf8b98bd98f7' : ['gallery', ['uk', 'china', 'japan']],// title: Anglo-Japanese Alliance (1902), id: 1a1bbe11-1709-4407-9653-cf8b98bd98f7
         'd1e02b06-5591-482a-92f3-a73075864aa5' : ['map', ['japan', 'uk', 'austria-hungary', 'france', 'germany', 'italy', 'russia']],// title: Alliances of World War One, id: d1e02b06-5591-482a-92f3-a73075864aa5
@@ -46,10 +53,14 @@ define([
 
         // --------------------
         // War in Africa
+        'fc7bf40a-accb-4efe-bb43-65878e481035' : ['uk', 'netherlands', 'uk'],
+        // War in Africa
         '49c5e6c2-a6fc-49b5-9469-ee768dcb7a55' : ['gallery', ['uk', 'netherlands', 'uk']], //title: War in Africa, id: 49c5e6c2-a6fc-49b5-9469-ee768dcb7a55
         // --------------------
 
         // --------------------
+        // The Russo-Japanese War
+        'a4a0017d-c728-46fe-b2b2-c7d5f3f780cc' : ['russia', 'japan', 'germany', 'austria-hungary'],
         // The Russo-Japanese War
         '7ea8a182-7a35-4493-b1f6-f533d32a851a' : ['gallery', ['russia', 'japan']], //    title: Outbreak of the War, id: 7ea8a182-7a35-4493-b1f6-f533d32a851a
         'dbcf2bee-99da-4525-9012-11b621abb470' : ['gallery', ['russia', 'japan', 'germany', 'austria-hungary']], //    title: A Shift of Power, id: dbcf2bee-99da-4525-9012-11b621abb470
@@ -61,6 +72,8 @@ define([
         // --------------------
 
         // --------------------
+        // The schlieffen Plan
+        '5819519a-c61d-4127-b26b-7953fa640cc4' : ['germany', 'russia', 'japan', 'belgium', 'france', 'uk'],
         // The schlieffen Plan
         'f301bbf4-93f2-4612-9296-afc0bef1d778' : ['gallery', ['germany']], // title: General Count Alfred von Schlieffen, id: f301bbf4-93f2-4612-9296-afc0bef1d778
         '96b37eff-a5b4-40ff-9155-214747e40475' : ['map', ['germany', 'russia', 'japan']],     // title: Russia Rearming, id: 96b37eff-a5b4-40ff-9155-214747e40475
@@ -74,12 +87,16 @@ define([
 
         // --------------------
         // 1st Moroccan Crisis
+        'aba9f88a-aaa8-4594-8f18-e57f94a8cbdf' : ['morocco', 'germany', 'france', 'sudan', 'uk'],
+        // 1st Moroccan Crisis
         '6db6a20b-8d3d-45e1-8f2b-4556f353b0f4' : ['gallery', ['morocco', 'germany', 'france']], //title: The Algeciras Conference, id: 6db6a20b-8d3d-45e1-8f2b-4556f353b0f4
         'c46acdad-fb74-4ed1-b21b-e462786f3bc4' : ['gallery', ['morocco', 'germany', 'france']],//title: How the 1st Crisis Broke Out, id: c46acdad-fb74-4ed1-b21b-e462786f3bc4 exhibitCollection.js:26
         '806d4379-57e2-44e7-8c56-6e881b5e5cca' : ['gallery', ['morocco', 'germany']],//title: Something to Think About..., id: 806d4379-57e2-44e7-8c56-6e881b5e5cca
         '4ef86390-1296-4613-957e-e6d45ad17e80' : ['gallery', ['sudan', 'uk', 'france']],//title: Fashoda, id: 4ef86390-1296-4613-957e-e6d45ad17e80
 
         // --------------------
+        // 2nd Moroccan Crisis
+        'a384f2c4-cf4c-44aa-83ec-fdc3bb253959' : ['germany', 'france', 'morocco', 'uk'],
         // 2nd Moroccan Crisis
         '2a771e05-a410-4836-9bd9-68ed70d42c23' : ['gallery', ['germany', 'france', 'morocco']],// title: The Panther, id: 2a771e05-a410-4836-9bd9-68ed70d42c23 exhibitCollection.js:26
         '4ac7f4f4-34da-495c-b03e-df2973a2318d' : ['gallery', ['morocco', 'france']], // title: The End of the Crisis, id: 4ac7f4f4-34da-495c-b03e-df2973a2318d
@@ -90,6 +107,8 @@ define([
         // --------------------
 
         // --------------------
+        // Balkan war
+        '46a33255-df4b-47b7-b6f1-0f33bda851cb' : ['balkans', 'turkey', 'austria-hungary', 'russia', 'germany'],
         // Balkan war
         '99cbd580-3c22-4f5e-9fc2-b9de4f02c460' : ['map', ['balkans', 'turkey']], // title: So, What's the Problem?, id: 99cbd580-3c22-4f5e-9fc2-b9de4f02c460
         'f0529e6a-5f21-4167-b68c-eddc00018a1f' : ['map', ['balkans', 'turkey']],  // title: The First Balkan War, id: f0529e6a-5f21-4167-b68c-eddc00018a1f
@@ -105,16 +124,21 @@ define([
 
         // --------------------
         // Assassination to Outbreak of War
-        '7784cfc3-5cd4-43d5-a2fd-91232c124eab' : ['gallery', ['austria-hungary']],//title: The Archduke, id: 7784cfc3-5cd4-43d5-a2fd-91232c124eab exhibitCollection.js:26
+        '5b72e33d-0387-4060-9572-102efdefd978' : ['austria-hungary', 'germany', 'bosnia', 'serbia', 'turkey', 'serbia'],
+        // Assassination to Outbreak of War
+        '7784cfc3-5cd4-43d5-a2fd-91232c124eab' : ['gallery', ['austria-hungary', 'germany']],//title: The Archduke, id: 7784cfc3-5cd4-43d5-a2fd-91232c124eab exhibitCollection.js:26
         '58da42c6-620f-4bf4-b31c-1b53ff0995a1' : ['gallery', ['austria-hungary']], // title: His Family, id: 58da42c6-620f-4bf4-b31c-1b53ff0995a1 exhibitCollection.js:26
-        '7cebbfe6-4299-4c16-8db0-6c8a1bef45ba' : ['gallery', ['serbia']], //title: Was Serbia Involved?, id: 7cebbfe6-4299-4c16-8db0-6c8a1bef45ba exhibitCollection.js:26
-        '057f6249-99ba-45d9-9325-d6ceca795ed4' : ['gallery', []], //title: The Black Hand, id: 057f6249-99ba-45d9-9325-d6ceca795ed4 exhibitCollection.js:26
+        '7cebbfe6-4299-4c16-8db0-6c8a1bef45ba' : ['gallery', ['austria-hungary', 'serbia']], //title: Was Serbia Involved?, id: 7cebbfe6-4299-4c16-8db0-6c8a1bef45ba exhibitCollection.js:26
+        '057f6249-99ba-45d9-9325-d6ceca795ed4' : ['gallery', ['austria-hungary']], //title: The Black Hand, id: 057f6249-99ba-45d9-9325-d6ceca795ed4 exhibitCollection.js:26
         '4409f534-15b8-4598-be37-8b11d58b4a51' : ['gallery', ['austria-hungary', 'bosnia', 'turkey']], //title: Setting the Scene, id: 4409f534-15b8-4598-be37-8b11d58b4a51 exhibitCollection.js:26
-        '990f6e3c-6639-4c59-a2ac-48bda02f8ce2' : ['gallery', ['austria', 'hungary', 'czech', 'serbia']], //title: The European Reaction, id: 990f6e3c-6639-4c59-a2ac-48bda02f8ce2 exhibitCollection.js:26
-        'f7351011-a854-4b64-ae52-476875f0832e' : ['gallery', ['serbia']], //title: The Assassination, id: f7351011-a854-4b64-ae52-476875f0832e
+        '990f6e3c-6639-4c59-a2ac-48bda02f8ce2' : ['gallery', ['austria-hungary']], //title: The European Reaction, id: 990f6e3c-6639-4c59-a2ac-48bda02f8ce2 exhibitCollection.js:26
+        'f7351011-a854-4b64-ae52-476875f0832e' : ['gallery', ['austria-hungary', 'serbia']], //title: The Assassination, id: f7351011-a854-4b64-ae52-476875f0832e
         // --------------------
 
         // --------------------
+        // The Ultimatum
+        'e0479f4a-d08c-4399-af05-fc76fd702841' : ['austria-hungary', 'germany', 'serbia', 'russia', 'turkey', 'uk', 'france'],
+        // The Ultimatum
         'e674975e-3f15-4c61-b716-21ea9bb32107' : ['gallery', ['austria-hungary', 'germany', 'serbia', 'russia']],// title: Germany, id: e674975e-3f15-4c61-b716-21ea9bb32107 exhibitCollection.js:26
         '941f8509-10ba-46e2-be4d-34c3efd4fd37' : ['gallery', ['austria-hungary', 'serbia']],// title: Austria-Hungary, id: 941f8509-10ba-46e2-be4d-34c3efd4fd37 exhibitCollection.js:26
         '7bfac254-323a-4c5e-a13c-1abe6bec4fdc' : ['gallery', ['uk', 'serbia', 'france', 'austria-hungary']], // title: Reactions, id: 7bfac254-323a-4c5e-a13c-1abe6bec4fdc exhibitCollection.js:26

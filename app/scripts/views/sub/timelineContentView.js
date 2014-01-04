@@ -351,7 +351,6 @@ define([
                 // console.log("timeLineCountryView.js onMapCaptionMouseEnter: country name is " + country_name_text );
                 var countryName = commonData.mapListCountryStyle[countryNameText]['name'];
                 var selectCountryClassString = 'event-item-image-' + countryName;
-                console.log(countryName);
                 var $eventItemImages = this.$el.find('.event-item-image');
 
                 $eventItemImages.each( function(){
@@ -360,6 +359,21 @@ define([
                         $this.addClass('not-selected');
                     }
                 } );
+
+                // ------------
+
+                var $timeLineEventContentWrapperClasses = this.$el.find('.time-line-event-content-wrapper');
+                var selectEventCountryClassString = 'time-line-event-content-' + countryName;
+                $timeLineEventContentWrapperClasses.each(function(){
+                    var $this = $(this);
+                    if($this.hasClass(selectEventCountryClassString)){
+                        $this.addClass('selected')
+                    }else{
+                        //$this.addClass('not-selected');
+                        $this.css({opacity: 0.1});
+                    }
+                });
+
             }
         },
 
@@ -373,6 +387,20 @@ define([
                         $this.removeClass('not-selected');
                     }
                 } );
+
+                // ------------
+
+                var $timeLineEventContentWrapperClasses = this.$el.find('.time-line-event-content-wrapper');
+                $timeLineEventContentWrapperClasses.each(function(){
+                    var $this = $(this);
+                    if($this.hasClass('selected')){
+                        $this.removeClass('selected')
+                    }else{
+                        //$this.removeClass('not-selected')
+                        $this.css({opacity: 1});
+                    }
+                });
+
             }
         },
 

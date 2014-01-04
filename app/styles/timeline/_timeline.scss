@@ -2,7 +2,9 @@
 $timelineHeight: 1px;
 $timeVisualWidth: 1px;
 
+
 $timelineColor4  : #333333;
+$timelineColor3Number : rgba(105, 105, 105, 0.6);
 $timelineColor3  : #666666;
 $timelineColor2  : #999999;
 $timelineColor1  : #bbbbbb;
@@ -118,15 +120,28 @@ $doubleSide : 20px;
         margin-left: 8px;
         padding: 5px;
 
-        @include transition(0.5s all);
+        @include transition(0.4s all);
 
         &:hover {
-          background: $timelineColor3;
+          background: $timelineColor3Number;
 
           .time-line-event-content{
             color: $whiteBackColor;
 
           }
+        }
+
+        &.selected {
+          background: $timelineColor3Number;
+
+          .time-line-event-content{
+            color: $whiteBackColor;
+
+          }
+        }
+
+        &.not-selected{
+          opacity: 0.2;
         }
 
         &:before{
