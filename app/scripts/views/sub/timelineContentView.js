@@ -31,6 +31,8 @@ define([
         timeline  : "#timeline-wrapper",
 
         showGalleryClass: 'timeline-gallery-show',
+        yearTimeLineHeight : {},
+
         $timeline : null,
         $selected : null,
 
@@ -127,17 +129,17 @@ define([
                     $year.addClass('emphasis');
 
                 var rate           = (year - CONSTANTS.EVENT_START_YEAR) / CONSTANTS.EVENT_DURATION;
-                var eventPositionX = ( rate * CONSTANTS.TIME_LINE_END_POS + ( 1 - rate ) * CONSTANTS.TIME_LINE_START_POS ) * commonData.windowSize.width;
+                var eventPositionX = ( rate * CONSTANTS.TIME_LINE_END_POS + ( 1 - rate ) * CONSTANTS.TIME_LINE_START_POS ) * commonData.windowSize.width + 8;
                 var domId = "#time-line-event-" + data.id;
                 var posY;
                 if(i > 6){
-                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * (i-7) + 20;
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 70 * (i-7) + 20;
                 } else if(i > 2){
-                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * (i-3) + 20;
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 70 * (i-3) + 20;
                 }else if(i > 0){
-                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * (i-1) + 20;
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 70 * (i-1) + 20;
                 }else{
-                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 60 * i + 20;
+                    posY = CONSTANTS.TIME_LINE_POS_Y2 + 70 * i + 20;
                 }
 
 
@@ -154,24 +156,27 @@ define([
                     $div = $(id);
 
                     startY   = CONSTANTS.TIME_LINE_POS_Y2 + 8;
-                    height   = posY - startY + 8;
-
-                    $div.css("height", height);
+                    height   = posY - startY + 30;
+                    this.yearTimeLineHeight[year] = height;
+                    //$div.css("height", height);
 
                 } else {
                     div = document.createElement('div');
                     $div = $(div);
-                    $div.addClass('time-visual');
+                    $div.addClass('time-visual-line');
                     id = 'timeline-visual-' + year;
                     $div.attr('id', id);
                     $div.attr('data-year', year);
                     this.$tl.append(div);
 
                     startY   = CONSTANTS.TIME_LINE_POS_Y2 + 8;
-                    height   = posY - startY + 8;
+                    height   = posY - startY + 30;
 
                     $div.css({ translate: [ eventPositionX, startY ] });
-                    $div.css( {"height":height, opacity : 0 });
+
+                    $div.css( {"height":0, opacity : 1 });
+
+                    this.yearTimeLineHeight[year] = height;
 
                     // -----
                     this.yearCollection.push(year);
@@ -182,34 +187,35 @@ define([
             }
 
 
-            setTimeout(this.loopAnimation, 1500);
+            setTimeout(this.loopAnimation, 800);
 
         },
 
         loopAnimation : function(){
-            var year = this.yearCollection[this.count];
 
-            var $year = $('.event-item-collection-year-' + year);
-            $year.addClass('visible');
+            for(var i = 0; i < this.yearCollection.length; i++){
+                var year = this.yearCollection[i];
 
-            var attribute = '*[data-year="' + year +'"]';
-            $(attribute).each(function(index){
-                //TweenLite.to(this, 0.6, {opacity: 1});
-                $(this).css({ opacity: 1 });
-            });
+                var $year = $('.event-item-collection-year-' + year);
+                $year.addClass('visible');
 
-            // -------------
+                var $timeLineVisual =  $('#timeline-visual-' + year);
+                $timeLineVisual.css({height: this.yearTimeLineHeight[year]});
 
-            this.count++;
-            if( this.count < this.yearCollection.length ){
-                if(commonData.debug){
-                    setTimeout(this.loopAnimation, 200);
-                }else{
-                    setTimeout(this.loopAnimation, 1000)
-                }
-            }else{
-                this.clickState = false;
             }
+
+
+            var self = this;
+
+            setTimeout(function(){
+                self.clickState = false;
+
+                for(var i = 0; i < self.yearCollection.length; i++){
+                    var year = self.yearCollection[i];
+                    var $timeLineEventContentWrapperYear = $('.time-line-event-content-wrapper-' + year);
+                    $timeLineEventContentWrapperYear.css({ opacity: 1 });
+                }
+            }, 300);
 
         },
 

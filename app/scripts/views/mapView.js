@@ -22,6 +22,7 @@ define([
         projection : null,
         path : null,
         svg : null,
+        line : null,
 
         clickTextStatus : null,
 
@@ -113,17 +114,18 @@ define([
         },
 
         onMapChange : function(id){
-            var countries = eventData[id][1];
             this.$el.find('.selected').removeClass('selected');
 
+            if(id){
+                var countries = eventData[id][1];
 
-            for(var i in countries){
-                var countryName = countries[i];
-                var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
-                var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");
-                $findCountry.addClass("selected");
+                for(var i in countries){
+                    var countryName = countries[i];
+                    var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
+                    var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");
+                    $findCountry.addClass("selected");
+                }
             }
-
 
             /**
             var transform = commonData.mapTransformData[id];
@@ -198,6 +200,13 @@ define([
         // --------------------------
 
         onMapCaptionMouseEnter : function(event){
+            if(!this.line){
+                this.line = $('.time-visual-line');
+            }
+            this.line.css({opacity: 0});
+
+
+
             this.clickTextStatus = false;
 
             var $target = $(event.currentTarget);
@@ -219,6 +228,8 @@ define([
         },
 
         onMapCaptionMouseLeave : function(event){
+            this.line.css({opacity: 1});
+
             var $target = $(event.currentTarget);
             var $targetHTMLText = $target.html();
 

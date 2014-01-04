@@ -43,10 +43,16 @@ $doubleSide : 20px;
 
       // ----------
 
-      .time-visual{
+      .time-visual-line{
         background: $timelineColor2;
         position: absolute;
         width: $timeVisualWidth;
+
+        @include transition( 0.3s all );
+
+        &.invisible{
+          opacity: 0;
+        }
       }
 
     }
@@ -120,7 +126,7 @@ $doubleSide : 20px;
         margin-left: 8px;
         padding: 5px;
 
-        @include transition(0.4s all);
+        @include transition(0.4s background, 0.3s color, 1s opacity);
 
         &:hover {
           background: $timelineColor3Number;
@@ -150,7 +156,7 @@ $doubleSide : 20px;
           background: $timelineColor2;
           width: 5px;
           height: 1px;
-          top: 7px;
+          top: 29px;
           left: -8px;
         }
 
