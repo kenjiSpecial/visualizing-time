@@ -24,6 +24,8 @@ define([
         // map
         MAP_CHANGE : 'mapChange',
         MAP_GALLERY_REMOVE : 'mapGalleryRemove',
+        MAP_CAPTION_MOUSE_ENTER : 'onMapCaptionMouseEnter',
+        MAP_CAPTION_MOUSE_LEAVE : 'onMapCaptionMouseLeave',
 
         // gallery
         GALLERY_REMOVE : 'onGalleryRemove',

@@ -8,6 +8,7 @@ define([
 
     // helpers
     'helpers/commonData',
+    'helpers/eventData',
     'helpers/constants',
     'helpers/windowEvent',
     'helpers/events',
@@ -20,7 +21,7 @@ define([
     'views/sub/timelineGalleryView',
 
 
-],function( $, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, windowEvent, Events, exhibitCollection, timelineListView, timelineGalleryView ){
+],function( $, _, Backbone, JST, jqueryTransit, TweenLite, commonData, eventData, CONSTANTS, windowEvent, Events, exhibitCollection, timelineListView, timelineGalleryView ){
     var TimeLineContentView = Backbone.View.extend({
         el  : "#timeline-content",
 
@@ -53,15 +54,21 @@ define([
                 'loopAnimation',
                 'onGalleryRemove',
                 'onGalleryRemoveSetTimeout',
-                'onReRender'
+                'onReRender',
+
+                'onMapCaptionMouseEnter',
+                'onMapCaptionMouseLeave'
             );
 
             this.$timeline = $(this.timeline);
 
             this.$tl = $(this.tl);
 
-            Events.on(Events.GALLERY_REMOVE, this.onGalleryRemove );
-            Events.on(Events.ON_RE_RENDER, this.onReRender);
+            Events.on( Events.GALLERY_REMOVE, this.onGalleryRemove );
+            Events.on( Events.ON_RE_RENDER, this.onReRender );
+
+            Events.on( Events.MAP_CAPTION_MOUSE_ENTER, this.onMapCaptionMouseEnter );
+            Events.on( Events.MAP_CAPTION_MOUSE_LEAVE, this.onMapCaptionMouseLeave );
 
         },
 
@@ -79,7 +86,7 @@ define([
                 var year  = parseInt(data.time);
                 var title = data.title;
 
-                var html = this.template({ id: data.id, title: title, year: year, contentItems: contentItems });
+                var html = this.template({ id: data.id, title: title, year: year, contentItems: contentItems, eventData: eventData });
 
 
                 this.$el.append(html);
@@ -336,6 +343,37 @@ define([
             this.$selected.removeClass('selected');
 
             this.selectID = selectedID;
+        },
+
+        onMapCaptionMouseEnter : function( countryNameText ){
+
+            if(!this.clickState){
+                // console.log("timeLineCountryView.js onMapCaptionMouseEnter: country name is " + country_name_text );
+                var countryName = commonData.mapListCountryStyle[countryNameText]['name'];
+                var selectCountryClassString = 'event-item-image-' + countryName;
+                console.log(countryName);
+                var $eventItemImages = this.$el.find('.event-item-image');
+
+                $eventItemImages.each( function(){
+                    var $this = $(this);
+                    if(!$this.hasClass(selectCountryClassString)){
+                        $this.addClass('not-selected');
+                    }
+                } );
+            }
+        },
+
+        onMapCaptionMouseLeave : function( countryNameText ){
+            if(!this.clickState){
+                var $eventItemImages = this.$el.find('.event-item-image');
+
+                $eventItemImages.each( function(){
+                    var $this = $(this);
+                    if($this.hasClass('not-selected')){
+                        $this.removeClass('not-selected');
+                    }
+                } );
+            }
         },
 
         mouseEnterTimeLineGalleryShow: function(){

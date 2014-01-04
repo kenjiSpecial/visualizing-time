@@ -11,8 +11,21 @@
 
             var uri = contentItem.uri;
             var eventID = 'eventItem' + contentItem.id;
+
+            var countries = eventData[contentItem.id][1];
+            var countriesString = "";
+
+            for(var j in countries){
+                var country = countries[j];
+                if(j == 0){
+                    countriesString += "event-item-image-" + country;
+                }else{
+                    countriesString += " event-item-image-" + country ;
+                }
+            }
+
         %>
-        <div class="event-item-image" id="<%= eventID %>">
+        <div class="event-item-image <%= countriesString %>" id="<%= eventID %>">
 
         </div>
         <%}%>

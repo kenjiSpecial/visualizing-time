@@ -21,7 +21,7 @@ define([
             for( var i = 0; i < this.models.length; i++ ){
                 var model = this.models[i];
                 var contentItems = model.get('contentItems');
-                console.log(contentItems);
+                //console.log(contentItems);
 
                 for(var j in contentItems){
                     var title = contentItems[j]['title'];

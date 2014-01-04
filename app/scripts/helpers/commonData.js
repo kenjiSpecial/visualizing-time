@@ -75,21 +75,22 @@ define([
 
             mapListCountry : ['Germany', 'France', 'United Kingdom', 'Russia', 'Ottoman Empire', 'Poland', 'Balkans', 'Denmark'],
             mapListCountryStyle: {
-                'Germany'         : ['DEU'],
-                'France'          : ['FRA'],
-                'United Kingdom'  : ['GBR'],
-                'Russia'          : ['RUS'],
-                'Ottoman Empire'  : ['TUR'],
-                'Balkans'         : ['ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'SVN'],
-                'Austria-Hungary' : ['AUT', 'HUN', 'CZE', 'SVK'],
-                'Denmark'         : ['DNK'],
-                'Poland'          : ['POL'],
-                'Libya'           : ['LBY'],
-                'Italy'           : ['ITA'],
-                'Morocco'         : ['MAR'],
-                'Sudan'           : ['SDN'],
-                'Japan'           : ['JPN'],
-                'China'           : ['CHN'],
+                'Germany'         : { id: ['DEU'], name: 'germany' },
+                'France'          : { id: ['FRA'], name: 'france' },
+                'United Kingdom'  : { id: ['GBR'], name: 'uk' },
+                'Russia'          : { id: ['RUS'], name: 'russia' },
+                'Ottoman Empire'  : { id: ['TUR'], name: 'turkey'},
+                'Balkans'         : { id: ['ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'SVN'], name: 'balkans'},
+                'Austria-Hungary' : { id: ['AUT', 'HUN', 'CZE', 'SVK'], name: 'austria-hungary'},
+                'Denmark'         : { id: ['DNK'], name: 'denmark'},
+                'Poland'          : { id: ['POL'], name: 'poland'},
+                'Libya'           : { id: ['LBY'], name: 'libya'},
+                'Italy'           : { id: ['ITA'], name: 'italy'},
+                'Morocco'         : { id: ['MAR'], name: 'morocco'},
+                'Sudan'           : { id: ['SDN'], name: 'sudan'},
+                'Japan'           : { id: ['JPN'], name: 'japan'},
+                'China'           : { id: ['CHN'], name: 'china'},
+                'Serbia'          : { id: ['SRB'], name: 'serbia'}
             },
 
             revMapListCountryStyle: {},
@@ -110,8 +111,11 @@ define([
                 'Morocco'         : { 'scale': 4, 'latitude': [ -5, 32] },
                 'Sudan'           : { 'scale': 3, 'latitude': [ 32, 15] },
                 'China'           : { 'scale': 1, 'latitude': [ 103, 35] },
-                'Japan'           : { 'scale': 2.5, 'latitude': [ 136, 37] }
+                'Japan'           : { 'scale': 2.5, 'latitude': [ 136, 37] },
+                'Serbia'          : { 'scale': 6, 'latitude': [ 21.1333, 43.8167] }
             },
+
+
 
 
 
@@ -130,10 +134,12 @@ define([
         }
 
         for(var j in CommonData.mapListCountryStyle){
-            for(var k in CommonData.mapListCountryStyle[j]){
-                var countryID = CommonData.mapListCountryStyle[j][k];
+
+            for(var k in CommonData.mapListCountryStyle[j]['id']){
+                var countryID = CommonData.mapListCountryStyle[j]['id'][k];
                 CommonData.revMapListCountryStyle[countryID] = j;
             }
+
         }
 
 		return CommonData

@@ -185,6 +185,7 @@ define([
             this.clickTextStatus = false;
 
             var $target = $(event.currentTarget);
+            var $targetHTMLText = $target.html();
 
             var country = $target.data("country");
             var countryIdArray = country.split(" ");
@@ -195,10 +196,15 @@ define([
                 var selected = this.g.selectAll(countryClassString);
                 selected.classed('onMouseOver',true);
             }
+
+            // ------
+
+            Events.trigger(Events.MAP_CAPTION_MOUSE_ENTER, $targetHTMLText);
         },
 
         onMapCaptionMouseLeave : function(event){
             var $target = $(event.currentTarget);
+            var $targetHTMLText = $target.html();
 
             var country = $target.data("country");
             var countryIdArray = country.split(" ");
@@ -217,6 +223,7 @@ define([
                     .duration(1200).attr("transform", transformString);
             }
 
+            Events.trigger(Events.MAP_CAPTION_MOUSE_LEAVE, $targetHTMLText);
         },
 
         onMapCaptionClick : function(event){

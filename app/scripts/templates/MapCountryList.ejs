@@ -1,15 +1,17 @@
-<%for(var i in countries){
+<%
+
+for(var i in countries){
     var country = i;
     var countryList = "";
 
     var countryClass = country.substring(0, 3).toLowerCase();
 
 
-    for(var j in countries[i]){
+    for(var j in countries[i]['id']){
         if(j == 0){
-            countryList = countries[i][j];
+            countryList = countries[i]['id'][j];
         }else{
-            countryList += " " + countries[i][j];
+            countryList += " " + countries[i]['id'][j];
         }
 
     }

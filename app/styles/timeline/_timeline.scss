@@ -168,6 +168,12 @@ $doubleSide : 20px;
             overflow: hidden;
             float: left;
 
+            @include transition( 0.3s opacity);
+
+            &.not-selected{
+              opacity: 0.1;
+            }
+
             &.display-none{
               display: none;
             }
