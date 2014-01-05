@@ -370,15 +370,34 @@ define([
 
                 var $timeLineEventContentWrapperClasses = this.$el.find('.time-line-event-content-wrapper');
                 var selectEventCountryClassString = 'time-line-event-content-' + countryName;
+                var prevYear, curYear;
+                var years = [];
+
                 $timeLineEventContentWrapperClasses.each(function(){
                     var $this = $(this);
+
                     if($this.hasClass(selectEventCountryClassString)){
-                        $this.addClass('selected')
+                        $this.addClass('selected');
+
+                        curYear = $this.data("year");
+
+                        if(curYear != prevYear){
+                            years.push(curYear);
+                        }
+
+                        prevYear = curYear;
                     }else{
                         //$this.addClass('not-selected');
                         $this.css({opacity: 0.1});
                     }
                 });
+
+
+                for(var i in years){
+                    var year = years[i];
+                    var idString = '#year-' + year;
+                    this.$el.find(idString).addClass('selected');
+                }
 
             }
         },
@@ -405,6 +424,8 @@ define([
                         $this.css({opacity: 1});
                     }
                 });
+
+                this.$el.find('.sub-time').removeClass('selected');
 
             }
         },
