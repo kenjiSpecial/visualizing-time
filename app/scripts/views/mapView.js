@@ -26,6 +26,7 @@ define([
         path : null,
         svg : null,
         line : null,
+        renderStatus : false,
 
         clickTextStatus : null,
 
@@ -285,10 +286,28 @@ define([
         },
 
         onGalleryRender : function(){
+            this.renderStatus = true;
+
             this.$el.addClass('show-gallery');
+
+            var countries = eventData[this.selectedID];
+
+            for(var i in countries){
+                var country = countries[i];
+                var countryName = commonData.revMapListCountryStyleName[country];
+                var countryIDs = commonData.mapListCountryStyle[countryName].id;
+
+                for(var j in countryIDs){
+                    var id = countryIDs[j];
+                    var countryClassString = '.country-' + id;
+                    var selected = this.g.selectAll(countryClassString);
+                    selected.classed('onMouseOver', false);
+                }
+            }
         },
 
         onGalleryRemove : function(){
+            this.renderStatus = false;
             var self = this;
 
             this.$el.find('.selected').removeClass('selected');
@@ -304,6 +323,9 @@ define([
         // -----------------------------
 
         onMouseEnterTimeLineEventContent : function(id){
+            this.selectedID = id;
+
+
             var countries = eventData[id];
 
             for(var i in countries){
@@ -327,7 +349,9 @@ define([
         },
 
         onMouseOutTimeLineEventContent : function(id){
+            if(this.renderStatus) return;
             var countries = eventData[id];
+
 
             for(var i in countries){
                 var country = countries[i];
