@@ -36,7 +36,9 @@ define([
         ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE : 'onTimeLineEmphasisMouseLeave',
 
         // time line content
-        ON_GALLERY_RENDER : 'onGalleryRender'
+        ON_GALLERY_RENDER : 'onGalleryRender',
+        ON_MOUSE_ENTER_TL : 'onMouseEnterTimeLIneEventContent',
+        ON_MOUSE_LEAVE_TL : 'onMouseLeaveTimeLIneEventContent'
 
     });
 

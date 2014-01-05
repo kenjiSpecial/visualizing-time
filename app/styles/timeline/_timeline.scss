@@ -109,6 +109,11 @@ $doubleSide : 20px;
           color: $whiteBackColor;
           background: $timelineColor3;
         }
+
+        &.selectedAtHome{
+          color: $whiteBackColor;
+          background: $timelineColor3Number;
+        }
       }
 
       .out-time{

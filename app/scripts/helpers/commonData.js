@@ -94,6 +94,24 @@ define([
             },
 
             revMapListCountryStyle: {},
+            revMapListCountryStyleName : {
+                'germany' : 'Germany',
+                'france'  : 'France',
+                'uk'      : 'United Kingdom',
+                'russia'  : 'Russia',
+                'turkey'  : 'Ottoman Empire',
+                'balkans' : 'Balkans',
+                'austria-hungary' : 'Austria-Hungary',
+                'denmark' : 'Denmark',
+                'poland'  : 'Poland',
+                'libya'   : 'libya',
+                'italy'   : 'Italy',
+                'morocco' : 'Morocco',
+                'sudan'   : 'Sudan',
+                'japan'   : 'Japan',
+                'china'   : 'China',
+                'serbia'  : 'Serbia'
+            },
 
             centerPosition : [30, 50],
             countryScaleValue : {
@@ -141,6 +159,7 @@ define([
             }
 
         }
+
 
 		return CommonData
 	}

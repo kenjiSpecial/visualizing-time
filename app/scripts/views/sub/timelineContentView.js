@@ -45,7 +45,10 @@ define([
         events : {
             "click .time-line-event-content-wrapper" : "clickTimeLineEventContent",
             "mouseenter .emphasis" : "mouseEnterTimeLineGalleryShow",
-            "mouseout .emphasis" : "mouseLeaveTimeLineGalleryShow"
+            "mouseout .emphasis" : "mouseLeaveTimeLineGalleryShow",
+
+            "mouseenter .time-line-event-content-wrapper" : "onMouseEnterTimeLineEventContent",
+            "mouseleave .time-line-event-content-wrapper"   : "onMouseOutTimeLineEventContent"
         },
 
         template : JST['app/scripts/templates/timelineContentTemplate.ejs'],
@@ -396,7 +399,7 @@ define([
                 for(var i in years){
                     var year = years[i];
                     var idString = '#year-' + year;
-                    this.$el.find(idString).addClass('selected');
+                    this.$el.find(idString).addClass('selectedAtHome');
                 }
 
             }
@@ -425,9 +428,23 @@ define([
                     }
                 });
 
-                this.$el.find('.sub-time').removeClass('selected');
+                this.$el.find('.sub-time').removeClass('selectedAtHome');
 
             }
+        },
+
+        onMouseEnterTimeLineEventContent : function(event){
+            var $target = $(event.currentTarget);
+            var id = $target.data("id");
+
+            Events.trigger(Events.ON_MOUSE_ENTER_TL, id);
+        },
+
+        onMouseOutTimeLineEventContent : function(event){
+            var $target = $(event.currentTarget);
+            var id = $target.data("id");
+
+            Events.trigger(Events.ON_MOUSE_LEAVE_TL, id);
         },
 
         mouseEnterTimeLineGalleryShow: function(){

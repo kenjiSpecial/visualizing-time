@@ -38,7 +38,7 @@ define([
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange', 'onClick', 'onMapMouseOver', 'onMapMouseOut', 'onGalleryRender', 'onGalleryRemove');
+            _.bindAll(this, 'render', 'onResize', 'onMapChange', 'onMapChange', 'onClick', 'onMapMouseOver', 'onMapMouseOut', 'onGalleryRender', 'onGalleryRemove', 'onMouseEnterTimeLineEventContent', 'onMouseOutTimeLineEventContent');
 
 
 
@@ -63,6 +63,10 @@ define([
 
             Events.on( Events.ON_GALLERY_RENDER, this.onGalleryRender);
             Events.on( Events.GALLERY_REMOVE, this.onGalleryRemove );
+
+            Events.on(Events.ON_MOUSE_ENTER_TL, this.onMouseEnterTimeLineEventContent);
+            Events.on(Events.ON_MOUSE_LEAVE_TL, this.onMouseOutTimeLineEventContent)
+
         },
 
         render : function(){
@@ -293,6 +297,52 @@ define([
                 self.$el.removeClass('show-gallery');
             }, 500)
 
+        },
+
+        // -----------------------------
+        //  mouse enter time line event
+        // -----------------------------
+
+        onMouseEnterTimeLineEventContent : function(id){
+            var countries = eventData[id];
+
+            for(var i in countries){
+                var country = countries[i];
+                var countryName = commonData.revMapListCountryStyleName[country];
+
+                var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
+                var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");
+                $findCountry.addClass("selected");
+
+                //console.log(countryName);
+                var countryIDs = commonData.mapListCountryStyle[countryName].id;
+                for(var j in countryIDs){
+                    var id = countryIDs[j];
+                    var countryClassString = '.country-' + id;
+                    var selected = this.g.selectAll(countryClassString);
+                    selected.classed('onMouseOver',true);
+                }
+
+            }
+        },
+
+        onMouseOutTimeLineEventContent : function(id){
+            var countries = eventData[id];
+
+            for(var i in countries){
+                var country = countries[i];
+                var countryName = commonData.revMapListCountryStyleName[country];
+                var countryIDs = commonData.mapListCountryStyle[countryName].id;
+
+                for(var j in countryIDs){
+                    var id = countryIDs[j];
+                    var countryClassString = '.country-' + id;
+                    var selected = this.g.selectAll(countryClassString);
+                    selected.classed('onMouseOver', false);
+                }
+            }
+
+            this.$el.find(".map-caption-list.selected").removeClass("selected");
         }
 
 
