@@ -174,7 +174,7 @@ define([
 
                     $div.css({ translate: [ eventPositionX, startY ] });
 
-                    $div.css( {"height":0, opacity : 1 });
+                    $div.css( {"height":0 });
 
                     this.yearTimeLineHeight[year] = height;
 
@@ -204,6 +204,7 @@ define([
 
             }
 
+            this.$timeVisualLine = $('.time-visual-line');
 
             var self = this;
 
@@ -234,13 +235,11 @@ define([
                 var $year = $('.event-item-collection-year-' + year);
                 $year.removeClass('visible');
 
-                var attribute = '*[data-year="' + year +'"]';
-                $(attribute).each(function(index){
-                    //TweenLite.to(this, 0.6, {opacity: 0});
-                    $(this).css({opacity: 0})
-                });
+                var $timeLineEventContentWrapperYear = $('.time-line-event-content-wrapper-' + year);
+                $timeLineEventContentWrapperYear.css({ opacity: 0 });
 
             }
+            this.$timeVisualLine.addClass('invisible');
 
             // ---------
 
@@ -272,6 +271,7 @@ define([
         onGalleryRemove : function(){
 
             this.$timeline.removeClass(this.showGalleryClass);
+            //
 
             setTimeout(this.onGalleryRemoveSetTimeout, 800);
         },
@@ -313,13 +313,11 @@ define([
                 var $year = $('.event-item-collection-year-' + year);
                 $year.addClass('visible');
 
-                var attribute = '*[data-year="' + year +'"]';
-                $(attribute).each(function(index){
-                    $(this).css({ opacity: 1 });
-
-                });
-
+                var $timeLineEventContentWrapperYear = $('.time-line-event-content-wrapper-' + year);
+                $timeLineEventContentWrapperYear.css({ opacity: 1 });
             }
+
+            this.$timeVisualLine.removeClass('invisible');
         },
 
         onReRender : function(selectedID){

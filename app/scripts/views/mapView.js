@@ -12,10 +12,13 @@ define([
     'helpers/commonData',
     'helpers/constants',
     'helpers/events',
-    'helpers/windowEvent'
+    'helpers/windowEvent',
+
+    // views
+    'views/sub/timelineContentView'
 
 
-], function( $, _, Backbone, JST, d3, topojson, TweenLite, commonData, CONSTANTS, Events, windowEvent ){
+], function( $, _, Backbone, JST, d3, topojson, TweenLite, commonData, CONSTANTS, Events, windowEvent, timelineContentView ){
     var MapView = Backbone.View.extend({
         template: JST['app/scripts/templates/MapCountryList.ejs'],
         el: "#main-map",
@@ -116,8 +119,10 @@ define([
         onMapChange : function(id){
             this.$el.find('.selected').removeClass('selected');
 
-            if(id){
-                var countries = eventData[id][1];
+            var countryItems = eventData[id]
+
+            if(countryItems){
+                var countries = countryItems[1];
 
                 for(var i in countries){
                     var countryName = countries[i];
@@ -200,10 +205,12 @@ define([
         // --------------------------
 
         onMapCaptionMouseEnter : function(event){
+            if(timelineContentView.clickState) return;
+
             if(!this.line){
                 this.line = $('.time-visual-line');
             }
-            this.line.css({opacity: 0});
+            this.line.addClass('invisible');
 
 
 
@@ -228,7 +235,9 @@ define([
         },
 
         onMapCaptionMouseLeave : function(event){
-            this.line.css({opacity: 1});
+            if(timelineContentView.clickState) return;
+
+            this.line.removeClass('invisible');
 
             var $target = $(event.currentTarget);
             var $targetHTMLText = $target.html();

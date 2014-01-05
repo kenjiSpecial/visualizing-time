@@ -126,7 +126,7 @@ $doubleSide : 20px;
         margin-left: 8px;
         padding: 5px;
 
-        @include transition(0.4s background, 0.3s color, 1s opacity);
+        @include transition(0.4s background, 0.3s color, 1s opacity, 0.5s margin-left);
 
         &:hover {
           background: $timelineColor3Number;
@@ -138,11 +138,18 @@ $doubleSide : 20px;
         }
 
         &.selected {
+
           background: $timelineColor3Number;
+          margin-left: 0;
 
           .time-line-event-content{
             color: $whiteBackColor;
 
+          }
+
+          &:before{
+            @include transition( 0.2s width );
+            width: 0;
           }
         }
 
@@ -151,6 +158,8 @@ $doubleSide : 20px;
         }
 
         &:before{
+          @include transition( 0.5s width 0.3s);
+
           content: '';
           position: absolute;
           background: $timelineColor2;
