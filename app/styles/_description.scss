@@ -1,0 +1,24 @@
+$timelineEventListTextColor: #aaa;
+$linkTimeLineEventListTextColor: #999;
+
+#description{
+  position: absolute;
+  z-index: 100;
+  bottom: 20px;
+  right: 50px;
+
+  #produced{
+    font-weight: 100;
+    font-size: 11px;
+    color: $timelineEventListTextColor;
+  }
+
+  a{
+    font-weight: 700;
+    color: $timelineEventListTextColor;
+
+    &:hover{
+      color: $linkTimeLineEventListTextColor;
+    }
+  }
+}

@@ -121,7 +121,7 @@ define([
                     .attr('height', commonData.windowSize.height );
         },
 
-        onMapChange : function(id){
+        onMapChange : function(id, currentType){
             this.$el.find('.selected').removeClass('selected');
 
             var countryItems = eventData[id]
@@ -137,31 +137,22 @@ define([
                 }
             }
 
-            /**
-            var transform = commonData.mapTransformData[id];
+            var transformData;
 
-            var translate = transform.translate;
-            var scale     = transform.scale;
 
-            var transX, transY;
-            if(id != 'default'){
-                var point = this.projection( commonData.centerPosition[0], commonData.centerPosition[1] );
-
-                transX = commonData.windowSize.width/2 - point[0];
-                transY = commonData.windowSize.height/2 - point[1];
-
-            } else {
-                transX = translate[0];
-                transY = translate[1];
+            if(currentType == "map"){
+                transformData = commonData.mapTransformData[id];
+            }else{
+                transformData = commonData.mapTransformData['default'];
             }
 
-            // translate(0, 0)scale(1)
+            var point = this.projection( transformData.latitude );
+            var scale = transformData.scale;
 
-
-            var trasformString = 'translate(' + transX + ', ' + transY + ')scale(' + scale + ')';
+            var transformString = 'translate(' + window.innerWidth/2 + ', ' + window.innerHeight/2 + ')scale(' + scale + ')translate(' + ( -1 * point[0] ) + ' , ' + ( -1 * point[1] ) + ')';
             this.g.transition()
-                .duration(1200).attr("transform", trasformString);
-            */
+                .duration(1200).attr("transform", transformString);
+
         },
 
         onClick : function(event){

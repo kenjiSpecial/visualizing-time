@@ -311,11 +311,10 @@ define([
 
         changeMap: function(){
             var contentID = this.dataJson.contentItems[this.count].id;
-            Events.trigger(Events.MAP_CHANGE, contentID);
-
-            /**
             var type = this.dataJson.contentItems[this.count].type;
 
+            Events.trigger(Events.MAP_CHANGE, contentID, type);
+            /**
             if(type == "map"){
 
             }else{
