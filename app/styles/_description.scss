@@ -7,10 +7,12 @@ $linkTimeLineEventListTextColor: #999;
   bottom: 20px;
   right: 50px;
 
+  font-weight: 100;
+  font-size: 11px;
+  color: $timelineEventListTextColor;
+
   #produced{
-    font-weight: 100;
-    font-size: 11px;
-    color: $timelineEventListTextColor;
+
   }
 
   a{

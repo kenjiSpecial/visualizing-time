@@ -16,14 +16,9 @@ define([
 
 
         if(Modernizr.mobile){
-            var mainCanvas = document.getElementById("mainCanvas");
             window.addEventListener( 'orientationchange', this.onResizeWindow );
 
-            mainCanvas.addEventListener( 'touchstart', this.onTouchStart );
-            mainCanvas.addEventListener( 'touchmove', this.onTouchMove );
-            mainCanvas.addEventListener( 'touchend', this.onTouchEnd );
-
-            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+            //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
         } else {
 

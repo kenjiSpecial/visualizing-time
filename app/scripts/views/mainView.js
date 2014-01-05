@@ -15,7 +15,9 @@ define([
     'views/sub/timelineGalleryView',
 
     // collection
-    'collection/exhibitCollection'
+    'collection/exhibitCollection',
+
+    'helpers/modernizr'
 
 ],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, timelineView, timelineContentViews, timelineGalleryView ) {
     var MainView = Backbone.View.extend({
@@ -34,6 +36,10 @@ define([
                 width  : commonData.windowSize.width,
                 height : commonData.windowSize.height
             });
+
+            if(Modernizr.mobile){
+                this.$el.find('#description').css({'display': 'none'});
+            }
 
         },
 
