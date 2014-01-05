@@ -107,6 +107,7 @@ $circleColor2 : #fff;
           .figure-content-set{
             position: relative;
             div.content-item-description{
+              width: 100%;
               background: $timelineBgColor2;
               position: absolute;
               bottom: 0;
@@ -283,6 +284,20 @@ $circleColor2 : #fff;
         position: relative;
         width: $selectorWidth;
         height: $selectorWidth;
+
+        &.selected{
+          .circle{
+            position: absolute;
+            width: $selectorWidth;
+            height: $selectorWidth;
+            border-radius: ($selectorWidth/2);
+
+            top  : 0;
+            left : 0;
+
+            background: $circleColor2;
+          }
+        }
 
         .circle{
           position: absolute;

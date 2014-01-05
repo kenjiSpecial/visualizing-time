@@ -25,7 +25,7 @@ define([
 
         // --------------------
         // The decline of the ootoman empire 1878-1914
-        '3ec4946e-dc61-4a35-92c0-9081fb0df7f4' : ['russia', 'balkans', 'turkey', 'uk', 'france', 'balkans', 'austria-hungary', 'germany'],
+        '3ec4946e-dc61-4a35-92c0-9081fb0df7f4' : ['russia', 'turkey', 'uk', 'france', 'balkans', 'austria-hungary', 'germany', 'libya', 'italy'],
     	// The decline of the ootoman empire 1878-1914
     	'129dd05b-23a3-4ac9-934d-e46ccd96e736' : ['map', ['russia', 'balkans', 'turkey']], // 'Treaty of San Stefano'
     	'6c7d33d6-7f10-4c22-93fc-b1edde8d49b9' : ['gallery', ['germany', 'turkey', 'uk', 'france', 'turkey']], // 'Relations with Germany'
@@ -53,14 +53,14 @@ define([
 
         // --------------------
         // War in Africa
-        'fc7bf40a-accb-4efe-bb43-65878e481035' : ['uk', 'netherlands', 'uk'],
+        'fc7bf40a-accb-4efe-bb43-65878e481035' : ['uk', 'netherlands', 'france'],
         // War in Africa
-        '49c5e6c2-a6fc-49b5-9469-ee768dcb7a55' : ['gallery', ['uk', 'netherlands', 'uk']], //title: War in Africa, id: 49c5e6c2-a6fc-49b5-9469-ee768dcb7a55
+        '49c5e6c2-a6fc-49b5-9469-ee768dcb7a55' : ['gallery', ['uk', 'netherlands', 'france']], //title: War in Africa, id: 49c5e6c2-a6fc-49b5-9469-ee768dcb7a55
         // --------------------
 
         // --------------------
         // The Russo-Japanese War
-        'a4a0017d-c728-46fe-b2b2-c7d5f3f780cc' : ['russia', 'japan', 'germany', 'austria-hungary'],
+        'a4a0017d-c728-46fe-b2b2-c7d5f3f780cc' : ['russia', 'japan', 'germany', 'austria-hungary', 'china'],
         // The Russo-Japanese War
         '7ea8a182-7a35-4493-b1f6-f533d32a851a' : ['gallery', ['russia', 'japan']], //    title: Outbreak of the War, id: 7ea8a182-7a35-4493-b1f6-f533d32a851a
         'dbcf2bee-99da-4525-9012-11b621abb470' : ['gallery', ['russia', 'japan', 'germany', 'austria-hungary']], //    title: A Shift of Power, id: dbcf2bee-99da-4525-9012-11b621abb470
@@ -124,7 +124,7 @@ define([
 
         // --------------------
         // Assassination to Outbreak of War
-        '5b72e33d-0387-4060-9572-102efdefd978' : ['austria-hungary', 'germany', 'bosnia', 'serbia', 'turkey', 'serbia'],
+        '5b72e33d-0387-4060-9572-102efdefd978' : ['austria-hungary', 'germany', 'bosnia', 'serbia', 'turkey'],
         // Assassination to Outbreak of War
         '7784cfc3-5cd4-43d5-a2fd-91232c124eab' : ['gallery', ['austria-hungary', 'germany']],//title: The Archduke, id: 7784cfc3-5cd4-43d5-a2fd-91232c124eab exhibitCollection.js:26
         '58da42c6-620f-4bf4-b31c-1b53ff0995a1' : ['gallery', ['austria-hungary']], // title: His Family, id: 58da42c6-620f-4bf4-b31c-1b53ff0995a1 exhibitCollection.js:26

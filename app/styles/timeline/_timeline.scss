@@ -94,6 +94,8 @@ $doubleSide : 20px;
       }
 
       .sub-time{
+        cursor: default;
+
         font-weight: 300;
         color: $timelineColor1;
         background: rgba(100, 100, 100, 0);
@@ -103,6 +105,12 @@ $doubleSide : 20px;
         &.emphasis{
           color: $timelineColor2;
           font-weight: 800;
+
+          &:hover{
+            color: $whiteBackColor;
+            background: $timelineColor3Number;
+          }
+
         }
 
         &.selected{

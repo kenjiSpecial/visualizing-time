@@ -359,6 +359,7 @@ define([
             if(!this.clickState){
                 // console.log("timeLineCountryView.js onMapCaptionMouseEnter: country name is " + country_name_text );
                 var countryName = commonData.mapListCountryStyle[countryNameText]['name'];
+                console.log(countryName);
                 var selectCountryClassString = 'event-item-image-' + countryName;
                 var $eventItemImages = this.$el.find('.event-item-image');
 
@@ -434,6 +435,8 @@ define([
         },
 
         onMouseEnterTimeLineEventContent : function(event){
+            if(commonData.galleyShowStatus) return;
+
             var $target = $(event.currentTarget);
             var id = $target.data("id");
 
@@ -441,6 +444,8 @@ define([
         },
 
         onMouseOutTimeLineEventContent : function(event){
+            if(commonData.galleyShowStatus) return;
+
             var $target = $(event.currentTarget);
             var id = $target.data("id");
 

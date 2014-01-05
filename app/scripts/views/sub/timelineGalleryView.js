@@ -13,10 +13,11 @@ define([
     'helpers/commonData',
     'helpers/constants',
     'helpers/events',
+    'helpers/keys',
 
     // collection
     'collection/exhibitCollection',
-],function ($, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, Events, exhibitCollection ) {
+],function ($, _, Backbone, JST, jqueryTransit, TweenLite, commonData, CONSTANTS, Events, Keys, exhibitCollection ) {
     var TimeLineGalleryView = Backbone.View.extend({
         el        : "#timeline-events-gallery",
         $elUl     : null,
@@ -56,7 +57,7 @@ define([
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView', 'onMapGalleryRemove', 'onTimeLineEmphasisMouseEnter', 'onTimeLineEmphasisMouseLeave' );
+            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView', 'onMapGalleryRemove', 'onTimeLineEmphasisMouseEnter', 'onTimeLineEmphasisMouseLeave', 'onKeyDowHandler');
 
             this.$elTitle  = $("#time-line-gallery-titles");
             this.$elButton = $('#time-line-gallery-button');
@@ -66,6 +67,8 @@ define([
 
             Events.on(Events.ON_TIME_LINE_EMPHASIS_MOUSE_ENTER, this.onTimeLineEmphasisMouseEnter);
             Events.on(Events.ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE, this.onTimeLineEmphasisMouseLeave);
+
+            Events.on(Events.KEY_DOWN, this.onKeyDowHandler);
         },
 
         setTitle : function(){
@@ -116,7 +119,8 @@ define([
         // render html
         animationDone : function(){
             /** tween animation **/
-            this.galleryViewStatus = true;
+            commonData.galleyShowStatus = true;
+            //this.galleryViewStatus = true;
 
 
             var timeLineGallryWrapper =  document.getElementById("tween-time-line-gallery");
@@ -139,6 +143,8 @@ define([
                 this.$nextSelector.addClass('inactive');
             }
 
+            this.$prevSelector.addClass('inactive');
+
             this.changeMap();
 
             // var $circleEventTitle = this.$el.find(".circle-event-title");
@@ -160,52 +166,77 @@ define([
 
             for(var i in this.contentItems){
                 var contentitem = this.contentItems[i];
-                var id = contentitem.id;
 
+                var id = contentitem.id;
                 var figureString = "#figure-" + id;
                 var $figure =  this.$el.find(figureString);
-                var image = commonData.imageDataCollection[id];
-                $figure.append(image);
-
-                var imageClass = $(image).attr('class');
 
                 var listId = '#time-line-gallery-list-' + id;
                 var $list = this.$el.find(listId);
 
-                var type ;
-                var $image = $(image);
-                if(imageClass == 'img-landscape'){
-                    type = 'list-landscape';
+                if(contentitem.mediaType === 'video'){
 
-                    //width = 800
-                    var imgHeight = commonData.galleryWidth * $image.height() / $image.width();
+                    var uri = contentitem.uri;
+                    var el = document.createElement("iframe");
+                    //el.setAttribute('id', 'ifrm');
+                    //document.body.appendChild(el);
+                    el.setAttribute('width', commonData.galleryWidth );
+                    el.setAttribute('height', 400 );
+                    el.setAttribute('src', uri );
+                    $figure.append(el);
 
-                    if( imgHeight > (height - 50) ){
-                        $image.css({ height: (height - 50) });
-
-                        var scale = (height - 50)/ imgHeight;
-                        var scaleWidth = commonData.galleryWidth * scale;
-                        $list.find('.content-item-description').css({ width: scaleWidth })
-
-                    }else{
-                        $image.css({ width: commonData.galleryWidth});
-                    }
-
-
-
-                } else if(imageClass == 'img-vertical'){
-                    type = 'list-vertical';
-                    $image.css({height: (height - 50)});
-                    var imageWidth = $image.width();
-                    var width = (commonData.galleryWidth - imageWidth - 35);
-
-                    $list.find('.content-item-description').css('width', width);
+//                    $list.addClass('list-landscape');
 
                 }else{
-                    type = 'default';
+
+                    var image = commonData.imageDataCollection[id];
+
+                    if(image){
+                        $figure.append(image);
+
+                        var imageClass = $(image).attr('class');
+
+
+                        var type ;
+                        var $image = $(image);
+                        if(imageClass == 'img-landscape'){
+                            type = 'list-landscape';
+
+                            //width = 800
+                            var imgHeight = commonData.galleryWidth * $image.height() / $image.width();
+
+                            if( imgHeight > (height - 50) ){
+                                $image.css({ height: (height - 50) });
+
+                                var scale = (height - 50)/ imgHeight;
+                                var scaleWidth = commonData.galleryWidth * scale;
+                                $list.find('.content-item-description').css({ width: scaleWidth })
+
+                            }else{
+                                $image.css({ width: commonData.galleryWidth});
+                            }
+
+
+
+                        } else if(imageClass == 'img-vertical'){
+                            type = 'list-vertical';
+                            $image.css({height: (height - 50)});
+                            var imageWidth = $image.width();
+                            var width = (commonData.galleryWidth - imageWidth - 35);
+
+                            $list.find('.content-item-description').css('width', width);
+
+                        }else{
+                            type = 'default';
+                        }
+
+                        $list.addClass(type);
+                    }
+
                 }
 
-                $list.addClass(type);
+
+
             }
 
 
@@ -459,7 +490,7 @@ define([
             this.$elUl.removeClass('transform');
 
 
-            if(this.contentItems.length == 0){
+            if(this.contentItems.length == 1){
                 this.$nextSelector.addClass('inactive');
             }else{
                 if(this.$nextSelector.hasClass('inactive'))
@@ -470,7 +501,8 @@ define([
         },
 
         onRemoveClick : function(){
-            this.galleryViewStatus = false;
+            //this.galleryViewStatus = false;
+            commonData.galleyShowStatus = false;
 
             // ----
 
@@ -502,13 +534,13 @@ define([
         },
 
         onMapGalleryRemove : function(){
-            if(this.galleryViewStatus){
+            if(commonData.galleyShowStatus){
                 this.onRemoveClick();
             }
         },
 
         onTimeLineEmphasisMouseEnter : function(year){
-            if(this.galleryViewStatus){
+            if(commonData.galleyShowStatus){
                 var curClass = '.event-main-title-list-' + year;
                 this.$el.find(curClass).addClass('selected');
             }
@@ -516,11 +548,41 @@ define([
         },
 
         onTimeLineEmphasisMouseLeave : function(year){
-            if(this.galleryViewStatus){
+            if(commonData.galleyShowStatus){
                 var curClass = '.event-main-title-list-' + year;
                 this.$el.find(curClass).removeClass('selected');
             }
 
+        },
+
+        onKeyDowHandler : function(data){
+            if(commonData.galleyShowStatus){
+                var self = this;
+                var keyCode = data.keyCode;
+
+                switch(keyCode){
+                    case Keys.KEY_ESCAPE:
+                        this.onRemoveClick();
+                        break;
+                    case Keys.KEY_LEFT:
+                        this.prevSelectorClick();
+                        this.$prevSelector.addClass('selected');
+                        setTimeout(function(){
+                            self.$prevSelector.removeClass('selected');
+                        }, 200);
+                        break;
+                    case Keys.KEY_RIGHT:
+                        this.nextSelectorClick();
+                        this.$nextSelector.addClass('selected');
+                        setTimeout(function(){
+                            self.$nextSelector.removeClass('selected');
+                        }, 200);
+                        break;
+                }
+
+
+
+            }
         }
 
 

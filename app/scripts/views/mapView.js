@@ -31,7 +31,7 @@ define([
         clickTextStatus : null,
 
         events : {
-            "click": "onClick",
+            "click svg": "onClick",
 
             'mouseenter .map-caption-list': "onMapCaptionMouseEnter",
             'mouseleave .map-caption-list': "onMapCaptionMouseLeave",
@@ -130,7 +130,7 @@ define([
                 var countries = countryItems[1];
 
                 for(var i in countries){
-                    var countryName = countries[i];
+                    var countryName = commonData.revMapListCountryStyleName[countries[i]];
                     var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
                     var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");
                     $findCountry.addClass("selected");
@@ -164,9 +164,12 @@ define([
             */
         },
 
-        onClick : function(){
+        onClick : function(event){
+            if(commonData.galleyShowStatus){
+                Events.trigger(Events.MAP_GALLERY_REMOVE);
+            }
             //alert('onClick');
-            Events.trigger(Events.MAP_GALLERY_REMOVE);
+
         },
 
         // ------------------
@@ -268,7 +271,8 @@ define([
         },
 
         onMapCaptionClick : function(event){
-            if(this.clickTextStatus) return;
+            if(this.clickTextStatus || commonData.galleyShowStatus) return;
+
             this.clickTextStatus = true;
 
             var $target = $(event.currentTarget);
@@ -331,6 +335,7 @@ define([
             for(var i in countries){
                 var country = countries[i];
                 var countryName = commonData.revMapListCountryStyleName[country];
+
 
                 var firstThreeCountryName = countryName.substring(0, 3).toLowerCase();
                 var $findCountry = this.$el.find('.map-caption-list-' + firstThreeCountryName);//.addClass("selected");

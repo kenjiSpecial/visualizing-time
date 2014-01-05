@@ -23,7 +23,9 @@ define([
 			loading : false,
             loaded  : false,
 
+
             galleryWidth: 800,
+            galleyShowStatus: false,
 
             maruUpdateForceK : 0,
             namiUpdateForceK : 0,
@@ -69,28 +71,40 @@ define([
 
             },
 
-            selectingCountries   : ['germany', 'france', 'uk', 'russia', 'turkey', 'albania', 'bosnia', 'bulgaria', 'croatia', 'greece', 'kosovo', 'macedonia', 'montenegro', 'romania', 'serbia', 'austria', 'hungary', 'czech', 'slovakia', 'denmark', 'poland', 'libya', 'italy', 'morocco', 'sudan', 'slovenia', 'japan', 'chn'],
-            selectingCountriesID : ['DEU', 'FRA', 'GBR', 'RUS', 'TUR', 'ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'AUT', 'HUN', 'CZE', 'SVK', 'DNK', 'POL', 'LBY', 'ITA', 'MAR', 'SDN', 'SVN', 'JPN', 'CHN'],
+            selectingCountries   : ['germany', 'france', 'uk', 'russia', 'turkey', 'albania', 'bosnia', 'bulgaria', 'croatia', 'greece', 'kosovo', 'macedonia', 'montenegro', 'romania', 'serbia', 'austria', 'hungary', 'czech', 'slovakia', 'denmark', 'poland', 'libya', 'italy', 'morocco', 'sudan', 'slovenia', 'japan', 'china', 'netherlands', 'bosnia', 'belgium', 'ukraine', 'romania', 'moldova', 'belarus', 'estonia', 'latvia', 'lithuania'],
+            selectingCountriesID : ['DEU', 'FRA', 'GBR', 'RUS', 'TUR', 'ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'AUT', 'HUN', 'CZE', 'SVK', 'DNK', 'POL', 'LBY', 'ITA', 'MAR', 'SDN', 'SVN', 'JPN', 'CHN', 'NLD', 'BIH', 'BEL', 'UKR', 'ROU', 'MDA', 'BLR', 'EST', 'LVA', 'LTU'],
             selectingCountriesListArray: {},
 
-            mapListCountry : ['Germany', 'France', 'United Kingdom', 'Russia', 'Ottoman Empire', 'Poland', 'Balkans', 'Denmark'],
+            //mapListCountry : ['Germany', 'France', 'United Kingdom', 'Russia', 'Ottoman Empire', 'Poland', 'Balkans', 'Denmark', 'Netherlands'],
             mapListCountryStyle: {
                 'Germany'         : { id: ['DEU'], name: 'germany' },
+
                 'France'          : { id: ['FRA'], name: 'france' },
                 'United Kingdom'  : { id: ['GBR'], name: 'uk' },
-                'Russia'          : { id: ['RUS'], name: 'russia' },
-                'Ottoman Empire'  : { id: ['TUR'], name: 'turkey'},
-                'Balkans'         : { id: ['ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'SVN'], name: 'balkans'},
+
                 'Austria-Hungary' : { id: ['AUT', 'HUN', 'CZE', 'SVK'], name: 'austria-hungary'},
-                'Denmark'         : { id: ['DNK'], name: 'denmark'},
-                'Poland'          : { id: ['POL'], name: 'poland'},
-                'Libya'           : { id: ['LBY'], name: 'libya'},
+                'Russia'          : { id: ['RUS', 'UKR', 'ROU', 'MDA', 'BLR', 'EST', 'LVA', 'LTU'], name: 'russia' },
+
+                'Ottoman Empire'  : { id: ['TUR'], name: 'turkey'},
+
+                'Balkans'         : { id: ['ALB', 'BIH', 'BGR', 'HRV', 'GRC', 'KOS', 'MKD', 'MNE', 'ROU', 'SRB', 'SVN'], name: 'balkans'},
+                'Japan'           : { id: ['JPN'], name: 'japan'},
+
                 'Italy'           : { id: ['ITA'], name: 'italy'},
                 'Morocco'         : { id: ['MAR'], name: 'morocco'},
-                'Sudan'           : { id: ['SDN'], name: 'sudan'},
-                'Japan'           : { id: ['JPN'], name: 'japan'},
+                'Serbia'          : { id: ['SRB'], name: 'serbia'},
+
+                'Belgium'         : { id: ['BEL'], name: 'belgium' },
+                'Bosnia'          : { id: ['BIH'], name: 'bosnia'},
                 'China'           : { id: ['CHN'], name: 'china'},
-                'Serbia'          : { id: ['SRB'], name: 'serbia'}
+                'Denmark'         : { id: ['DNK'], name: 'denmark'},
+                'Libya'           : { id: ['LBY'], name: 'libya'},
+                'Netherlands'     : { id: ['NLD'], name: 'netherlands'},
+                'Poland'          : { id: ['POL'], name: 'poland'},
+                'Sudan'           : { id: ['SDN'], name: 'sudan'},
+
+
+
             },
 
             revMapListCountryStyle: {},
@@ -104,13 +118,16 @@ define([
                 'austria-hungary' : 'Austria-Hungary',
                 'denmark' : 'Denmark',
                 'poland'  : 'Poland',
-                'libya'   : 'libya',
+                'libya'   : 'Libya',
                 'italy'   : 'Italy',
                 'morocco' : 'Morocco',
                 'sudan'   : 'Sudan',
                 'japan'   : 'Japan',
                 'china'   : 'China',
-                'serbia'  : 'Serbia'
+                'serbia'  : 'Serbia',
+                'netherlands' : 'Netherlands',
+                'bosnia'      : 'Bosnia',
+                'belgium' : 'Belgium'
             },
 
             centerPosition : [30, 50],
@@ -130,7 +147,10 @@ define([
                 'Sudan'           : { 'scale': 3, 'latitude': [ 32, 15] },
                 'China'           : { 'scale': 1, 'latitude': [ 103, 35] },
                 'Japan'           : { 'scale': 2.5, 'latitude': [ 136, 37] },
-                'Serbia'          : { 'scale': 6, 'latitude': [ 21.1333, 43.8167] }
+                'Serbia'          : { 'scale': 6, 'latitude': [ 21.1333, 43.8167] },
+                'Netherlands'     : { 'scale': 6, 'latitude': [ 5.55, 52.3167] },
+                'Bosnia'          : { 'scale': 6, 'latitude': [ 18, 44] },
+                'Belgium'         : { 'scale': 6, 'latitude': [ 4.8, 50.5] }
             },
 
 

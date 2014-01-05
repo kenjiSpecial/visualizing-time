@@ -15,6 +15,8 @@ define(function(){
 
         // gallery
         MINIMUM_GALLERY_WIDTH : 1200,
+
+        $DOCUMENT : $(window),
     };
 
 

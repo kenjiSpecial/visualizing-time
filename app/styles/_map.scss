@@ -23,7 +23,7 @@ $timelineEventListTextHoverColor: #fff;
         fill: #ddd;
 
         &.onMouseOver{
-          fill: #333 !important;
+          fill: #666666 !important;
         }
       }
 
@@ -70,8 +70,8 @@ $timelineEventListTextHoverColor: #fff;
       color: #999999;
       background: rgba( 255, 255, 255, 0.8);
 
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 4px 8px;
+      font-size: 11px;
 
       @include transition( 0.4s color, 0.6s background );
 

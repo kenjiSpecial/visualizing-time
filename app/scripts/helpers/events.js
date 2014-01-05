@@ -11,6 +11,9 @@ define([
 
         MOUSE_MOVE    : 'mouseMove',
 
+        KEY_UP        : 'keyUp',
+        KEY_DOWN      : 'keyDown',
+
         TOUCH_START   : 'touchStart',
         TOUCH_MOVE    : 'touchMove',
         TOUCH_END     : 'touchEnd',
