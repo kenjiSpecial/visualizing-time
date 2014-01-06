@@ -57,7 +57,7 @@ define([
         },
 
         initialize : function(){
-            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView', 'onMapGalleryRemove', 'onTimeLineEmphasisMouseEnter', 'onTimeLineEmphasisMouseLeave', 'onKeyDowHandler');
+            _.bindAll(this, 'render', 'animationDone', 'onRemoveComplete', 'reRenderGalleryView', 'onMapGalleryRemove', 'onTimeLineEmphasisMouseEnter', 'onTimeLineEmphasisMouseLeave', 'onKeyDowHandler', 'onResize');
 
             this.$elTitle  = $("#time-line-gallery-titles");
             this.$elButton = $('#time-line-gallery-button');
@@ -69,6 +69,8 @@ define([
             Events.on(Events.ON_TIME_LINE_EMPHASIS_MOUSE_LEAVE, this.onTimeLineEmphasisMouseLeave);
 
             Events.on(Events.KEY_DOWN, this.onKeyDowHandler);
+
+            Events.on( Events.WINDOW_RESIZE, this.onResize);
         },
 
         setTitle : function(){
@@ -103,9 +105,9 @@ define([
             this.$elButton.html(buttonHtml);
 
 
-            if(window.innerWidth <= CONSTANTS.MINIMUM_GALLERY_WIDTH){
-                this.$el.css({width: CONSTANTS.MINIMUM_GALLERY_WIDTH});
-            }
+
+            this.$el.css({width: commonData.windowSize.width});
+
 
             var height = commonData.windowSize.height - 150;
 
@@ -582,6 +584,10 @@ define([
 
 
             }
+        },
+
+        onResize : function(){
+            this.$el.css({width: commonData.windowSize.width});
         }
 
 

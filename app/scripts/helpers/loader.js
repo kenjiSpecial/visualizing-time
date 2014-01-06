@@ -141,7 +141,7 @@ define([
         onError: function( errorMsg ){
             this.count++;
 
-            console.log(this.count + "/" + this.MAX_Count);
+            //console.log(this.count + "/" + this.MAX_Count);
 
             if(this.MAX_Count == this.count){
                 this.imageDataLoadStatus = true;
@@ -152,7 +152,7 @@ define([
         onLoad : function(){
             this.count++;
 
-            console.log(this.count + "/" + this.MAX_Count);
+            //console.log(this.count + "/" + this.MAX_Count);
 
             if(this.MAX_Count == this.count){
                 this.imageDataLoadStatus = true;

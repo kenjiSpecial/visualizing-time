@@ -270,7 +270,8 @@ module.exports = function (grunt) {
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*',
                         'bower_components/sass-bootstrap/fonts/*.*',
-                        'json-data/*.json'
+                        'json-data/*.json',
+                        'thumbnail.png'
                     ]
                 }]
             }

@@ -4,13 +4,14 @@ define([
 
     'helpers/commonData',
     'helpers/events',
+    'helpers/constants',
     'helpers/modernizr'
-],function( $, _, commonData, Events ){
+],function( $, _, commonData, Events, constants ){
 
     var WindowEvent = function(){
 
         commonData.windowSize.width  = window.innerWidth;
-        if(commonData.windowSize.width < 1200) commonData.windowSize.width = 1200;
+        if(commonData.windowSize.width < constants.MINIMUM_GALLERY_WIDTH) commonData.windowSize.width = constants.MINIMUM_GALLERY_WIDTH;
         commonData.windowSize.height = window.innerHeight;
         if(commonData.windowSize.height < 650) commonData.windowSize.height = 650;
 
@@ -34,7 +35,7 @@ define([
 
         onResizeWindow : function(){
             commonData.windowSize.width  = window.innerWidth;
-            if(commonData.windowSize.width < 1200) commonData.windowSize.width = 1200;
+            if(commonData.windowSize.width < constants.MINIMUM_GALLERY_WIDTH) commonData.windowSize.width = constants.MINIMUM_GALLERY_WIDTH;
             commonData.windowSize.height = window.innerHeight;
             if(commonData.windowSize.height < 650) commonData.windowSize.height = 650;
 

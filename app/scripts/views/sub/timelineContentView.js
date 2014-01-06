@@ -62,7 +62,9 @@ define([
                 'onReRender',
 
                 'onMapCaptionMouseEnter',
-                'onMapCaptionMouseLeave'
+                'onMapCaptionMouseLeave',
+
+                'onResize'
             );
 
             this.$timeline = $(this.timeline);
@@ -74,6 +76,8 @@ define([
 
             Events.on( Events.MAP_CAPTION_MOUSE_ENTER, this.onMapCaptionMouseEnter );
             Events.on( Events.MAP_CAPTION_MOUSE_LEAVE, this.onMapCaptionMouseLeave );
+
+            Events.on( Events.WINDOW_RESIZE, this.onResize);
 
         },
 
@@ -461,6 +465,28 @@ define([
         mouseLeaveTimeLineGalleryShow: function(){
             if(this.clickState){
 
+            }
+        },
+
+        onResize : function(){
+            var prevYear;
+            for( var i in this.exhibitCollectionJSON ){
+                var data  = this.exhibitCollectionJSON[i];
+
+                var year  = parseInt(data.time);
+
+                var domId = "#time-line-event-" + data.id;
+
+                var $domID = this.$el.find(domId);
+                var rate           = (year - CONSTANTS.EVENT_START_YEAR) / CONSTANTS.EVENT_DURATION;
+                var eventPositionX = ( rate * CONSTANTS.TIME_LINE_END_POS + ( 1 - rate ) * CONSTANTS.TIME_LINE_START_POS ) * commonData.windowSize.width + 8;
+
+                $domID.css({ x: eventPositionX })
+                if(prevYear != year){
+                    var lineId = '#timeline-visual-' + year;
+                    var $lineId = $(lineId);
+                    $lineId.css({ x: eventPositionX });
+                }
             }
         }
     });

@@ -8,6 +8,7 @@ define([
     // helpers
     'helpers/commonData',
     'helpers/constants',
+    'helpers/events',
 
     // views
     'views/sub/timelineView',
@@ -19,15 +20,17 @@ define([
 
     'helpers/modernizr'
 
-],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, timelineView, timelineContentViews, timelineGalleryView ) {
+],function ( $, _, Backbone, JST, jqueryTransit, commonData, constants, Events, timelineView, timelineContentViews, timelineGalleryView ) {
     var MainView = Backbone.View.extend({
         el : "#main-content",
         template : JST['app/scripts/templates/mainTemplate.ejs'],
 
         line  : null,
         $line : null,
+        $description : null,
 
         initialize : function(){
+            _.bindAll(this, 'onWindowResize');
 
             this.line = document.getElementById("timeline");
             this.$line = $(this.line);
@@ -37,10 +40,14 @@ define([
                 height : commonData.windowSize.height
             });
 
-            if(Modernizr.mobile){
-                this.$el.find('#description').css({'display': 'none'});
-            }
+            var left = commonData.windowSize.width - 250;
+            var top  = commonData.windowSize.height - 30;
 
+            this.$description = this.$el.find('#description');
+            this.$description.css({translate: [ left, top ], opacity: 1});
+
+
+            Events.on(Events.WINDOW_RESIZE, this.onWindowResize);
         },
 
         render : function(){
@@ -75,6 +82,19 @@ define([
             timelineContentViews.render();
 
 
+        },
+
+        onWindowResize : function(){
+            this.$el.css({
+                width  : commonData.windowSize.width,
+                height : commonData.windowSize.height
+            });
+
+            this.$line.css('width', commonData.windowSize.width);
+
+            var left = commonData.windowSize.width - 250;
+            var top  = commonData.windowSize.height - 30;
+            this.$description.css({translate: [ left, top ]});
         }
     });
 

@@ -14,7 +14,7 @@ define(function(){
         TIME_LINE_ROT2      : "40deg",
 
         // gallery
-        MINIMUM_GALLERY_WIDTH : 1200,
+        MINIMUM_GALLERY_WIDTH : 1300,
 
         $DOCUMENT : $(window),
     };

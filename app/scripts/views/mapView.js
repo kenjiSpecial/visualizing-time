@@ -43,10 +43,7 @@ define([
 
 
 
-            this.projection = d3.geo.mercator()
-                //.center([0, 61])
-                .scale(700);
-                //.translate([ window.innerWidth/2, window.innerHeight/2]);
+            this.projection = d3.geo.mercator().scale(700);
 
             this.path = d3.geo.path()
                             .projection(this.projection);
